@@ -134,7 +134,7 @@ public class Plateau {
 
     // cases grises -> visualiser les potentiels mouvements de pions avec les cartes en main
     void PlacerCaseGrise(int l, int c, Carte uneCarte) { // équivalent de déplacerPion
-        if (Partie.NomCarteChoisie(uneCarte) == "Mante"){
+        //if (Partie.NomCarteChoisie(uneCarte) == "Mante"){
             Grille[l][c].PionCourant = Grille[l+1][c].PionCourant;     
         }
         
