@@ -5,6 +5,8 @@
  */
 package projetonitama_forssant_sarinena;
 
+import java.util.Random;
+import java.util.Scanner;
 import projetonitama_forssant_sarinena.Carte;
 import projetonitama_forssant_sarinena.Joueur;
 import projetonitama_forssant_sarinena.Plateau;
@@ -245,6 +247,7 @@ public class FenetreDeJeu extends javax.swing.JFrame {
         carte2_jbleu.setVisible(true);
         carte1_jrouge.setVisible(true);
         carte2_jrouge.setVisible(true);
+        initialiserPartie();
     }//GEN-LAST:event_btn_demarrerActionPerformed
 
     private void nomjoueur2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nomjoueur2ActionPerformed
@@ -287,6 +290,49 @@ public class FenetreDeJeu extends javax.swing.JFrame {
         });
     }
 
+    void initialiserPartie() {
+
+        // vider Plateau
+        // Placer Pions (Rouge en bas/bleu en haut)
+        // Entrée des joueurs et affectation dans liste
+        // Sélection des 5 cartes déplacements
+        // Attribution des couleurs
+        // Attribution des cartes
+        // Création et attribution CarteTransition (qui commence ?)
+        // Afficher la grille
+        
+        PlateauJeu.ViderPlateau(); // On vide la grille avant de demarrer une nouvelle partie
+        String nomJoueur1 = nomjoueur1.getText();
+        Joueur Joueur1 = new Joueur(nomJoueur1); // création des deux objets joueur
+        String nomJoueur2 = nomjoueur2.getText();
+        Joueur Joueur2 = new Joueur(nomJoueur1);
+
+        ListeJoueurs[0] = Joueur1; // affectation des référence au tableau
+        ListeJoueurs[1] = Joueur2;
+
+        AttribuerCouleursAuxJoueurs();
+
+        System.out.println(Joueur1.NomJoueur + " possède les jetons de couleur " + Joueur1.CouleurJoueur);
+        System.out.println(Joueur2.NomJoueur + " possède les jetons de couleur " + Joueur2.CouleurJoueur);
+
+       
+
+    }
+
+    void AttribuerCouleursAuxJoueurs() {
+        Random alea = new Random(); // attribution des joueurs au hasard
+        boolean ChoixJoueur;
+        ChoixJoueur = alea.nextBoolean();
+        if (ChoixJoueur == true) {
+            ListeJoueurs[0].CouleurJoueur = "Bleu";
+            ListeJoueurs[1].CouleurJoueur = "Rouge";
+        } else {
+            ListeJoueurs[0].CouleurJoueur = "Rouge";
+            ListeJoueurs[1].CouleurJoueur = "Bleu";
+        }
+    }
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_demarrer;
     private javax.swing.JPanel carte1_jbleu;
@@ -322,4 +368,5 @@ public class FenetreDeJeu extends javax.swing.JFrame {
     private javax.swing.JTextField nomjoueur1;
     private javax.swing.JTextField nomjoueur2;
     // End of variables declaration//GEN-END:variables
+
 }
