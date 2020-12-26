@@ -145,5 +145,3 @@ public class Plateau {
     
     // déplacement des cartes dans parties
 
-
-}
