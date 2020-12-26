@@ -21,6 +21,7 @@ public class CaseGraphique extends JButton {
     // jeton jaune = pions bleus
     // Desintegrateur = Roi Rouge
     // jeton rouge = pions rouges
+    
     ImageIcon img_Roi_Rouge = new javax.swing.ImageIcon(getClass().getResource("/images/desintegrateur.png"));
     ImageIcon img_Roi_Bleu = new javax.swing.ImageIcon(getClass().getResource("/images/trouNoir.png"));
     ImageIcon img_Pion_Bleu = new javax.swing.ImageIcon(getClass().getResource("/images/jetonJaune.png"));
