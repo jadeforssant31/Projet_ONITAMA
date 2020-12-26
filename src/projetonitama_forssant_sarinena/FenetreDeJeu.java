@@ -5,6 +5,7 @@
  */
 package projetonitama_forssant_sarinena;
 
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 import projetonitama_forssant_sarinena.Carte;
@@ -22,7 +23,79 @@ public class FenetreDeJeu extends javax.swing.JFrame {
     Joueur JoueurCourant;
     Carte CarteTransition;
     Carte CarteCourante;
+    Carte TabCartePartie[] = new Carte[5];
 
+    // échange des valeurs des matrices
+    int[][] Mante = {{1, 2}, {3, 1}, {3, 3}};
+    Carte CarteMante = new Carte("Mante", "Rouge", Mante);
+
+    int[][] Singe = {{1, 1}, {1, 3}, {3, 1}, {3, 3}};
+    Carte CarteSinge = new Carte("Singe", "Bleu", Singe);
+
+    int[][] Cheval = {{2, 1}, {1, 2}, {3, 2}};
+    Carte CarteCheval = new Carte("Cheval", "Rouge", Cheval);
+
+    int[][] Boeuf = {{1, 2}, {3, 2}, {2, 3}};
+    Carte CarteBoeuf = new Carte("Boeuf", "Bleu", Boeuf);
+
+    int[][] Grue = {{1, 1}, {3, 2}, {1, 3}};
+    Carte CarteGrue = new Carte("Grue", "Bleu", Grue);
+
+    int[][] Sanglier = {{2, 1}, {2, 3}, {3, 2}};
+    Carte CarteSanglier = new Carte("Sanglier", "Rouge", Sanglier);
+
+    int[][] Anguille = {{1, 1}, {3, 1}, {2, 3}};
+    Carte CarteAnguille = new Carte("Anguille", "Bleu", Anguille);
+
+    int[][] Cobra = {{2, 1}, {1, 3}, {3, 3}};
+    Carte CarteCobra = new Carte("Cobra", "Rouge", Cobra);
+
+    int[][] Tigre = {{1, 2}, {4, 2}};
+    Carte CarteTigre = new Carte("Tigre", "Bleu", Tigre);
+
+    int[][] Dragon = {{3, 0}, {1, 1}, {1, 3}, {3, 4}};
+    Carte CarteDragon = new Carte("Dragon", "Rouge", Dragon);
+
+    int[][] Grenouille = {{2, 0}, {1, 3}, {3, 1}};
+    Carte CarteGrenouille = new Carte("Grenouille", "Bleu", Grenouille);
+
+    int[][] Lapin = {{1, 1}, {3, 3}, {2, 4}};
+    Carte CarteLapin = new Carte("Lapin", "Bleu", Lapin);
+
+    int[][] Crabe = {{2, 0}, {3, 2}, {2, 2}};
+    Carte CarteCrabe = new Carte("Crabe", "Bleu", Crabe);
+
+    int[][] Elephant = {{2, 1}, {3, 1}, {2, 3}, {3, 3}};
+    Carte CarteElephant = new Carte("Elephant", "Rouge", Elephant);
+
+    int[][] Oie = {{1, 2}, {3, 1}, {2, 1}, {2, 3}};
+    Carte CarteOie = new Carte("Oie", "Bleu", Oie);
+
+    int[][] Coq = {{1, 1}, {2, 1}, {2, 3}, {3, 3}};
+    Carte CarteCoq = new Carte("Coq", "Rouge", Coq);
+
+    ArrayList<Carte> ListeCartes = new ArrayList<Carte>() {
+        {
+            add(CarteMante);
+            add(CarteSinge);
+            add(CarteCheval);
+            add(CarteBoeuf);
+            add(CarteGrue);
+            add(CarteSanglier);
+            add(CarteAnguille);
+            add(CarteCobra);
+            add(CarteTigre);
+            add(CarteDragon);
+            add(CarteGrenouille);
+            add(CarteLapin);
+            add(CarteCrabe);
+            add(CarteElephant);
+            add(CarteOie);
+            add(CarteCoq);
+        }
+    };
+    
+    
     /**
      * Creates new form FenetreDeJeu
      */
@@ -289,9 +362,9 @@ public class FenetreDeJeu extends javax.swing.JFrame {
             }
         });
     }
+    
 
     void initialiserPartie() {
-
         // vider Plateau
         // Placer Pions (Rouge en bas/bleu en haut)
         // Entrée des joueurs et affectation dans liste
@@ -300,22 +373,33 @@ public class FenetreDeJeu extends javax.swing.JFrame {
         // Attribution des cartes
         // Création et attribution CarteTransition (qui commence ?)
         // Afficher la grille
-        
         PlateauJeu.ViderPlateau(); // On vide la grille avant de demarrer une nouvelle partie
         String nomJoueur1 = nomjoueur1.getText();
         Joueur Joueur1 = new Joueur(nomJoueur1); // création des deux objets joueur
         String nomJoueur2 = nomjoueur2.getText();
-        Joueur Joueur2 = new Joueur(nomJoueur1);
+        Joueur Joueur2 = new Joueur(nomJoueur2);
 
         ListeJoueurs[0] = Joueur1; // affectation des référence au tableau
         ListeJoueurs[1] = Joueur2;
 
         AttribuerCouleursAuxJoueurs();
+        DefinirCartesPartie();
+        
+        
+        //System.out.println(ListeCartes);
 
-        System.out.println(Joueur1.NomJoueur + " possède les jetons de couleur " + Joueur1.CouleurJoueur);
-        System.out.println(Joueur2.NomJoueur + " possède les jetons de couleur " + Joueur2.CouleurJoueur);
+        Joueur1.CarteEnMain[0] = TabCartePartie[0];
+        Joueur1.CarteEnMain[1] = TabCartePartie[1];
+        Joueur2.CarteEnMain[0] = TabCartePartie[2];
+        Joueur2.CarteEnMain[1] = TabCartePartie[3];
+        CarteTransition = TabCartePartie[4];
+        
+        System.out.println(Joueur1.NomJoueur + " possède les cartes " + Joueur1.CarteEnMain[0].NomCarte + " et " + Joueur1.CarteEnMain[1].NomCarte);
+        System.out.println(Joueur2.NomJoueur + " possède les cartes " + Joueur2.CarteEnMain[0].NomCarte + " et " + Joueur2.CarteEnMain[1].NomCarte);
+        System.out.println("La carte transition est " + CarteTransition.NomCarte);
 
-       
+        System.out.println(Joueur1.NomJoueur + " possède les pions de couleur " + Joueur1.CouleurJoueur);
+        System.out.println(Joueur2.NomJoueur + " possède les pions de couleur " + Joueur2.CouleurJoueur);
 
     }
 
@@ -330,6 +414,24 @@ public class FenetreDeJeu extends javax.swing.JFrame {
             ListeJoueurs[0].CouleurJoueur = "Rouge";
             ListeJoueurs[1].CouleurJoueur = "Bleu";
         }
+    }
+
+void DefinirCartesPartie() {
+        Random rand = new Random();
+        int NbreCartes = 5;
+
+        for (int i = 0; i < NbreCartes; i++) {
+            int randomIndex = rand.nextInt(ListeCartes.size());
+            Carte randomElement = ListeCartes.get(randomIndex);
+            TabCartePartie[i] = randomElement;
+            //System.out.println(TabCartePartie[i].NomCarte);
+            ListeCartes.remove(randomIndex);
+        }
+        
+        //return (TabCartePartie);
+        // création tirage aléatoire parmi le résultat de la méthode SelectionCartePartie
+        // attribution au hasard de 2 pour chaque joueur
+        // affectation de la carte transition à un des joueurs
     }
 
 

@@ -133,7 +133,10 @@ public class Plateau {
     }
 
     // cases grises -> visualiser les potentiels mouvements de pions avec les cartes en main
-    void PlacerCaseGrise(int l, int c, Carte uneCarte) {
+    void PlacerCaseGrise(int l, int c, Carte uneCarte) { // équivalent de déplacerPion
+        if (Partie.NomCarteChoisie(uneCarte) == "Mante"){
+            Grille[l][c].PionCourant = Grille[l+1][c].PionCourant;     
+        }
         
         // BD : on place les case grises à partir d'un pion choisi par ses coordonnées, et d'une carte, non ? OK
         // ou sont ces éléments quand on appelle cette méthode ? DANS CETTE CLASSE
