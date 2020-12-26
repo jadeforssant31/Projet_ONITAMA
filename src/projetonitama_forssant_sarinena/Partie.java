@@ -94,16 +94,19 @@ public class Partie {
 
     void initialiserPartie() {
 
-        // vider Plateau
+        // vider Plateau OK
+        // Entrée des joueurs et affectation dans tableau OK
+        // Sélection des 5 cartes déplacements OK
+        // Attribution des couleurs OK
+        // Tirage et attribution des cartes OK
+        // Determine qui est le premier joueur
         // Placer Pions (Rouge en bas/bleu en haut)
-        // Entrée des joueurs et affectation dans liste
-        // Sélection des 5 cartes déplacements
-        // Attribution des couleurs
-        // Attribution des cartes
-        // Création et attribution CarteTransition (qui commence ?)
-        // Afficher la grille
-        PlateauJeu.ViderPlateau(); // initialisation de la grille
-        // BD : corrigé avec un V majuscule OK
+        
+        
+        // On vide le plateau
+        PlateauJeu.ViderPlateau();
+
+        // création des 2 joueurs et affectation dans tableau
         Scanner sc = new Scanner(System.in);
         System.out.println("Entrez le nom du Joueur 1 : ");
         Joueur Joueur1 = new Joueur(sc.nextLine()); // création des deux objets joueur
@@ -113,16 +116,31 @@ public class Partie {
         ListeJoueurs[0] = Joueur1; // affectation des référence au tableau
         ListeJoueurs[1] = Joueur2;
 
+        //attribution des couleurs
         AttribuerCouleursAuxJoueurs();
-        DefinirCartesPartie();
 
+        // Tirage des cartes
+        DefinirCartesPartie();
         //System.out.println(ListeCartes);
+
+        // Attribution des cartes et affectation dela derniere en tant que carte transition
         Joueur1.CarteEnMain[0] = TabCartePartie[0];
         Joueur1.CarteEnMain[1] = TabCartePartie[1];
         Joueur2.CarteEnMain[0] = TabCartePartie[2];
         Joueur2.CarteEnMain[1] = TabCartePartie[3];
         CarteTransition = TabCartePartie[4];
 
+        // On determine qui commence à jouer
+        Random joueur = new Random();
+        boolean premier_joueur = joueur.nextBoolean();
+        if (premier_joueur) {
+            JoueurCourant = ListeJoueurs[0];
+        } else {
+            JoueurCourant = ListeJoueurs[1];
+        }
+
+        // Placer les pions
+        // affichage sur console ----- suivi du bon déroulement du jeu
         System.out.println(Joueur1.NomJoueur + " possède les cartes " + Joueur1.CarteEnMain[0].NomCarte + " et " + Joueur1.CarteEnMain[1].NomCarte);
         System.out.println(Joueur2.NomJoueur + " possède les cartes " + Joueur2.CarteEnMain[0].NomCarte + " et " + Joueur2.CarteEnMain[1].NomCarte);
         System.out.println("La carte transition est " + CarteTransition.NomCarte);
@@ -162,14 +180,13 @@ public class Partie {
         //return (TabCartePartie);
     }
 
-
     boolean DeplacerPion(int l, int c, Carte uneCarte) { // à revoir
-        if (uneCarte.NomCarte == "Mante"){
+        if (uneCarte.NomCarte == "Mante") {
             //Plateau.Grille[l][c].PionCourant = Plateau.Grille[l+1][c].PionCourant;     
 
 //PROBLEME METTRE DES COORD DANS CLASSE PARTIE OU DES CARTES DANS CLASSE PLATEAU
         }
-        
+
         // appeler méthode déplacer pion dans plateau
         return true;
     }
@@ -179,7 +196,7 @@ public class Partie {
         // comparaison string pour sélectionner la bonne carte
         return CarteChoisie;
     }
-    
+
     String NomCarteChoisie(Carte unNomCarte) {
         return unNomCarte.NomCarte;
     }

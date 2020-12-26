@@ -7,10 +7,6 @@ package projetonitama_forssant_sarinena;
 
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.Scanner;
-import projetonitama_forssant_sarinena.Carte;
-import projetonitama_forssant_sarinena.Joueur;
-import projetonitama_forssant_sarinena.Plateau;
 
 /**
  *
@@ -104,10 +100,10 @@ public class FenetreDeJeu extends javax.swing.JFrame {
         infos_joueurs.setVisible(false);
         infos_partie.setVisible(false);
         carte_transition.setVisible(false);
-        carte1_jbleu.setVisible(false);
-        carte2_jbleu.setVisible(false);
-        carte1_jrouge.setVisible(false);
-        carte2_jrouge.setVisible(false);
+        carte1_j1.setVisible(false);
+        carte2_j1.setVisible(false);
+        carte1_j2.setVisible(false);
+        carte2_j2.setVisible(false);
         // On cache les pannels d'infos partie, joueur ainsi que ceux des cartes, ils seront visible seulement quand l'utilisateur aura appuyé sur le bouton pour demarrer une partie
 
         for (int i = 4; i >= 0; i--) { // on décremente car [0;Ø] en java est en haut à gauche, nous l'avons pris en bas a gauche
@@ -133,43 +129,39 @@ public class FenetreDeJeu extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
         lbl_j1_nom = new javax.swing.JLabel();
         lbl_j1_couleur = new javax.swing.JLabel();
-        lbl_j1_cartes = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
         lbl_j2_nom = new javax.swing.JLabel();
         lbl_j2_couleur = new javax.swing.JLabel();
-        lbl_j2_cartes = new javax.swing.JLabel();
         debuter_partie = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         nomjoueur1 = new javax.swing.JTextField();
         nomjoueur2 = new javax.swing.JTextField();
         btn_demarrer = new javax.swing.JButton();
-        carte1_jbleu = new javax.swing.JPanel();
-        carte1_jrouge = new javax.swing.JPanel();
-        carte2_jrouge = new javax.swing.JPanel();
-        carte_transition = new javax.swing.JPanel();
-        carte2_jbleu = new javax.swing.JPanel();
         infos_partie = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
+        lbl_joueur_courant = new javax.swing.JLabel();
         message = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
+        carte2_j1 = new javax.swing.JButton();
+        carte_transition = new javax.swing.JButton();
+        carte1_j2 = new javax.swing.JButton();
+        carte2_j2 = new javax.swing.JButton();
+        carte1_j1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        grille_jeu.setBackground(new java.awt.Color(255, 255, 255));
+        grille_jeu.setBackground(new java.awt.Color(153, 102, 0));
         grille_jeu.setLayout(new java.awt.GridLayout(5, 5));
-        getContentPane().add(grille_jeu, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 172, 480, 480));
+        getContentPane().add(grille_jeu, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 190, 480, 480));
 
-        infos_joueurs.setBackground(new java.awt.Color(153, 153, 255));
+        infos_joueurs.setBackground(new java.awt.Color(153, 102, 0));
         infos_joueurs.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel3.setFont(new java.awt.Font("Lucida Grande", 1, 18)); // NOI18N
@@ -185,54 +177,38 @@ public class FenetreDeJeu extends javax.swing.JFrame {
         jLabel5.setText("Couleur : ");
         infos_joueurs.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, -1, -1));
 
-        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setText("Nombres de cartes en main : ");
-        infos_joueurs.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, -1, -1));
-
         lbl_j1_nom.setBackground(new java.awt.Color(255, 255, 255));
-        lbl_j1_nom.setForeground(new java.awt.Color(0, 0, 153));
+        lbl_j1_nom.setForeground(new java.awt.Color(255, 255, 255));
         lbl_j1_nom.setText("nomjoueur1");
         infos_joueurs.add(lbl_j1_nom, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 50, -1, -1));
 
-        lbl_j1_couleur.setForeground(new java.awt.Color(0, 0, 153));
+        lbl_j1_couleur.setForeground(new java.awt.Color(255, 255, 255));
         lbl_j1_couleur.setText("couleurjoueur1");
         infos_joueurs.add(lbl_j1_couleur, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 80, -1, -1));
 
-        lbl_j1_cartes.setForeground(new java.awt.Color(0, 0, 153));
-        lbl_j1_cartes.setText("nbcartesj1");
-        infos_joueurs.add(lbl_j1_cartes, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 110, -1, -1));
-
         jSeparator1.setBackground(new java.awt.Color(0, 0, 153));
         jSeparator1.setForeground(new java.awt.Color(0, 0, 153));
-        infos_joueurs.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 150, 210, -1));
+        infos_joueurs.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, 210, -1));
 
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("Joueur 2 : ");
-        infos_joueurs.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, -1, -1));
+        infos_joueurs.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, -1, -1));
 
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("Couleur : ");
-        infos_joueurs.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 220, -1, -1));
+        infos_joueurs.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, -1, -1));
 
-        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel9.setText("Nombres de cartes en main : ");
-        infos_joueurs.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 250, -1, -1));
-
-        lbl_j2_nom.setForeground(new java.awt.Color(0, 0, 153));
+        lbl_j2_nom.setForeground(new java.awt.Color(255, 255, 255));
         lbl_j2_nom.setText("nomjoueur2");
-        infos_joueurs.add(lbl_j2_nom, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 190, -1, -1));
+        infos_joueurs.add(lbl_j2_nom, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 150, -1, -1));
 
-        lbl_j2_couleur.setForeground(new java.awt.Color(0, 0, 153));
+        lbl_j2_couleur.setForeground(new java.awt.Color(255, 255, 255));
         lbl_j2_couleur.setText("couleurjoueur2");
-        infos_joueurs.add(lbl_j2_couleur, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 220, -1, -1));
+        infos_joueurs.add(lbl_j2_couleur, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 180, -1, -1));
 
-        lbl_j2_cartes.setForeground(new java.awt.Color(0, 0, 153));
-        lbl_j2_cartes.setText("nbcartesj2");
-        infos_joueurs.add(lbl_j2_cartes, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 250, -1, -1));
+        getContentPane().add(infos_joueurs, new org.netbeans.lib.awtextra.AbsoluteConstraints(1090, 260, 300, 230));
 
-        getContentPane().add(infos_joueurs, new org.netbeans.lib.awtextra.AbsoluteConstraints(1090, 200, 300, 300));
-
-        debuter_partie.setBackground(new java.awt.Color(153, 153, 255));
+        debuter_partie.setBackground(new java.awt.Color(153, 102, 0));
         debuter_partie.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
@@ -253,37 +229,20 @@ public class FenetreDeJeu extends javax.swing.JFrame {
         });
         debuter_partie.add(nomjoueur2, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 20, 150, -1));
 
+        btn_demarrer.setBackground(new java.awt.Color(204, 153, 0));
+        btn_demarrer.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
+        btn_demarrer.setForeground(new java.awt.Color(153, 51, 0));
         btn_demarrer.setText("Démarrer une Partie");
         btn_demarrer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_demarrerActionPerformed(evt);
             }
         });
-        debuter_partie.add(btn_demarrer, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 90, -1, -1));
+        debuter_partie.add(btn_demarrer, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 90, 210, 60));
 
-        getContentPane().add(debuter_partie, new org.netbeans.lib.awtextra.AbsoluteConstraints(1090, 40, 300, 130));
+        getContentPane().add(debuter_partie, new org.netbeans.lib.awtextra.AbsoluteConstraints(1090, 40, 300, 170));
 
-        carte1_jbleu.setBackground(new java.awt.Color(153, 0, 255));
-        carte1_jbleu.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        getContentPane().add(carte1_jbleu, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 0, 300, 172));
-
-        carte1_jrouge.setBackground(new java.awt.Color(153, 0, 255));
-        carte1_jrouge.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        getContentPane().add(carte1_jrouge, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 653, 300, 172));
-
-        carte2_jrouge.setBackground(new java.awt.Color(153, 0, 255));
-        carte2_jrouge.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        getContentPane().add(carte2_jrouge, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 653, 300, 172));
-
-        carte_transition.setBackground(new java.awt.Color(153, 51, 255));
-        carte_transition.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        getContentPane().add(carte_transition, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 280, 172, 300));
-
-        carte2_jbleu.setBackground(new java.awt.Color(153, 51, 255));
-        carte2_jbleu.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        getContentPane().add(carte2_jbleu, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 0, 300, 172));
-
-        infos_partie.setBackground(new java.awt.Color(153, 153, 255));
+        infos_partie.setBackground(new java.awt.Color(153, 102, 0));
         infos_partie.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel10.setFont(new java.awt.Font("Lucida Grande", 1, 18)); // NOI18N
@@ -295,9 +254,9 @@ public class FenetreDeJeu extends javax.swing.JFrame {
         jLabel11.setText("Joueur courant :");
         infos_partie.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, -1, -1));
 
-        jLabel12.setForeground(new java.awt.Color(0, 0, 153));
-        jLabel12.setText("joueurcourant");
-        infos_partie.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 50, -1, -1));
+        lbl_joueur_courant.setForeground(new java.awt.Color(255, 255, 255));
+        lbl_joueur_courant.setText("joueurcourant");
+        infos_partie.add(lbl_joueur_courant, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 50, -1, -1));
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
@@ -306,6 +265,46 @@ public class FenetreDeJeu extends javax.swing.JFrame {
         infos_partie.add(message, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, -1, 90));
 
         getContentPane().add(infos_partie, new org.netbeans.lib.awtextra.AbsoluteConstraints(1090, 540, 300, 190));
+
+        carte2_j1.setBackground(new java.awt.Color(204, 102, 0));
+        carte2_j1.setForeground(new java.awt.Color(255, 255, 255));
+        getContentPane().add(carte2_j1, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 10, 300, 174));
+
+        carte_transition.setBackground(new java.awt.Color(204, 102, 0));
+        carte_transition.setForeground(new java.awt.Color(255, 255, 255));
+        carte_transition.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                carte_transitionActionPerformed(evt);
+            }
+        });
+        getContentPane().add(carte_transition, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 270, 174, 300));
+
+        carte1_j2.setBackground(new java.awt.Color(204, 102, 0));
+        carte1_j2.setForeground(new java.awt.Color(255, 255, 255));
+        carte1_j2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                carte1_j2ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(carte1_j2, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 680, 300, 174));
+
+        carte2_j2.setBackground(new java.awt.Color(204, 102, 0));
+        carte2_j2.setForeground(new java.awt.Color(255, 255, 255));
+        carte2_j2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                carte2_j2ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(carte2_j2, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 680, 300, 174));
+
+        carte1_j1.setBackground(new java.awt.Color(204, 102, 0));
+        carte1_j1.setForeground(new java.awt.Color(255, 255, 255));
+        carte1_j1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                carte1_j1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(carte1_j1, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 10, 300, 174));
 
         setBounds(0, 0, 1416, 893);
     }// </editor-fold>//GEN-END:initComponents
@@ -316,16 +315,37 @@ public class FenetreDeJeu extends javax.swing.JFrame {
         infos_joueurs.setVisible(true);
         infos_partie.setVisible(true);
         carte_transition.setVisible(true);
-        carte1_jbleu.setVisible(true);
-        carte2_jbleu.setVisible(true);
-        carte1_jrouge.setVisible(true);
-        carte2_jrouge.setVisible(true);
+        carte1_j1.setVisible(true);
+        carte2_j1.setVisible(true);
+        carte1_j2.setVisible(true);
+        carte2_j2.setVisible(true);
         initialiserPartie();
+        grille_jeu.repaint(); 
+        //rafraichit le plateau de jeu (permet a avoir les elements directement sur le plateau et eviter leur apparition seulement au passage de la souris)
+        btn_demarrer.setEnabled(false); 
+        //on désactive le bouton du demarrage de la partie lorsque celle ci est demarree
+        // evite de rafraichir le plateau en cours de partie
     }//GEN-LAST:event_btn_demarrerActionPerformed
 
     private void nomjoueur2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nomjoueur2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_nomjoueur2ActionPerformed
+
+    private void carte_transitionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_carte_transitionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_carte_transitionActionPerformed
+
+    private void carte1_j2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_carte1_j2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_carte1_j2ActionPerformed
+
+    private void carte2_j2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_carte2_j2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_carte2_j2ActionPerformed
+
+    private void carte1_j1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_carte1_j1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_carte1_j1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -365,41 +385,65 @@ public class FenetreDeJeu extends javax.swing.JFrame {
     
 
     void initialiserPartie() {
-        // vider Plateau
+        // vider Plateau OK
+        // Entrée des joueurs et affectation dans tableau OK
+        // Sélection des 5 cartes déplacements OK
+        // Attribution des couleurs OK
+        // Tirage et attribution des cartes OK
+        // Determine qui est le premier joueur
         // Placer Pions (Rouge en bas/bleu en haut)
-        // Entrée des joueurs et affectation dans liste
-        // Sélection des 5 cartes déplacements
-        // Attribution des couleurs
-        // Attribution des cartes
-        // Création et attribution CarteTransition (qui commence ?)
-        // Afficher la grille
-        PlateauJeu.ViderPlateau(); // On vide la grille avant de demarrer une nouvelle partie
+        
+        // On vide le plateau
+        PlateauJeu.ViderPlateau(); 
+        
+        // création des 2 joueurs et affectation dans tableau
         String nomJoueur1 = nomjoueur1.getText();
-        Joueur Joueur1 = new Joueur(nomJoueur1); // création des deux objets joueur
+        Joueur Joueur1 = new Joueur(nomJoueur1); 
         String nomJoueur2 = nomjoueur2.getText();
         Joueur Joueur2 = new Joueur(nomJoueur2);
-
         ListeJoueurs[0] = Joueur1; // affectation des référence au tableau
         ListeJoueurs[1] = Joueur2;
 
-        AttribuerCouleursAuxJoueurs();
-        DefinirCartesPartie();
+        //attribution des couleurs
+        AttribuerCouleursAuxJoueurs(); 
         
-        
+        // Tirage des cartes
+        DefinirCartesPartie(); 
         //System.out.println(ListeCartes);
-
+        
+        // Attribution des cartes et affectation dela derniere en tant que carte transition
         Joueur1.CarteEnMain[0] = TabCartePartie[0];
         Joueur1.CarteEnMain[1] = TabCartePartie[1];
         Joueur2.CarteEnMain[0] = TabCartePartie[2];
         Joueur2.CarteEnMain[1] = TabCartePartie[3];
         CarteTransition = TabCartePartie[4];
         
+        // On determine qui commence à jouer
+        Random joueur = new Random();
+        boolean premier_joueur=joueur.nextBoolean();
+        if(premier_joueur){
+            JoueurCourant = ListeJoueurs[0];  
+        } else{
+            JoueurCourant = ListeJoueurs[1];
+        }
+       
+        
+        // Placer les pions
+        
+        // affichage sur console ----- suivi du bon déroulement du jeu
         System.out.println(Joueur1.NomJoueur + " possède les cartes " + Joueur1.CarteEnMain[0].NomCarte + " et " + Joueur1.CarteEnMain[1].NomCarte);
         System.out.println(Joueur2.NomJoueur + " possède les cartes " + Joueur2.CarteEnMain[0].NomCarte + " et " + Joueur2.CarteEnMain[1].NomCarte);
         System.out.println("La carte transition est " + CarteTransition.NomCarte);
 
         System.out.println(Joueur1.NomJoueur + " possède les pions de couleur " + Joueur1.CouleurJoueur);
         System.out.println(Joueur2.NomJoueur + " possède les pions de couleur " + Joueur2.CouleurJoueur);
+        
+        // affiche les noms/couleurs des joueurs dans le pannel des informations joueurs/ informations partie
+        lbl_j1_nom.setText(nomJoueur1);
+        lbl_j1_couleur.setText(Joueur1.CouleurJoueur);
+        lbl_j2_nom.setText(nomJoueur2);
+        lbl_j2_couleur.setText(Joueur2.CouleurJoueur);
+        lbl_joueur_courant.setText(JoueurCourant.NomJoueur);
 
     }
 
@@ -437,11 +481,11 @@ void DefinirCartesPartie() {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_demarrer;
-    private javax.swing.JPanel carte1_jbleu;
-    private javax.swing.JPanel carte1_jrouge;
-    private javax.swing.JPanel carte2_jbleu;
-    private javax.swing.JPanel carte2_jrouge;
-    private javax.swing.JPanel carte_transition;
+    private javax.swing.JButton carte1_j1;
+    private javax.swing.JButton carte1_j2;
+    private javax.swing.JButton carte2_j1;
+    private javax.swing.JButton carte2_j2;
+    private javax.swing.JButton carte_transition;
     private javax.swing.JPanel debuter_partie;
     private javax.swing.JPanel grille_jeu;
     private javax.swing.JPanel infos_joueurs;
@@ -449,23 +493,19 @@ void DefinirCartesPartie() {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JLabel lbl_j1_cartes;
     private javax.swing.JLabel lbl_j1_couleur;
     private javax.swing.JLabel lbl_j1_nom;
-    private javax.swing.JLabel lbl_j2_cartes;
     private javax.swing.JLabel lbl_j2_couleur;
     private javax.swing.JLabel lbl_j2_nom;
+    private javax.swing.JLabel lbl_joueur_courant;
     private javax.swing.JScrollPane message;
     private javax.swing.JTextField nomjoueur1;
     private javax.swing.JTextField nomjoueur2;
