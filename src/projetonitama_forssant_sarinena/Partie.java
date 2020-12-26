@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package projetonitama_sarinena_forssant;
+package projetonitama_forssant_sarinena;
 
 import java.util.Random;
 import java.util.Scanner;
