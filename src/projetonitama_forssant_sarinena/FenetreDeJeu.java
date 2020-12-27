@@ -20,6 +20,7 @@ public class FenetreDeJeu extends javax.swing.JFrame {
     Carte CarteTransition;
     Carte CarteCourante;
     Carte TabCartePartie[] = new Carte[5];
+    Pion PionCourant;
 
     // échange des valeurs des matrices
     int[][] Mante = {{1, 2}, {3, 1}, {3, 3}};
@@ -90,8 +91,7 @@ public class FenetreDeJeu extends javax.swing.JFrame {
             add(CarteCoq);
         }
     };
-    
-    
+
     /**
      * Creates new form FenetreDeJeu
      */
@@ -147,7 +147,7 @@ public class FenetreDeJeu extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
         lbl_joueur_courant = new javax.swing.JLabel();
         message = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        textemessage = new javax.swing.JTextArea();
         carte2_j1 = new javax.swing.JButton();
         carte_transition = new javax.swing.JButton();
         carte1_j2 = new javax.swing.JButton();
@@ -258,9 +258,9 @@ public class FenetreDeJeu extends javax.swing.JFrame {
         lbl_joueur_courant.setText("joueurcourant");
         infos_partie.add(lbl_joueur_courant, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 50, -1, -1));
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        message.setViewportView(jTextArea1);
+        textemessage.setColumns(20);
+        textemessage.setRows(5);
+        message.setViewportView(textemessage);
 
         infos_partie.add(message, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, -1, 90));
 
@@ -268,6 +268,11 @@ public class FenetreDeJeu extends javax.swing.JFrame {
 
         carte2_j1.setBackground(new java.awt.Color(204, 102, 0));
         carte2_j1.setForeground(new java.awt.Color(255, 255, 255));
+        carte2_j1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                carte2_j1ActionPerformed(evt);
+            }
+        });
         getContentPane().add(carte2_j1, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 10, 300, 174));
 
         carte_transition.setBackground(new java.awt.Color(204, 102, 0));
@@ -320,9 +325,9 @@ public class FenetreDeJeu extends javax.swing.JFrame {
         carte1_j2.setVisible(true);
         carte2_j2.setVisible(true);
         initialiserPartie();
-        grille_jeu.repaint(); 
+        grille_jeu.repaint();
         //rafraichit le plateau de jeu (permet a avoir les elements directement sur le plateau et eviter leur apparition seulement au passage de la souris)
-        btn_demarrer.setEnabled(false); 
+        btn_demarrer.setEnabled(false);
         //on désactive le bouton du demarrage de la partie lorsque celle ci est demarree
         // evite de rafraichir le plateau en cours de partie
     }//GEN-LAST:event_btn_demarrerActionPerformed
@@ -333,23 +338,61 @@ public class FenetreDeJeu extends javax.swing.JFrame {
 
     private void carte_transitionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_carte_transitionActionPerformed
         // TODO add your handling code here:
+        //JoueurSuivant(); 
     }//GEN-LAST:event_carte_transitionActionPerformed
 
     private void carte1_j2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_carte1_j2ActionPerformed
         // TODO add your handling code here:
+        //JoueurSuivant();
     }//GEN-LAST:event_carte1_j2ActionPerformed
 
     private void carte2_j2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_carte2_j2ActionPerformed
         // TODO add your handling code here:
+        //JoueurSuivant();
     }//GEN-LAST:event_carte2_j2ActionPerformed
 
     private void carte1_j1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_carte1_j1ActionPerformed
-        // TODO add your handling code here:
+        // TODO add your handling code here
+        // JoueurSuivant();
     }//GEN-LAST:event_carte1_j1ActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
+    private void carte2_j1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_carte2_j1ActionPerformed
+        // TODO add your handling code here:
+        //JoueurSuivant();
+    }//GEN-LAST:event_carte2_j1ActionPerformed
+
+    public void JoueurSuivant() {
+        // rotation des joueurs
+        if (JoueurCourant == ListeJoueurs[0]) {
+            JoueurCourant = ListeJoueurs[1];
+        } else {
+            JoueurCourant = ListeJoueurs[0];
+        }
+        lbl_joueur_courant.setText(JoueurCourant.NomJoueur);
+    }
+
+    /*public boolean JouerCarte(Carte uneCarte) { // A COMPLETER; combinaison de selection de carte et de deplacer pion
+        boolean ResultatAction;
+    ResultatAction=...;
+    boolean victoire_j1 = PlateauJeu.EtreGagnant(ListeJoueurs[0]);
+    boolean victoire_j2 = PlateauJeu.EtreGagnant(ListeJoueurs[1]);
+    if (victoire_j1 && !victoire_j2) textemessage.setText("Victoire de " + ListeJoueurs[0].NomJoueur);
+    if (victoire_j2 && !victoire_j1) textemessage.setText("Victoire de " + ListeJoueurs[1].NomJoueur);
+    if (victoire_j1 && victoire_j2){
+        if(JoueurCourant == ListeJoueurs[0]) textemessage.setText("Victoire de " + ListeJoueurs[1].NomJoueur);
+        else textemessage.setText("Victoire de " + ListeJoueurs[0].NomJoueur);
+    }
+    
+        (ResultatAction == true) {
+            return true;
+        } else {
+            return false;
+        }*/
+    
+        /**
+         * @param args the command line arguments
+         */
+        
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -382,7 +425,6 @@ public class FenetreDeJeu extends javax.swing.JFrame {
             }
         });
     }
-    
 
     void initialiserPartie() {
         // vider Plateau OK
@@ -392,43 +434,44 @@ public class FenetreDeJeu extends javax.swing.JFrame {
         // Tirage et attribution des cartes OK
         // Determine qui est le premier joueur
         // Placer Pions (Rouge en bas/bleu en haut)
-        
+
         // On vide le plateau
-        PlateauJeu.ViderPlateau(); 
-        
+        PlateauJeu.ViderPlateau();
+
         // création des 2 joueurs et affectation dans tableau
         String nomJoueur1 = nomjoueur1.getText();
-        Joueur Joueur1 = new Joueur(nomJoueur1); 
+        Joueur Joueur1 = new Joueur(nomJoueur1);
         String nomJoueur2 = nomjoueur2.getText();
         Joueur Joueur2 = new Joueur(nomJoueur2);
         ListeJoueurs[0] = Joueur1; // affectation des référence au tableau
         ListeJoueurs[1] = Joueur2;
 
         //attribution des couleurs
-        AttribuerCouleursAuxJoueurs(); 
-        
+        AttribuerCouleursAuxJoueurs();
+
         // Tirage des cartes
-        DefinirCartesPartie(); 
+        DefinirCartesPartie();
         //System.out.println(ListeCartes);
-        
+
         // Attribution des cartes et affectation dela derniere en tant que carte transition
         Joueur1.CarteEnMain[0] = TabCartePartie[0];
         Joueur1.CarteEnMain[1] = TabCartePartie[1];
         Joueur2.CarteEnMain[0] = TabCartePartie[2];
         Joueur2.CarteEnMain[1] = TabCartePartie[3];
         CarteTransition = TabCartePartie[4];
-        
+
         // On determine qui commence à jouer
         Random joueur = new Random();
-        boolean premier_joueur=joueur.nextBoolean();
-        if(premier_joueur){
-            JoueurCourant = ListeJoueurs[0];  
-        } else{
+        boolean premier_joueur = joueur.nextBoolean();
+        if (premier_joueur) {
+            JoueurCourant = ListeJoueurs[0];
+        } else {
             JoueurCourant = ListeJoueurs[1];
         }
-       
-        
+
         // Placer les pions
+        // Placer les rois
+        //PositionnerPionsDepart();
         
         // affichage sur console ----- suivi du bon déroulement du jeu
         System.out.println(Joueur1.NomJoueur + " possède les cartes " + Joueur1.CarteEnMain[0].NomCarte + " et " + Joueur1.CarteEnMain[1].NomCarte);
@@ -437,7 +480,7 @@ public class FenetreDeJeu extends javax.swing.JFrame {
 
         System.out.println(Joueur1.NomJoueur + " possède les pions de couleur " + Joueur1.CouleurJoueur);
         System.out.println(Joueur2.NomJoueur + " possède les pions de couleur " + Joueur2.CouleurJoueur);
-        
+
         // affiche les noms/couleurs des joueurs dans le pannel des informations joueurs/ informations partie
         lbl_j1_nom.setText(nomJoueur1);
         lbl_j1_couleur.setText(Joueur1.CouleurJoueur);
@@ -460,7 +503,7 @@ public class FenetreDeJeu extends javax.swing.JFrame {
         }
     }
 
-void DefinirCartesPartie() {
+    void DefinirCartesPartie() {
         Random rand = new Random();
         int NbreCartes = 5;
 
@@ -471,11 +514,16 @@ void DefinirCartesPartie() {
             //System.out.println(TabCartePartie[i].NomCarte);
             ListeCartes.remove(randomIndex);
         }
-        
+
         //return (TabCartePartie);
         // création tirage aléatoire parmi le résultat de la méthode SelectionCartePartie
         // attribution au hasard de 2 pour chaque joueur
         // affectation de la carte transition à un des joueurs
+    }
+
+    boolean PositionnerPionsDepart() { // ajoute les 10 jetons sur le plateau, disposés d'une certaine manière
+
+        return true;
     }
 
 
@@ -500,7 +548,6 @@ void DefinirCartesPartie() {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JLabel lbl_j1_couleur;
     private javax.swing.JLabel lbl_j1_nom;
     private javax.swing.JLabel lbl_j2_couleur;
@@ -509,6 +556,7 @@ void DefinirCartesPartie() {
     private javax.swing.JScrollPane message;
     private javax.swing.JTextField nomjoueur1;
     private javax.swing.JTextField nomjoueur2;
+    private javax.swing.JTextArea textemessage;
     // End of variables declaration//GEN-END:variables
 
 }

@@ -42,6 +42,7 @@ public class CaseGraphique extends JButton {
     ImageIcon img_lapin = new javax.swing.ImageIcon(getClass().getResource("/images/rabbit.jpg"));
     ImageIcon img_coq = new javax.swing.ImageIcon(getClass().getResource("/images/rooster.jpg"));
     ImageIcon img_tigre = new javax.swing.ImageIcon(getClass().getResource("/images/tiger.jpg"));*/
+    
     // case grise necessaire?
     ImageIcon img_Case_Grise = new javax.swing.ImageIcon(getClass().getResource("/images/celluleVide.png"));
 
