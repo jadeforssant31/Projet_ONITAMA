@@ -99,10 +99,8 @@ public class Partie {
         // Sélection des 5 cartes déplacements OK
         // Attribution des couleurs OK
         // Tirage et attribution des cartes OK
-        // Determine qui est le premier joueur
-        // Placer Pions (Rouge en bas/bleu en haut)
-        
-        
+        // Determine qui est le premier joueur OK
+        // Placer Pions (Rouge en bas/bleu en haut) OK
         // On vide le plateau
         PlateauJeu.ViderPlateau();
 
@@ -118,6 +116,9 @@ public class Partie {
 
         //attribution des couleurs
         AttribuerCouleursAuxJoueurs();
+
+        //placer les pions
+        PlateauJeu.PositionnerPionsDepart();
 
         // Tirage des cartes
         DefinirCartesPartie();
@@ -139,7 +140,6 @@ public class Partie {
             JoueurCourant = ListeJoueurs[1];
         }
 
-        // Placer les pions
         // affichage sur console ----- suivi du bon déroulement du jeu
         System.out.println(Joueur1.NomJoueur + " possède les cartes " + Joueur1.CarteEnMain[0].NomCarte + " et " + Joueur1.CarteEnMain[1].NomCarte);
         System.out.println(Joueur2.NomJoueur + " possède les cartes " + Joueur2.CarteEnMain[0].NomCarte + " et " + Joueur2.CarteEnMain[1].NomCarte);
@@ -152,7 +152,6 @@ public class Partie {
         // BD : methode non présente OK
     }
 
-// méthode débuter partie ?
     void AttribuerCouleursAuxJoueurs() {
         Random alea = new Random(); // attribution des joueurs au hasard
         boolean ChoixJoueur;
@@ -180,7 +179,69 @@ public class Partie {
         //return (TabCartePartie);
     }
 
-    boolean DeplacerPion(int l, int c, Carte uneCarte) { // à revoir
+    String CarteExistanteDansJeu() {
+        String val = null;
+        for (int i = 0; i < TabCartePartie.length; i++) {
+            if (val == TabCartePartie[i].NomCarte) //retourner la position courante
+            {
+                return val;
+            }
+        }
+        return "La valeur recherchée n'existe pas";
+    }
+
+    /*    String CarteExistanteDansMain() {
+        String val = null;
+        for (int i = 0; i < Joueur.CarteEnMain.length; i++) {
+            if (val == CarteEnMain[i].NomCarte) //retourner la position courante
+            {
+                return val;
+            }
+        }
+        return "La valeur recherchée n'existe pas";
+    }
+        
+                 
+   boolean ChoisirCarteDansJeu(Carte uneCarte) {
+        if (uneCarte.NomCarte == CarteExistanteDansJeu()) {
+            return true;
+        } else {
+            System.out.println("Erreur. La carte n'est pas de la partie");
+            return false;
+        }
+    }
+
+    String NomCarteChoisieDansJeu(Carte uneCarte) {
+        if (ChoisirCarteDansJeu(uneCarte) != true) {
+            return "Erreur...Choix de carte non valide";
+        }
+        return uneCarte.NomCarte;
+    }*/
+    String NomCarteChoisie(Carte uneCarte) {
+        if (JoueurCourant.ChoisirCarteDansMain(uneCarte) != true) {
+            return "Erreur...Choix de carte non valide";
+        }
+        return uneCarte.NomCarte;
+    }
+
+    boolean ChoisirPion(Pion unPion) {
+        if (unPion.CouleurPion == JoueurCourant.CouleurJoueur) {
+            return true;
+        } else {
+            System.out.println("le pion selectionné n'est pas de votre couleur");
+            return false;
+        }
+    }
+
+    boolean Tour(Carte uneCarte, Pion unPion, int l, int c) { // équivalent de notre méthode Menu() achevée
+        System.out.println("Tour de " + JoueurCourant.NomJoueur);
+        System.out.println("Choisissez une carte déplacement");
+        System.out.println("Choisissez un pion à déplacer");
+        System.out.println("Choisissez une carte grise");
+        return true;
+    }
+
+    boolean DeplacementPion(int l, int c, Carte uneCarte) { // à revoir
         if (uneCarte.NomCarte == "Mante") {
             //Plateau.Grille[l][c].PionCourant = Plateau.Grille[l+1][c].PionCourant;     
 
@@ -188,25 +249,6 @@ public class Partie {
         }
 
         // appeler méthode déplacer pion dans plateau
-        return true;
-    }
-
-    Carte ChoisirCarte(Carte unNomCarte) {
-        Carte CarteChoisie = unNomCarte;
-        // comparaison string pour sélectionner la bonne carte
-        return CarteChoisie;
-    }
-
-    String NomCarteChoisie(Carte unNomCarte) {
-        return unNomCarte.NomCarte;
-    }
-
-    boolean ChoisirPion(Pion unPion) {
-        return true;
-    }
-
-    boolean Tour() { // équivalent de notre méthode Menu() achevée
-        System.out.println("Tour de " + JoueurCourant.NomJoueur);
         return true;
     }
 
@@ -219,11 +261,6 @@ public class Partie {
         }
     }
 
-    /*Carte CarteAJouer(){
-    // renvoyer les cartes que le joueur peut utiliser (seulement 2)
-    // BD : pas compris cette méthode, on renvoie quelle carte? 
-    return uneCarte;
-}*/
     Carte EchangeCarte(Carte uneCarte) {
         // la dernière carte jouée devient carte transition
         // changement de main, ajout de la 3e carte à l'autre joueur

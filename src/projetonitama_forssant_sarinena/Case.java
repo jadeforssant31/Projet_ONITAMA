@@ -33,6 +33,10 @@ boolean AffecterPion(Pion unPion){ //affecte le pion à une case suite à un mou
     }
 }
 
+void AffecterCaseGrise(){
+    CaseGrise = true;
+}
+
 String LireCouleurDuPion(){ //retourne la couleur du pion joué
     if (PionCourant == null){
         return "vide";
@@ -42,8 +46,22 @@ String LireCouleurDuPion(){ //retourne la couleur du pion joué
     }
 }
 
+boolean LireRoleDuPion(){ //retourne la couleur du pion joué
+    if (PionCourant == null){
+        return false;
+    }
+    else if (PionCourant.Roi != true) {
+        return false;
+    }
+    else {
+        return true;
+    }
+}
+
+
 boolean presenceRoi(){
-    if (EstRoi == true){
+    if (LireRoleDuPion() == true){
+        EstRoi = true ;
         //System.out.println("Désintégrateur présent");
         return true;
     }

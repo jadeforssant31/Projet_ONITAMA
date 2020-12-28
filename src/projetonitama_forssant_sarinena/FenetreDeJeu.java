@@ -21,7 +21,7 @@ public class FenetreDeJeu extends javax.swing.JFrame {
     Carte CarteCourante;
     Carte TabCartePartie[] = new Carte[5];
     Pion PionCourant;
-
+   
     // échange des valeurs des matrices
     int[][] Mante = {{1, 2}, {3, 1}, {3, 3}};
     Carte CarteMante = new Carte("Mante", "Rouge", Mante);
@@ -361,38 +361,9 @@ public class FenetreDeJeu extends javax.swing.JFrame {
         //JoueurSuivant();
     }//GEN-LAST:event_carte2_j1ActionPerformed
 
-    public void JoueurSuivant() {
-        // rotation des joueurs
-        if (JoueurCourant == ListeJoueurs[0]) {
-            JoueurCourant = ListeJoueurs[1];
-        } else {
-            JoueurCourant = ListeJoueurs[0];
-        }
-        lbl_joueur_courant.setText(JoueurCourant.NomJoueur);
-    }
-
-    /*public boolean JouerCarte(Carte uneCarte) { // A COMPLETER; combinaison de selection de carte et de deplacer pion
-        boolean ResultatAction;
-    ResultatAction=...;
-    boolean victoire_j1 = PlateauJeu.EtreGagnant(ListeJoueurs[0]);
-    boolean victoire_j2 = PlateauJeu.EtreGagnant(ListeJoueurs[1]);
-    if (victoire_j1 && !victoire_j2) textemessage.setText("Victoire de " + ListeJoueurs[0].NomJoueur);
-    if (victoire_j2 && !victoire_j1) textemessage.setText("Victoire de " + ListeJoueurs[1].NomJoueur);
-    if (victoire_j1 && victoire_j2){
-        if(JoueurCourant == ListeJoueurs[0]) textemessage.setText("Victoire de " + ListeJoueurs[1].NomJoueur);
-        else textemessage.setText("Victoire de " + ListeJoueurs[0].NomJoueur);
-    }
-    
-        (ResultatAction == true) {
-            return true;
-        } else {
-            return false;
-        }*/
-    
-        /**
-         * @param args the command line arguments
-         */
-        
+    /**
+     * @param args the command line arguments
+     */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -437,6 +408,7 @@ public class FenetreDeJeu extends javax.swing.JFrame {
 
         // On vide le plateau
         PlateauJeu.ViderPlateau();
+        PlateauJeu.PositionnerPionsDepart();
 
         // création des 2 joueurs et affectation dans tableau
         String nomJoueur1 = nomjoueur1.getText();
@@ -469,10 +441,6 @@ public class FenetreDeJeu extends javax.swing.JFrame {
             JoueurCourant = ListeJoueurs[1];
         }
 
-        // Placer les pions
-        // Placer les rois
-        //PositionnerPionsDepart();
-        
         // affichage sur console ----- suivi du bon déroulement du jeu
         System.out.println(Joueur1.NomJoueur + " possède les cartes " + Joueur1.CarteEnMain[0].NomCarte + " et " + Joueur1.CarteEnMain[1].NomCarte);
         System.out.println(Joueur2.NomJoueur + " possède les cartes " + Joueur2.CarteEnMain[0].NomCarte + " et " + Joueur2.CarteEnMain[1].NomCarte);
@@ -488,7 +456,37 @@ public class FenetreDeJeu extends javax.swing.JFrame {
         lbl_j2_couleur.setText(Joueur2.CouleurJoueur);
         lbl_joueur_courant.setText(JoueurCourant.NomJoueur);
 
+        PlateauJeu.AfficherPlateauSurConsole();
     }
+    
+    
+        public void JoueurSuivant() {
+        // rotation des joueurs
+        if (JoueurCourant == ListeJoueurs[0]) {
+            JoueurCourant = ListeJoueurs[1];
+        } else {
+            JoueurCourant = ListeJoueurs[0];
+        }
+        lbl_joueur_courant.setText(JoueurCourant.NomJoueur);
+    }
+
+    /*boolean TourDeJeu(Carte uneCarte, Pion unPion, ) { // A COMPLETER; combinaison de selection de carte et de deplacer pion
+        boolean ResultatAction;
+    ResultatAction=...;
+    boolean victoire_j1 = PlateauJeu.EtreGagnant();
+    boolean victoire_j2 = PlateauJeu.EtreGagnant();
+    if (victoire_j1 && !victoire_j2) textemessage.setText("Victoire de " + ListeJoueurs[0].NomJoueur);
+    if (victoire_j2 && !victoire_j1) textemessage.setText("Victoire de " + ListeJoueurs[1].NomJoueur);
+    if (victoire_j1 && victoire_j2){
+        if(JoueurCourant == ListeJoueurs[0]) textemessage.setText("Victoire de " + ListeJoueurs[1].NomJoueur);
+        else textemessage.setText("Victoire de " + ListeJoueurs[0].NomJoueur);
+    }
+    
+        (ResultatAction == true) {
+            return true;
+        } else {
+            return false;
+        }*/
 
     void AttribuerCouleursAuxJoueurs() {
         Random alea = new Random(); // attribution des joueurs au hasard
@@ -520,11 +518,9 @@ public class FenetreDeJeu extends javax.swing.JFrame {
         // attribution au hasard de 2 pour chaque joueur
         // affectation de la carte transition à un des joueurs
     }
-
-    boolean PositionnerPionsDepart() { // ajoute les 10 jetons sur le plateau, disposés d'une certaine manière
-
-        return true;
-    }
+    
+    
+    
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

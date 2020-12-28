@@ -21,13 +21,30 @@ public class Plateau {
         }
     }
 
-    boolean PositionnerPionsDepart() { // ajoute les 10 jetons sur le plateau, disposés d'une certaine manière
-        for (int i=0; i<5; i++){
-            Grille[0][i].PionCourant = Grille[0][i].PionCourant;
+    void PositionnerPionsDepart() { // ajoute les 10 jetons sur le plateau, disposés d'une certaine manière
+        for (int i = 0; i < 5; i++) {
+            if (i == 2) {
+                Pion RoiRouge = new Pion("Rouge");
+                RoiRouge.Roi = true;
+                //System.out.println(RoiRouge.EtreRoi());
+                Grille[0][2].PionCourant = RoiRouge;
+            } else {
+                Pion unPionR = new Pion("Rouge");
+                Grille[0][i].PionCourant = unPionR;
+            }
         }
-        return true;
+
+        for (int i = 0; i < 5; i++) {
+            if (i == 2) {
+                Pion RoiBleu = new Pion("Bleu");
+                RoiBleu.Roi = true;
+                Grille[4][2].PionCourant = RoiBleu;
+            } else {
+                Pion unPionB = new Pion("Bleu");
+                Grille[4][i].PionCourant = unPionB;
+            }
+        }
     }
-   
 
     void ViderPlateau() { //vide le plateau en fin de partie // parcours la grille et initialise les données à 0 pour toutes les cellules, les trou noirs et les desintegrateurs
         for (int l = 0; l < 5; l++) {
@@ -80,8 +97,11 @@ public class Plateau {
     }
 
     //methode alliant ConditionPierre et ConditionRuisseau
-    String EtreGagnant(Joueur unNom) {      
-        return null;
+    boolean EtreGagnant(int l, int c, Pion unPion) {
+        if (ConditionPierre(l,c,unPion) == true || ConditionRuisseau(l,c) == true){
+            return true;
+        }
+        return false;
     }
 
     boolean ConditionPierre(int l, int c, Pion unPion) { //condition 1 pour gagner
@@ -133,15 +153,48 @@ public class Plateau {
     }
 
     // cases grises -> visualiser les potentiels mouvements de pions avec les cartes en main
-    void PlacerCaseGrise(int l, int c, Carte uneCarte) { // équivalent de déplacerPion
-        //if (Partie.NomCarteChoisie(uneCarte) == "Mante"){
-            Grille[l][c].PionCourant = Grille[l+1][c].PionCourant;     
+    void PlacerCaseGrise(int l, int c, Carte uneCarte, Pion unPion) { // équivalent de déplacerPion
+        if (uneCarte.NomCarte == "Mante" && unPion == Grille[l][c].PionCourant){
+        Grille[l+1][c-1].AffecterCaseGrise();
+        Grille[l+1][c+1].AffecterCaseGrise();
+        Grille[l-1][c].AffecterCaseGrise();    
+	}
+        if (uneCarte.NomCarte == "Coq" && unPion == Grille[l][c].PionCourant){
+        Grille[l][c-1].AffecterCaseGrise();
+        Grille[l][c+1].AffecterCaseGrise();
+        Grille[l-1][c-1].AffecterCaseGrise();
+        Grille[l+1][c+1].AffecterCaseGrise();       
+	}
+        if (uneCarte.NomCarte == "Crabe" && unPion == Grille[l][c].PionCourant){
+        Grille[l][c-2].AffecterCaseGrise();
+        Grille[l][c+2].AffecterCaseGrise();
+        Grille[l+1][c].AffecterCaseGrise();    
+	}
+        if (uneCarte.NomCarte == "Sanglier" && unPion == Grille[l][c].PionCourant){
+        Grille[l][c-1].AffecterCaseGrise();
+        Grille[l][c+1].AffecterCaseGrise();
+        Grille[l+1][c].AffecterCaseGrise();    
+	}
+        if (uneCarte.NomCarte == "Dragon" && unPion == Grille[l][c].PionCourant){
+        Grille[l-1][c-1].AffecterCaseGrise();
+        Grille[l-1][c+1].AffecterCaseGrise();
+        Grille[l+1][c-2].AffecterCaseGrise();
+        Grille[l+1][c+2].AffecterCaseGrise();
+	}
+        
+        // A COMPLETER (VA SUREMENT PLANTER A CAUSE DE LA TAILLE DE LA GRILLE)
+        
+        
+        
+        
+        
+        
         }
         
-        // BD : on place les case grises à partir d'un pion choisi par ses coordonnées, et d'une carte, non ? OK
-        // ou sont ces éléments quand on appelle cette méthode ? DANS CETTE CLASSE
 
-    }
-    
-    // déplacement des cartes dans parties
+    // BD : on place les case grises à partir d'un pion choisi par ses coordonnées, et d'une carte, non ? OK
+    // ou sont ces éléments quand on appelle cette méthode ? DANS CETTE CLASSE
+}
+
+// déplacement des cartes dans parties
 

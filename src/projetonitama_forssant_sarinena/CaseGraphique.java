@@ -53,9 +53,9 @@ public class CaseGraphique extends JButton {
     @Override
     public void paintComponent(Graphics G) {
         super.paintComponent(G);
-        if (CaseAssociee.EstRoi == true && CaseAssociee.LireCouleurDuPion() == "Rouge") {
+        if (CaseAssociee.presenceRoi() == true && CaseAssociee.LireCouleurDuPion() == "Rouge") {
             setIcon(img_Roi_Rouge);// on attribue l'image lorsque la condition est vérifiée  
-        } else if (CaseAssociee.EstRoi == true && CaseAssociee.LireCouleurDuPion() == "Bleu") {
+        } else if (CaseAssociee.presenceRoi() == true && CaseAssociee.LireCouleurDuPion() == "Bleu") {
             setIcon(img_Roi_Bleu);
         } else {
             String couleur_pion = CaseAssociee.LireCouleurDuPion();
