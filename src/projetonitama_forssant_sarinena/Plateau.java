@@ -181,14 +181,64 @@ public class Plateau {
         Grille[l+1][c-2].AffecterCaseGrise();
         Grille[l+1][c+2].AffecterCaseGrise();
 	}
-        
-        // A COMPLETER (VA SUREMENT PLANTER A CAUSE DE LA TAILLE DE LA GRILLE)
-        
-        
-        
-        
-        
-        
+        if (uneCarte.NomCarte == "Cobra" && unPion == Grille[l][c].PionCourant){
+        Grille[l][c-1].AffecterCaseGrise();
+        Grille[l+1][c+1].AffecterCaseGrise();
+        Grille[l-1][c+1].AffecterCaseGrise();
+	}
+        if (uneCarte.NomCarte == "Anguille" && unPion == Grille[l][c].PionCourant){
+        Grille[l+1][c-1].AffecterCaseGrise();
+        Grille[l-1][c-1].AffecterCaseGrise();
+        Grille[l][c+1].AffecterCaseGrise();
+	}
+        if (uneCarte.NomCarte == "Elephant" && unPion == Grille[l][c].PionCourant){
+        Grille[l][c-1].AffecterCaseGrise();
+        Grille[l][c+1].AffecterCaseGrise();
+        Grille[l+1][c-1].AffecterCaseGrise();
+        Grille[l+1][c+1].AffecterCaseGrise();
+	}
+        if (uneCarte.NomCarte == "Dragon" && unPion == Grille[l][c].PionCourant){
+        Grille[l][c-2].AffecterCaseGrise();
+        Grille[l+1][c+1].AffecterCaseGrise();
+        Grille[l-1][c+1].AffecterCaseGrise();
+	}
+        if (uneCarte.NomCarte == "Oie" && unPion == Grille[l][c].PionCourant){
+        Grille[l][c-1].AffecterCaseGrise();
+        Grille[l][c+1].AffecterCaseGrise();
+        Grille[l+1][c-1].AffecterCaseGrise();
+        Grille[l-1][c+1].AffecterCaseGrise();
+	}
+        if (uneCarte.NomCarte == "Cheval" && unPion == Grille[l][c].PionCourant){
+        Grille[l][c-1].AffecterCaseGrise();
+        Grille[l+1][c].AffecterCaseGrise();
+        Grille[l-1][c].AffecterCaseGrise();
+	}
+        if (uneCarte.NomCarte == "Singe" && unPion == Grille[l][c].PionCourant){
+        Grille[l+1][c-1].AffecterCaseGrise();
+        Grille[l+1][c+1].AffecterCaseGrise();
+        Grille[l-1][c-1].AffecterCaseGrise();
+        Grille[l-1][c+1].AffecterCaseGrise();
+	}
+        if (uneCarte.NomCarte == "Boeuf" && unPion == Grille[l][c].PionCourant){
+        Grille[l][c+1].AffecterCaseGrise();
+        Grille[l-1][c].AffecterCaseGrise();
+        Grille[l+1][c].AffecterCaseGrise();
+	}
+        if (uneCarte.NomCarte == "Lapin" && unPion == Grille[l][c].PionCourant){
+        Grille[l-1][c-1].AffecterCaseGrise();
+        Grille[l+1][c+1].AffecterCaseGrise();
+        Grille[l][c+2].AffecterCaseGrise();
+	}
+        if (uneCarte.NomCarte == "Tigre" && unPion == Grille[l][c].PionCourant){
+        Grille[l+2][c].AffecterCaseGrise();
+        Grille[l-1][c].AffecterCaseGrise();
+	}
+        if (uneCarte.NomCarte == "Grue" && unPion == Grille[l][c].PionCourant){
+        Grille[l-1][c-1].AffecterCaseGrise();
+        Grille[l-1][c+1].AffecterCaseGrise();
+        Grille[l+1][c].AffecterCaseGrise();
+	}
+       
         }
         
 

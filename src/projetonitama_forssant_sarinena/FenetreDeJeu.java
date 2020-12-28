@@ -21,7 +21,7 @@ public class FenetreDeJeu extends javax.swing.JFrame {
     Carte CarteCourante;
     Carte TabCartePartie[] = new Carte[5];
     Pion PionCourant;
-   
+
     // échange des valeurs des matrices
     int[][] Mante = {{1, 2}, {3, 1}, {3, 3}};
     Carte CarteMante = new Carte("Mante", "Rouge", Mante);
@@ -148,6 +148,8 @@ public class FenetreDeJeu extends javax.swing.JFrame {
         lbl_joueur_courant = new javax.swing.JLabel();
         message = new javax.swing.JScrollPane();
         textemessage = new javax.swing.JTextArea();
+        btn_rejouer = new javax.swing.JButton();
+        btn_quitter = new javax.swing.JButton();
         carte2_j1 = new javax.swing.JButton();
         carte_transition = new javax.swing.JButton();
         carte1_j2 = new javax.swing.JButton();
@@ -159,7 +161,7 @@ public class FenetreDeJeu extends javax.swing.JFrame {
 
         grille_jeu.setBackground(new java.awt.Color(153, 102, 0));
         grille_jeu.setLayout(new java.awt.GridLayout(5, 5));
-        getContentPane().add(grille_jeu, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 190, 480, 480));
+        getContentPane().add(grille_jeu, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 190, 480, 480));
 
         infos_joueurs.setBackground(new java.awt.Color(153, 102, 0));
         infos_joueurs.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -264,7 +266,27 @@ public class FenetreDeJeu extends javax.swing.JFrame {
 
         infos_partie.add(message, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, -1, 90));
 
-        getContentPane().add(infos_partie, new org.netbeans.lib.awtextra.AbsoluteConstraints(1090, 540, 300, 190));
+        btn_rejouer.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
+        btn_rejouer.setForeground(new java.awt.Color(153, 51, 0));
+        btn_rejouer.setText("Rejouer");
+        btn_rejouer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_rejouerActionPerformed(evt);
+            }
+        });
+        infos_partie.add(btn_rejouer, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 190, 90, 40));
+
+        btn_quitter.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
+        btn_quitter.setForeground(new java.awt.Color(153, 51, 0));
+        btn_quitter.setText("Quitter");
+        btn_quitter.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_quitterActionPerformed(evt);
+            }
+        });
+        infos_partie.add(btn_quitter, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 190, 90, 40));
+
+        getContentPane().add(infos_partie, new org.netbeans.lib.awtextra.AbsoluteConstraints(1090, 540, 300, 250));
 
         carte2_j1.setBackground(new java.awt.Color(204, 102, 0));
         carte2_j1.setForeground(new java.awt.Color(255, 255, 255));
@@ -273,7 +295,7 @@ public class FenetreDeJeu extends javax.swing.JFrame {
                 carte2_j1ActionPerformed(evt);
             }
         });
-        getContentPane().add(carte2_j1, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 10, 300, 174));
+        getContentPane().add(carte2_j1, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 10, 300, 170));
 
         carte_transition.setBackground(new java.awt.Color(204, 102, 0));
         carte_transition.setForeground(new java.awt.Color(255, 255, 255));
@@ -282,7 +304,7 @@ public class FenetreDeJeu extends javax.swing.JFrame {
                 carte_transitionActionPerformed(evt);
             }
         });
-        getContentPane().add(carte_transition, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 270, 174, 300));
+        getContentPane().add(carte_transition, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 340, 300, 170));
 
         carte1_j2.setBackground(new java.awt.Color(204, 102, 0));
         carte1_j2.setForeground(new java.awt.Color(255, 255, 255));
@@ -291,7 +313,7 @@ public class FenetreDeJeu extends javax.swing.JFrame {
                 carte1_j2ActionPerformed(evt);
             }
         });
-        getContentPane().add(carte1_j2, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 680, 300, 174));
+        getContentPane().add(carte1_j2, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 680, 300, 170));
 
         carte2_j2.setBackground(new java.awt.Color(204, 102, 0));
         carte2_j2.setForeground(new java.awt.Color(255, 255, 255));
@@ -300,7 +322,7 @@ public class FenetreDeJeu extends javax.swing.JFrame {
                 carte2_j2ActionPerformed(evt);
             }
         });
-        getContentPane().add(carte2_j2, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 680, 300, 174));
+        getContentPane().add(carte2_j2, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 680, 300, 170));
 
         carte1_j1.setBackground(new java.awt.Color(204, 102, 0));
         carte1_j1.setForeground(new java.awt.Color(255, 255, 255));
@@ -309,7 +331,7 @@ public class FenetreDeJeu extends javax.swing.JFrame {
                 carte1_j1ActionPerformed(evt);
             }
         });
-        getContentPane().add(carte1_j1, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 10, 300, 174));
+        getContentPane().add(carte1_j1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 10, 300, 170));
 
         setBounds(0, 0, 1416, 893);
     }// </editor-fold>//GEN-END:initComponents
@@ -360,6 +382,23 @@ public class FenetreDeJeu extends javax.swing.JFrame {
         // TODO add your handling code here:
         //JoueurSuivant();
     }//GEN-LAST:event_carte2_j1ActionPerformed
+
+    private void btn_rejouerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_rejouerActionPerformed
+        infos_joueurs.setVisible(true);
+        infos_partie.setVisible(true);
+        initialiserPartie();
+        grille_jeu.repaint(); //rafraichitl'affichage
+        btn_demarrer.setEnabled(false); // bloque la possibilite de cliquer plusieurs fois que le bouton demarrer
+        carte1_j1.setEnabled(true);
+        carte2_j1.setEnabled(true);
+        carte1_j2.setEnabled(true);
+        carte2_j2.setEnabled(true);
+        textemessage.setText(" "); // efface le dernier message affiche dans le panneau infos partie
+    }//GEN-LAST:event_btn_rejouerActionPerformed
+
+    private void btn_quitterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_quitterActionPerformed
+        super.dispose(); // ferme la fenetre de jeu
+    }//GEN-LAST:event_btn_quitterActionPerformed
 
     /**
      * @param args the command line arguments
@@ -458,9 +497,8 @@ public class FenetreDeJeu extends javax.swing.JFrame {
 
         PlateauJeu.AfficherPlateauSurConsole();
     }
-    
-    
-        public void JoueurSuivant() {
+
+    public void JoueurSuivant() {
         // rotation des joueurs
         if (JoueurCourant == ListeJoueurs[0]) {
             JoueurCourant = ListeJoueurs[1];
@@ -487,7 +525,6 @@ public class FenetreDeJeu extends javax.swing.JFrame {
         } else {
             return false;
         }*/
-
     void AttribuerCouleursAuxJoueurs() {
         Random alea = new Random(); // attribution des joueurs au hasard
         boolean ChoixJoueur;
@@ -518,13 +555,12 @@ public class FenetreDeJeu extends javax.swing.JFrame {
         // attribution au hasard de 2 pour chaque joueur
         // affectation de la carte transition à un des joueurs
     }
-    
-    
-    
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_demarrer;
+    private javax.swing.JButton btn_quitter;
+    private javax.swing.JButton btn_rejouer;
     private javax.swing.JButton carte1_j1;
     private javax.swing.JButton carte1_j2;
     private javax.swing.JButton carte2_j1;

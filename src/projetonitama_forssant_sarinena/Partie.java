@@ -22,7 +22,6 @@ public class Partie {
     Carte CarteCourante;
     Carte TabCartePartie[] = new Carte[5];
 
-    // échange des valeurs des matrices
     int[][] Mante = {{1, 2}, {3, 1}, {3, 3}};
     Carte CarteMante = new Carte("Mante", "Rouge", Mante);
 
