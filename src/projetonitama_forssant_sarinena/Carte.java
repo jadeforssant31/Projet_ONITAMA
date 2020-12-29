@@ -14,6 +14,7 @@ public class Carte {
     String NomCarte;
     int Matrice[][];
     String CouleurCarte;
+    Carte CarteCourante;
 
     public Carte(String unNom, String uneCouleur, int MatCoord[][]){ // constructeur qui passe le nom en paramètre et initialise les attributs
         NomCarte = unNom;

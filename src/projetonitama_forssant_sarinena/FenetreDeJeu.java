@@ -111,19 +111,30 @@ public class FenetreDeJeu extends javax.swing.JFrame {
             for (int j = 0; j < 5; j++) {
                 CaseGraphique case_graphique = new CaseGraphique(PlateauJeu.Grille[i][j]);
                 grille_jeu.add(case_graphique);
+
                 
-        /*CarteGraphique carte_graphiquej11 = new CarteGraphique(TabCartePartie[0]);
-        carte1_j1 = carte_graphiquej11;
-                CarteGraphique carte_graphiquej12 = new CarteGraphique(TabCartePartie[1]);
-        carte2_j1 = carte_graphiquej12;
-                CarteGraphique carte_graphiquej21 = new CarteGraphique(TabCartePartie[2]);
-        carte1_j2 = carte_graphiquej21;
-                CarteGraphique carte_graphiquej22 = new CarteGraphique(TabCartePartie[3]);
-        carte2_j2 = carte_graphiquej22;
-                CarteGraphique cartetransition = new CarteGraphique(TabCartePartie[4]);
-        carte_transition = cartetransition;*/
+                // tabCarte ne va pas et plante l'affichage, carte specifique interface ok mais pas d'image
+                /*CarteGraphique carte_graphique1_j1 = new CarteGraphique(CarteMante);
+                carte1_j1.add(carte_graphique1_j1);
+                CarteGraphique carte_graphique2_j1 = new CarteGraphique(CarteDragon);
+                carte2_j1.add(carte_graphique2_j1);
+                CarteGraphique carte_graphique1_j2 = new CarteGraphique(TabCartePartie[2]);
+                carte1_j2.add(carte_graphique1_j2);
+                CarteGraphique carte_graphique2_j2 = new CarteGraphique(TabCartePartie[3]);
+                carte2_j2.add(carte_graphique2_j2);*/
+                CarteGraphique cartetransition = new CarteGraphique(CarteMante);
+                carte_transition.add(cartetransition);
                 
-                
+                cartetransition.addActionListener(new java.awt.event.ActionListener() { // ActionListener permet d'interagir avec la fenêtre graphique de jeu (cliquer sur les cases graphiques)
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
+                        Carte C = cartetransition.CarteAssociee;
+                        if (C.CarteCourante == null) {
+                            return;
+                        }
+
+                    }
+                });
+
                 case_graphique.addActionListener(new java.awt.event.ActionListener() { // ActionListener permet d'interagir avec la fenêtre graphique de jeu (cliquer sur les cases graphiques)
                     public void actionPerformed(java.awt.event.ActionEvent evt) {
                         Case c = case_graphique.CaseAssociee;
@@ -169,19 +180,21 @@ public class FenetreDeJeu extends javax.swing.JFrame {
 
                     }
                 });
-                grille_jeu.add(case_graphique); 
+                //grille_jeu.add(case_graphique);
             }
+
         }
+
     }
-    
-        void initialiserPartie() {
+
+    void initialiserPartie() {
         // vider Plateau OK
         // Entrée des joueurs et affectation dans tableau OK
         // Sélection des 5 cartes déplacements OK
         // Attribution des couleurs OK
         // Tirage et attribution des cartes OK
-        // Determine qui est le premier joueur
-        // Placer Pions (Rouge en bas/bleu en haut)
+        // Determine qui est le premier joueur OK
+        // Placer Pions (Rouge en bas/bleu en haut)OK
 
         // On vide le plateau
         PlateauJeu.ViderPlateau();
@@ -219,8 +232,7 @@ public class FenetreDeJeu extends javax.swing.JFrame {
         }
 
         PlateauJeu.AfficherPlateauSurConsole();
-        
-        
+
         // affichage sur console ----- suivi du bon déroulement du jeu
         System.out.println(Joueur1.NomJoueur + " possède les cartes " + Joueur1.CarteEnMain[0].NomCarte + " et " + Joueur1.CarteEnMain[1].NomCarte);
         System.out.println(Joueur2.NomJoueur + " possède les cartes " + Joueur2.CarteEnMain[0].NomCarte + " et " + Joueur2.CarteEnMain[1].NomCarte);
@@ -237,22 +249,21 @@ public class FenetreDeJeu extends javax.swing.JFrame {
         lbl_joueur_courant.setText(JoueurCourant.NomJoueur);
 
         //PlateauJeu.AfficherPlateauSurConsole();
-        
-        Tour();
+        //Tour();
     }
-        
-        void Tour() { // équivalent de notre méthode Menu() achevée
+
+    void Tour() { // équivalent de notre méthode Menu() achevée
         System.out.println("Tour de " + JoueurCourant.NomJoueur);
         System.out.println("Choisissez une carte déplacement");
         String ChoixCarte;
         Scanner sc = new Scanner(System.in);
         ChoixCarte = sc.nextLine();
-        while (!ChoixCarte.equals(JoueurCourant.CarteEnMain[0].NomCarte) && !ChoixCarte.equals(JoueurCourant.CarteEnMain[1].NomCarte)){
-             System.out.println("Carte invalide. Réessayer.");
-             ChoixCarte = sc.nextLine();
+        while (!ChoixCarte.equals(JoueurCourant.CarteEnMain[0].NomCarte) && !ChoixCarte.equals(JoueurCourant.CarteEnMain[1].NomCarte)) {
+            System.out.println("Carte invalide. Réessayer.");
+            ChoixCarte = sc.nextLine();
         }
         System.out.println("la carte déplacement choisie est " + ChoixCarte);
-        
+
         /*System.out.println("Choisissez un pion à déplacer");
         int c;
         int l;
@@ -303,8 +314,10 @@ public class FenetreDeJeu extends javax.swing.JFrame {
         } else {
             return false;
         }*/
+    
+    
     void AttribuerCouleursAuxJoueurs() {
-        Random alea = new Random(); // attribution des joueurs au hasard
+        Random alea = new Random(); // attribution des couleurs aux joueurs au hasard
         boolean ChoixJoueur;
         ChoixJoueur = alea.nextBoolean();
         if (ChoixJoueur == true) {
@@ -369,11 +382,11 @@ public class FenetreDeJeu extends javax.swing.JFrame {
         textemessage = new javax.swing.JTextArea();
         btn_rejouer = new javax.swing.JButton();
         btn_quitter = new javax.swing.JButton();
-        carte2_j1 = new javax.swing.JButton();
-        carte_transition = new javax.swing.JButton();
-        carte1_j2 = new javax.swing.JButton();
-        carte2_j2 = new javax.swing.JButton();
-        carte1_j1 = new javax.swing.JButton();
+        carte1_j1 = new javax.swing.JPanel();
+        carte2_j1 = new javax.swing.JPanel();
+        carte_transition = new javax.swing.JPanel();
+        carte1_j2 = new javax.swing.JPanel();
+        carte2_j2 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -507,50 +520,25 @@ public class FenetreDeJeu extends javax.swing.JFrame {
 
         getContentPane().add(infos_partie, new org.netbeans.lib.awtextra.AbsoluteConstraints(1090, 540, 300, 250));
 
-        carte2_j1.setBackground(new java.awt.Color(204, 102, 0));
-        carte2_j1.setForeground(new java.awt.Color(255, 255, 255));
-        carte2_j1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                carte2_j1ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(carte2_j1, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 10, 300, 170));
+        carte1_j1.setBackground(new java.awt.Color(153, 51, 0));
+        carte1_j1.setLayout(new java.awt.GridLayout(1, 1));
+        getContentPane().add(carte1_j1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 10, 300, 170));
 
-        carte_transition.setBackground(new java.awt.Color(204, 102, 0));
-        carte_transition.setForeground(new java.awt.Color(255, 255, 255));
-        carte_transition.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                carte_transitionActionPerformed(evt);
-            }
-        });
-        getContentPane().add(carte_transition, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 340, 300, 170));
+        carte2_j1.setBackground(new java.awt.Color(153, 51, 0));
+        carte2_j1.setLayout(new java.awt.GridLayout(1, 1));
+        getContentPane().add(carte2_j1, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 10, 300, 170));
 
-        carte1_j2.setBackground(new java.awt.Color(204, 102, 0));
-        carte1_j2.setForeground(new java.awt.Color(255, 255, 255));
-        carte1_j2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                carte1_j2ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(carte1_j2, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 680, 300, 170));
+        carte_transition.setBackground(new java.awt.Color(153, 51, 0));
+        carte_transition.setLayout(new java.awt.GridLayout(1, 1));
+        getContentPane().add(carte_transition, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 350, 300, 170));
 
-        carte2_j2.setBackground(new java.awt.Color(204, 102, 0));
-        carte2_j2.setForeground(new java.awt.Color(255, 255, 255));
-        carte2_j2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                carte2_j2ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(carte2_j2, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 680, 300, 170));
+        carte1_j2.setBackground(new java.awt.Color(153, 51, 0));
+        carte1_j2.setLayout(new java.awt.GridLayout(1, 1));
+        getContentPane().add(carte1_j2, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 690, 300, 170));
 
-        carte1_j1.setBackground(new java.awt.Color(204, 102, 0));
-        carte1_j1.setForeground(new java.awt.Color(255, 255, 255));
-        carte1_j1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                carte1_j1ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(carte1_j1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 10, 300, 170));
+        carte2_j2.setBackground(new java.awt.Color(153, 51, 0));
+        carte2_j2.setLayout(new java.awt.GridLayout(1, 1));
+        getContentPane().add(carte2_j2, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 690, 300, 170));
 
         setBounds(0, 0, 1416, 893);
     }// </editor-fold>//GEN-END:initComponents
@@ -577,31 +565,6 @@ public class FenetreDeJeu extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_nomjoueur2ActionPerformed
 
-    private void carte_transitionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_carte_transitionActionPerformed
-        // TODO add your handling code here:
-        //JoueurSuivant(); 
-    }//GEN-LAST:event_carte_transitionActionPerformed
-
-    private void carte1_j2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_carte1_j2ActionPerformed
-        // TODO add your handling code here:
-        //JoueurSuivant();
-    }//GEN-LAST:event_carte1_j2ActionPerformed
-
-    private void carte2_j2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_carte2_j2ActionPerformed
-        // TODO add your handling code here:
-        //JoueurSuivant();
-    }//GEN-LAST:event_carte2_j2ActionPerformed
-
-    private void carte1_j1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_carte1_j1ActionPerformed
-        // TODO add your handling code here
-        // JoueurSuivant();
-    }//GEN-LAST:event_carte1_j1ActionPerformed
-
-    private void carte2_j1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_carte2_j1ActionPerformed
-        // TODO add your handling code here:
-        //JoueurSuivant();
-    }//GEN-LAST:event_carte2_j1ActionPerformed
-
     private void btn_rejouerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_rejouerActionPerformed
         infos_joueurs.setVisible(true);
         infos_partie.setVisible(true);
@@ -611,7 +574,7 @@ public class FenetreDeJeu extends javax.swing.JFrame {
         carte1_j1.setEnabled(true);
         carte2_j1.setEnabled(true);
         carte1_j2.setEnabled(true);
-        carte2_j2.setEnabled(true);
+        carte2_j1.setEnabled(true);
         textemessage.setText(" "); // efface le dernier message affiche dans le panneau infos partie
     }//GEN-LAST:event_btn_rejouerActionPerformed
 
@@ -656,16 +619,15 @@ public class FenetreDeJeu extends javax.swing.JFrame {
     }
 
 
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_demarrer;
     private javax.swing.JButton btn_quitter;
     private javax.swing.JButton btn_rejouer;
-    private javax.swing.JButton carte1_j1;
-    private javax.swing.JButton carte1_j2;
-    private javax.swing.JButton carte2_j1;
-    private javax.swing.JButton carte2_j2;
-    private javax.swing.JButton carte_transition;
+    private javax.swing.JPanel carte1_j1;
+    private javax.swing.JPanel carte1_j2;
+    private javax.swing.JPanel carte2_j1;
+    private javax.swing.JPanel carte2_j2;
+    private javax.swing.JPanel carte_transition;
     private javax.swing.JPanel debuter_partie;
     private javax.swing.JPanel grille_jeu;
     private javax.swing.JPanel infos_joueurs;
