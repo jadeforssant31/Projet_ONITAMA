@@ -129,29 +129,35 @@ public class Plateau {
         }
         return false;
     }
-
+    
     void AfficherPlateauSurConsole() {
         // affiche la grille dans la console
 
-        for (int l = 5; l >= 0; l--) { // boucle décrémentée car l'affichage conventionnel et celui pris par les tableaux est inversé
-            for (int c = 0; c < 5; c++) {
+        for (int l = 4; l >= 0; l--) { // boucle décrémentée car l'affichage conventionnel et celui pris par les tableaux est inversé
+            for (int c = 0; c<5; c++) {
                 if (Grille[l][c].PionCourant == null) {
-                    System.out.print("N");
+                    System.out.print(" N ");
+                } else if ((Grille[l][c].PionCourant.CouleurPion) != "Rouge" && Grille[l][c].PionCourant.Roi == true) {
+                    System.out.print(" A ");
                 } else if ((Grille[l][c].PionCourant.CouleurPion) != "Rouge") {
-                    System.out.print("B");
-                } else {
-                    System.out.print("R");
+                    System.out.print(" B ");
+                } else if ((Grille[l][c].PionCourant.CouleurPion) != "Bleu" && Grille[l][c].PionCourant.Roi == true){
+                    System.out.print(" Q ");
+                } else if (Grille[l][c].CaseGrise == true){
+                    System.out.print(" G ");
+                }else {
+                    System.out.print(" R ");
                 }
-
             }
-            System.out.println(" " + (l + 1)); // affichage des numéros de lignes (l+1) car tableau commence à 0
+            System.out.println(" " + (l+1)); // affichage des numéros de lignes (l+1) car tableau commence à 0
         }
-        for (int c = 0; c < 5; c++) {
-            System.out.print((c + 1)); // affichage des colonnes (c+1) car tableau commence à 0
+        for (int c = 0; c<5; c++) {
+            System.out.print(" " + (c + 1) + " "); // affichage des colonnes (c+1) car tableau commence à 0
         }
         System.out.println(); // affichage global du tableau
     }
 
+    
     // cases grises -> visualiser les potentiels mouvements de pions avec les cartes en main
     void PlacerCaseGrise(int l, int c, Carte uneCarte, Pion unPion) { // équivalent de déplacerPion
         if (uneCarte.NomCarte == "Mante" && unPion == Grille[l][c].PionCourant){

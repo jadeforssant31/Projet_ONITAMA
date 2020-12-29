@@ -232,12 +232,39 @@ public class Partie {
         }
     }
 
-    boolean Tour(Carte uneCarte, Pion unPion, int l, int c) { // équivalent de notre méthode Menu() achevée
+    void Tour() { // équivalent de notre méthode Menu() achevée
         System.out.println("Tour de " + JoueurCourant.NomJoueur);
         System.out.println("Choisissez une carte déplacement");
-        System.out.println("Choisissez un pion à déplacer");
+        String ChoixCarte;
+        Scanner sc = new Scanner(System.in);
+        ChoixCarte = sc.nextLine();
+        while (!ChoixCarte.equals(JoueurCourant.CarteEnMain[0].NomCarte) && !ChoixCarte.equals(JoueurCourant.CarteEnMain[1].NomCarte)){
+             System.out.println("Carte invalide. Réessayer.");
+             ChoixCarte = sc.nextLine();
+        }
+        System.out.println("la carte déplacement choisie est " + ChoixCarte);
+        
+        /*System.out.println("Choisissez un pion à déplacer");
+        int c;
+        int l;
+        System.out.println("Donner les coordonnées du jeton à récuperer : ");
+        System.out.println("Saisir colonne : ");
+        c = sc.nextInt() - 1;
+        while (c < 0 || c > 4) {
+            System.out.println("Colonne invalide. Réessayer.");
+            c = sc.nextInt() - 1;
+        }
+        System.out.println("Saisir ligne : ");
+        l = sc.nextInt() - 1;
+        while (l < 0 || l > 4) {
+            System.out.println("Ligne invalide. Réessayer.");
+            l = sc.nextInt() - 1;
+        
+        
+        
         System.out.println("Choisissez une carte grise");
         return true;
+    }*/
     }
 
     boolean DeplacementPion(int l, int c, Carte uneCarte) { // à revoir

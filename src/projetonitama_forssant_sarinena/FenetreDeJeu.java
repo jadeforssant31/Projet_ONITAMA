@@ -7,6 +7,7 @@ package projetonitama_forssant_sarinena;
 
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Scanner;
 
 /**
  *
@@ -110,9 +111,227 @@ public class FenetreDeJeu extends javax.swing.JFrame {
             for (int j = 0; j < 5; j++) {
                 CaseGraphique case_graphique = new CaseGraphique(PlateauJeu.Grille[i][j]);
                 grille_jeu.add(case_graphique);
+                
+        /*CarteGraphique carte_graphiquej11 = new CarteGraphique(TabCartePartie[0]);
+        carte1_j1 = carte_graphiquej11;
+                CarteGraphique carte_graphiquej12 = new CarteGraphique(TabCartePartie[1]);
+        carte2_j1 = carte_graphiquej12;
+                CarteGraphique carte_graphiquej21 = new CarteGraphique(TabCartePartie[2]);
+        carte1_j2 = carte_graphiquej21;
+                CarteGraphique carte_graphiquej22 = new CarteGraphique(TabCartePartie[3]);
+        carte2_j2 = carte_graphiquej22;
+                CarteGraphique cartetransition = new CarteGraphique(TabCartePartie[4]);
+        carte_transition = cartetransition;*/
+                
+                
+                case_graphique.addActionListener(new java.awt.event.ActionListener() { // ActionListener permet d'interagir avec la fenêtre graphique de jeu (cliquer sur les cases graphiques)
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
+                        Case c = case_graphique.CaseAssociee;
+                        if (c.PionCourant == null) {
+                            return;
+                        }
+                        /*
+                        if (c.PionCourant.CouleurPion.equals(JoueurCourant.CouleurJoueur)) {
+                            textemessage.setText(JoueurCourant.NomJoueur + " déplace un de ses pions"); //setText permet d'afficher des String sur une fenêtre de texte
+                            //if (c.CaseGrise == true){
+                            Jeton jetonrecup = c.recupererJeton();
+                            JoueurCourant.ajouterJeton(jetonrecup);
+                            JoueurSuivant();
+                        } else {
+                            if (joueurCourant.nombreDesintegrateurs > 0) {
+                                textemessage.setText(joueurCourant.Nom + " désintègre un jeton adverse");
+                                c.supprimerJeton();
+                                joueurCourant.utiliserDesintegrateur();
+                                JoueurSuivant();
+                            } else {
+                                return;
+                            }
+                        }
+                        //PlateauJeu.tasserGrille();
+                        grille_jeu.repaint(); // rafraîchit, actualise le panneau d'affichage
+
+                        boolean vict_j1 = PlateauJeu.etreGagnantePourJoueur(ListeJoueurs[0]);
+                        boolean vict_j2 = PlateauJeu.etreGagnantePourJoueur(ListeJoueurs[1]);
+
+                        if (vict_j1 && !vict_j2) {
+                            textemessage.setText("Victoire de " + ListeJoueurs[0].Nom);
+                        }
+                        if (vict_j2 && !vict_j1) {
+                            textemessage.setText("Victoire de " + ListeJoueurs[1].Nom);
+                        }
+                        if (vict_j1 && vict_j2) {
+                            if (joueurCourant == ListeJoueurs[0]) {
+                                textemessage.setText("Victoire par faute de " + ListeJoueurs[1].Nom); // explicite les règles aux joueurs
+                            } else {
+                                textemessage.setText("Victoire par faute de " + ListeJoueurs[0].Nom); // explicite les règles aux joueurs
+                            }
+                        }*/
+
+                    }
+                });
+                grille_jeu.add(case_graphique); 
             }
         }
+    }
+    
+        void initialiserPartie() {
+        // vider Plateau OK
+        // Entrée des joueurs et affectation dans tableau OK
+        // Sélection des 5 cartes déplacements OK
+        // Attribution des couleurs OK
+        // Tirage et attribution des cartes OK
+        // Determine qui est le premier joueur
+        // Placer Pions (Rouge en bas/bleu en haut)
 
+        // On vide le plateau
+        PlateauJeu.ViderPlateau();
+        PlateauJeu.PositionnerPionsDepart();
+
+        // création des 2 joueurs et affectation dans tableau
+        String nomJoueur1 = nomjoueur1.getText();
+        Joueur Joueur1 = new Joueur(nomJoueur1);
+        String nomJoueur2 = nomjoueur2.getText();
+        Joueur Joueur2 = new Joueur(nomJoueur2);
+        ListeJoueurs[0] = Joueur1; // affectation des référence au tableau
+        ListeJoueurs[1] = Joueur2;
+
+        //attribution des couleurs
+        AttribuerCouleursAuxJoueurs();
+
+        // Tirage des cartes
+        DefinirCartesPartie();
+        //System.out.println(ListeCartes);
+
+        // Attribution des cartes et affectation dela derniere en tant que carte transition
+        Joueur1.CarteEnMain[0] = TabCartePartie[0];
+        Joueur1.CarteEnMain[1] = TabCartePartie[1];
+        Joueur2.CarteEnMain[0] = TabCartePartie[2];
+        Joueur2.CarteEnMain[1] = TabCartePartie[3];
+        CarteTransition = TabCartePartie[4];
+
+        // On determine qui commence à jouer
+        Random joueur = new Random();
+        boolean premier_joueur = joueur.nextBoolean();
+        if (premier_joueur) {
+            JoueurCourant = ListeJoueurs[0];
+        } else {
+            JoueurCourant = ListeJoueurs[1];
+        }
+
+        PlateauJeu.AfficherPlateauSurConsole();
+        
+        
+        // affichage sur console ----- suivi du bon déroulement du jeu
+        System.out.println(Joueur1.NomJoueur + " possède les cartes " + Joueur1.CarteEnMain[0].NomCarte + " et " + Joueur1.CarteEnMain[1].NomCarte);
+        System.out.println(Joueur2.NomJoueur + " possède les cartes " + Joueur2.CarteEnMain[0].NomCarte + " et " + Joueur2.CarteEnMain[1].NomCarte);
+        System.out.println("La carte transition est " + CarteTransition.NomCarte);
+
+        System.out.println(Joueur1.NomJoueur + " possède les pions de couleur " + Joueur1.CouleurJoueur);
+        System.out.println(Joueur2.NomJoueur + " possède les pions de couleur " + Joueur2.CouleurJoueur);
+
+        // affiche les noms/couleurs des joueurs dans le pannel des informations joueurs/ informations partie
+        lbl_j1_nom.setText(nomJoueur1);
+        lbl_j1_couleur.setText(Joueur1.CouleurJoueur);
+        lbl_j2_nom.setText(nomJoueur2);
+        lbl_j2_couleur.setText(Joueur2.CouleurJoueur);
+        lbl_joueur_courant.setText(JoueurCourant.NomJoueur);
+
+        //PlateauJeu.AfficherPlateauSurConsole();
+        
+        Tour();
+    }
+        
+        void Tour() { // équivalent de notre méthode Menu() achevée
+        System.out.println("Tour de " + JoueurCourant.NomJoueur);
+        System.out.println("Choisissez une carte déplacement");
+        String ChoixCarte;
+        Scanner sc = new Scanner(System.in);
+        ChoixCarte = sc.nextLine();
+        while (!ChoixCarte.equals(JoueurCourant.CarteEnMain[0].NomCarte) && !ChoixCarte.equals(JoueurCourant.CarteEnMain[1].NomCarte)){
+             System.out.println("Carte invalide. Réessayer.");
+             ChoixCarte = sc.nextLine();
+        }
+        System.out.println("la carte déplacement choisie est " + ChoixCarte);
+        
+        /*System.out.println("Choisissez un pion à déplacer");
+        int c;
+        int l;
+        System.out.println("Donner les coordonnées du jeton à récuperer : ");
+        System.out.println("Saisir colonne : ");
+        c = sc.nextInt() - 1;
+        while (c < 0 || c > 4) {
+            System.out.println("Colonne invalide. Réessayer.");
+            c = sc.nextInt() - 1;
+        }
+        System.out.println("Saisir ligne : ");
+        l = sc.nextInt() - 1;
+        while (l < 0 || l > 4) {
+            System.out.println("Ligne invalide. Réessayer.");
+            l = sc.nextInt() - 1;
+        
+        
+        
+        System.out.println("Choisissez une carte grise");
+        return true;
+    }*/
+    }
+
+    public void JoueurSuivant() {
+        // rotation des joueurs
+        if (JoueurCourant == ListeJoueurs[0]) {
+            JoueurCourant = ListeJoueurs[1];
+        } else {
+            JoueurCourant = ListeJoueurs[0];
+        }
+        lbl_joueur_courant.setText(JoueurCourant.NomJoueur);
+    }
+
+    /*boolean TourDeJeu(Carte uneCarte, Pion unPion, ) { // A COMPLETER; combinaison de selection de carte et de deplacer pion
+        boolean ResultatAction;
+    ResultatAction=...;
+    boolean victoire_j1 = PlateauJeu.EtreGagnant();
+    boolean victoire_j2 = PlateauJeu.EtreGagnant();
+    if (victoire_j1 && !victoire_j2) textemessage.setText("Victoire de " + ListeJoueurs[0].NomJoueur);
+    if (victoire_j2 && !victoire_j1) textemessage.setText("Victoire de " + ListeJoueurs[1].NomJoueur);
+    if (victoire_j1 && victoire_j2){
+        if(JoueurCourant == ListeJoueurs[0]) textemessage.setText("Victoire de " + ListeJoueurs[1].NomJoueur);
+        else textemessage.setText("Victoire de " + ListeJoueurs[0].NomJoueur);
+    }
+    
+        (ResultatAction == true) {
+            return true;
+        } else {
+            return false;
+        }*/
+    void AttribuerCouleursAuxJoueurs() {
+        Random alea = new Random(); // attribution des joueurs au hasard
+        boolean ChoixJoueur;
+        ChoixJoueur = alea.nextBoolean();
+        if (ChoixJoueur == true) {
+            ListeJoueurs[0].CouleurJoueur = "Bleu";
+            ListeJoueurs[1].CouleurJoueur = "Rouge";
+        } else {
+            ListeJoueurs[0].CouleurJoueur = "Rouge";
+            ListeJoueurs[1].CouleurJoueur = "Bleu";
+        }
+    }
+
+    void DefinirCartesPartie() {
+        Random rand = new Random();
+        int NbreCartes = 5;
+
+        for (int i = 0; i < NbreCartes; i++) {
+            int randomIndex = rand.nextInt(ListeCartes.size());
+            Carte randomElement = ListeCartes.get(randomIndex);
+            TabCartePartie[i] = randomElement;
+            //System.out.println(TabCartePartie[i].NomCarte);
+            ListeCartes.remove(randomIndex);
+        }
+
+        //return (TabCartePartie);
+        // création tirage aléatoire parmi le résultat de la méthode SelectionCartePartie
+        // attribution au hasard de 2 pour chaque joueur
+        // affectation de la carte transition à un des joueurs
     }
 
     /**
@@ -436,125 +655,6 @@ public class FenetreDeJeu extends javax.swing.JFrame {
         });
     }
 
-    void initialiserPartie() {
-        // vider Plateau OK
-        // Entrée des joueurs et affectation dans tableau OK
-        // Sélection des 5 cartes déplacements OK
-        // Attribution des couleurs OK
-        // Tirage et attribution des cartes OK
-        // Determine qui est le premier joueur
-        // Placer Pions (Rouge en bas/bleu en haut)
-
-        // On vide le plateau
-        PlateauJeu.ViderPlateau();
-        PlateauJeu.PositionnerPionsDepart();
-
-        // création des 2 joueurs et affectation dans tableau
-        String nomJoueur1 = nomjoueur1.getText();
-        Joueur Joueur1 = new Joueur(nomJoueur1);
-        String nomJoueur2 = nomjoueur2.getText();
-        Joueur Joueur2 = new Joueur(nomJoueur2);
-        ListeJoueurs[0] = Joueur1; // affectation des référence au tableau
-        ListeJoueurs[1] = Joueur2;
-
-        //attribution des couleurs
-        AttribuerCouleursAuxJoueurs();
-
-        // Tirage des cartes
-        DefinirCartesPartie();
-        //System.out.println(ListeCartes);
-
-        // Attribution des cartes et affectation dela derniere en tant que carte transition
-        Joueur1.CarteEnMain[0] = TabCartePartie[0];
-        Joueur1.CarteEnMain[1] = TabCartePartie[1];
-        Joueur2.CarteEnMain[0] = TabCartePartie[2];
-        Joueur2.CarteEnMain[1] = TabCartePartie[3];
-        CarteTransition = TabCartePartie[4];
-
-        // On determine qui commence à jouer
-        Random joueur = new Random();
-        boolean premier_joueur = joueur.nextBoolean();
-        if (premier_joueur) {
-            JoueurCourant = ListeJoueurs[0];
-        } else {
-            JoueurCourant = ListeJoueurs[1];
-        }
-
-        // affichage sur console ----- suivi du bon déroulement du jeu
-        System.out.println(Joueur1.NomJoueur + " possède les cartes " + Joueur1.CarteEnMain[0].NomCarte + " et " + Joueur1.CarteEnMain[1].NomCarte);
-        System.out.println(Joueur2.NomJoueur + " possède les cartes " + Joueur2.CarteEnMain[0].NomCarte + " et " + Joueur2.CarteEnMain[1].NomCarte);
-        System.out.println("La carte transition est " + CarteTransition.NomCarte);
-
-        System.out.println(Joueur1.NomJoueur + " possède les pions de couleur " + Joueur1.CouleurJoueur);
-        System.out.println(Joueur2.NomJoueur + " possède les pions de couleur " + Joueur2.CouleurJoueur);
-
-        // affiche les noms/couleurs des joueurs dans le pannel des informations joueurs/ informations partie
-        lbl_j1_nom.setText(nomJoueur1);
-        lbl_j1_couleur.setText(Joueur1.CouleurJoueur);
-        lbl_j2_nom.setText(nomJoueur2);
-        lbl_j2_couleur.setText(Joueur2.CouleurJoueur);
-        lbl_joueur_courant.setText(JoueurCourant.NomJoueur);
-
-        PlateauJeu.AfficherPlateauSurConsole();
-    }
-
-    public void JoueurSuivant() {
-        // rotation des joueurs
-        if (JoueurCourant == ListeJoueurs[0]) {
-            JoueurCourant = ListeJoueurs[1];
-        } else {
-            JoueurCourant = ListeJoueurs[0];
-        }
-        lbl_joueur_courant.setText(JoueurCourant.NomJoueur);
-    }
-
-    /*boolean TourDeJeu(Carte uneCarte, Pion unPion, ) { // A COMPLETER; combinaison de selection de carte et de deplacer pion
-        boolean ResultatAction;
-    ResultatAction=...;
-    boolean victoire_j1 = PlateauJeu.EtreGagnant();
-    boolean victoire_j2 = PlateauJeu.EtreGagnant();
-    if (victoire_j1 && !victoire_j2) textemessage.setText("Victoire de " + ListeJoueurs[0].NomJoueur);
-    if (victoire_j2 && !victoire_j1) textemessage.setText("Victoire de " + ListeJoueurs[1].NomJoueur);
-    if (victoire_j1 && victoire_j2){
-        if(JoueurCourant == ListeJoueurs[0]) textemessage.setText("Victoire de " + ListeJoueurs[1].NomJoueur);
-        else textemessage.setText("Victoire de " + ListeJoueurs[0].NomJoueur);
-    }
-    
-        (ResultatAction == true) {
-            return true;
-        } else {
-            return false;
-        }*/
-    void AttribuerCouleursAuxJoueurs() {
-        Random alea = new Random(); // attribution des joueurs au hasard
-        boolean ChoixJoueur;
-        ChoixJoueur = alea.nextBoolean();
-        if (ChoixJoueur == true) {
-            ListeJoueurs[0].CouleurJoueur = "Bleu";
-            ListeJoueurs[1].CouleurJoueur = "Rouge";
-        } else {
-            ListeJoueurs[0].CouleurJoueur = "Rouge";
-            ListeJoueurs[1].CouleurJoueur = "Bleu";
-        }
-    }
-
-    void DefinirCartesPartie() {
-        Random rand = new Random();
-        int NbreCartes = 5;
-
-        for (int i = 0; i < NbreCartes; i++) {
-            int randomIndex = rand.nextInt(ListeCartes.size());
-            Carte randomElement = ListeCartes.get(randomIndex);
-            TabCartePartie[i] = randomElement;
-            //System.out.println(TabCartePartie[i].NomCarte);
-            ListeCartes.remove(randomIndex);
-        }
-
-        //return (TabCartePartie);
-        // création tirage aléatoire parmi le résultat de la méthode SelectionCartePartie
-        // attribution au hasard de 2 pour chaque joueur
-        // affectation de la carte transition à un des joueurs
-    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
