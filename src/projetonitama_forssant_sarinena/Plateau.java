@@ -98,7 +98,7 @@ public class Plateau {
 
     //methode alliant ConditionPierre et ConditionRuisseau
     boolean EtreGagnant(int l, int c, Pion unPion) {
-        if (ConditionPierre(l,c,unPion) == true || ConditionRuisseau(l,c) == true){
+        if (ConditionPierre(l, c, unPion) == true || ConditionRuisseau(l, c) == true) {
             return true;
         }
         return false;
@@ -129,128 +129,233 @@ public class Plateau {
         }
         return false;
     }
-    
+
     void AfficherPlateauSurConsole() {
         // affiche la grille dans la console
 
         for (int l = 4; l >= 0; l--) { // boucle décrémentée car l'affichage conventionnel et celui pris par les tableaux est inversé
-            for (int c = 0; c<5; c++) {
+            for (int c = 0; c < 5; c++) {
                 if (Grille[l][c].PionCourant == null) {
                     System.out.print(" N ");
+                } else if (Grille[l][c].CaseGrise == true){
+                   System.out.print(" G "); 
                 } else if ((Grille[l][c].PionCourant.CouleurPion) != "Rouge" && Grille[l][c].PionCourant.Roi == true) {
                     System.out.print(" A ");
                 } else if ((Grille[l][c].PionCourant.CouleurPion) != "Rouge") {
                     System.out.print(" B ");
-                } else if ((Grille[l][c].PionCourant.CouleurPion) != "Bleu" && Grille[l][c].PionCourant.Roi == true){
+                } else if ((Grille[l][c].PionCourant.CouleurPion) != "Bleu" && Grille[l][c].PionCourant.Roi == true) {
                     System.out.print(" Q ");
-                } else if (Grille[l][c].CaseGrise == true){
-                    System.out.print(" G ");
-                }else {
+                } else if ((Grille[l][c].PionCourant.CouleurPion) != "Bleu") {
                     System.out.print(" R ");
                 }
             }
-            System.out.println(" " + (l+1)); // affichage des numéros de lignes (l+1) car tableau commence à 0
+            System.out.println(" " + (l + 1)); // affichage des numéros de lignes (l+1) car tableau commence à 0
         }
-        for (int c = 0; c<5; c++) {
+        for (int c = 0; c < 5; c++) {
             System.out.print(" " + (c + 1) + " "); // affichage des colonnes (c+1) car tableau commence à 0
         }
         System.out.println(); // affichage global du tableau
     }
 
-    
-    // cases grises -> visualiser les potentiels mouvements de pions avec les cartes en main
-    void PlacerCaseGrise(int l, int c, Carte uneCarte, Pion unPion) { // équivalent de déplacerPion
-        if (uneCarte.NomCarte == "Mante" && unPion == Grille[l][c].PionCourant){
-        Grille[l+1][c-1].AffecterCaseGrise();
-        Grille[l+1][c+1].AffecterCaseGrise();
-        Grille[l-1][c].AffecterCaseGrise();    
-	}
-        if (uneCarte.NomCarte == "Coq" && unPion == Grille[l][c].PionCourant){
-        Grille[l][c-1].AffecterCaseGrise();
-        Grille[l][c+1].AffecterCaseGrise();
-        Grille[l-1][c-1].AffecterCaseGrise();
-        Grille[l+1][c+1].AffecterCaseGrise();       
-	}
-        if (uneCarte.NomCarte == "Crabe" && unPion == Grille[l][c].PionCourant){
-        Grille[l][c-2].AffecterCaseGrise();
-        Grille[l][c+2].AffecterCaseGrise();
-        Grille[l+1][c].AffecterCaseGrise();    
-	}
-        if (uneCarte.NomCarte == "Sanglier" && unPion == Grille[l][c].PionCourant){
-        Grille[l][c-1].AffecterCaseGrise();
-        Grille[l][c+1].AffecterCaseGrise();
-        Grille[l+1][c].AffecterCaseGrise();    
-	}
-        if (uneCarte.NomCarte == "Dragon" && unPion == Grille[l][c].PionCourant){
-        Grille[l-1][c-1].AffecterCaseGrise();
-        Grille[l-1][c+1].AffecterCaseGrise();
-        Grille[l+1][c-2].AffecterCaseGrise();
-        Grille[l+1][c+2].AffecterCaseGrise();
-	}
-        if (uneCarte.NomCarte == "Cobra" && unPion == Grille[l][c].PionCourant){
-        Grille[l][c-1].AffecterCaseGrise();
-        Grille[l+1][c+1].AffecterCaseGrise();
-        Grille[l-1][c+1].AffecterCaseGrise();
-	}
-        if (uneCarte.NomCarte == "Anguille" && unPion == Grille[l][c].PionCourant){
-        Grille[l+1][c-1].AffecterCaseGrise();
-        Grille[l-1][c-1].AffecterCaseGrise();
-        Grille[l][c+1].AffecterCaseGrise();
-	}
-        if (uneCarte.NomCarte == "Elephant" && unPion == Grille[l][c].PionCourant){
-        Grille[l][c-1].AffecterCaseGrise();
-        Grille[l][c+1].AffecterCaseGrise();
-        Grille[l+1][c-1].AffecterCaseGrise();
-        Grille[l+1][c+1].AffecterCaseGrise();
-	}
-        if (uneCarte.NomCarte == "Dragon" && unPion == Grille[l][c].PionCourant){
-        Grille[l][c-2].AffecterCaseGrise();
-        Grille[l+1][c+1].AffecterCaseGrise();
-        Grille[l-1][c+1].AffecterCaseGrise();
-	}
-        if (uneCarte.NomCarte == "Oie" && unPion == Grille[l][c].PionCourant){
-        Grille[l][c-1].AffecterCaseGrise();
-        Grille[l][c+1].AffecterCaseGrise();
-        Grille[l+1][c-1].AffecterCaseGrise();
-        Grille[l-1][c+1].AffecterCaseGrise();
-	}
-        if (uneCarte.NomCarte == "Cheval" && unPion == Grille[l][c].PionCourant){
-        Grille[l][c-1].AffecterCaseGrise();
-        Grille[l+1][c].AffecterCaseGrise();
-        Grille[l-1][c].AffecterCaseGrise();
-	}
-        if (uneCarte.NomCarte == "Singe" && unPion == Grille[l][c].PionCourant){
-        Grille[l+1][c-1].AffecterCaseGrise();
-        Grille[l+1][c+1].AffecterCaseGrise();
-        Grille[l-1][c-1].AffecterCaseGrise();
-        Grille[l-1][c+1].AffecterCaseGrise();
-	}
-        if (uneCarte.NomCarte == "Boeuf" && unPion == Grille[l][c].PionCourant){
-        Grille[l][c+1].AffecterCaseGrise();
-        Grille[l-1][c].AffecterCaseGrise();
-        Grille[l+1][c].AffecterCaseGrise();
-	}
-        if (uneCarte.NomCarte == "Lapin" && unPion == Grille[l][c].PionCourant){
-        Grille[l-1][c-1].AffecterCaseGrise();
-        Grille[l+1][c+1].AffecterCaseGrise();
-        Grille[l][c+2].AffecterCaseGrise();
-	}
-        if (uneCarte.NomCarte == "Tigre" && unPion == Grille[l][c].PionCourant){
-        Grille[l+2][c].AffecterCaseGrise();
-        Grille[l-1][c].AffecterCaseGrise();
-	}
-        if (uneCarte.NomCarte == "Grue" && unPion == Grille[l][c].PionCourant){
-        Grille[l-1][c-1].AffecterCaseGrise();
-        Grille[l-1][c+1].AffecterCaseGrise();
-        Grille[l+1][c].AffecterCaseGrise();
-	}
-       
+    void PlacerCaseGrise(Joueur unJoueur, int l, int c, Carte uneCarte) {
+        if (unJoueur.CouleurJoueur == "Rouge") {
+            PlacerCaseGriseRouge(l, c, uneCarte);
+        } else {
+            PlacerCaseGriseBleu(l, c, uneCarte);
         }
-        
+    }
 
-    // BD : on place les case grises à partir d'un pion choisi par ses coordonnées, et d'une carte, non ? OK
-    // ou sont ces éléments quand on appelle cette méthode ? DANS CETTE CLASSE
-}
+    // cases grises -> visualiser les potentiels mouvements de pions avec les cartes en main
+    void PlacerCaseGriseRouge(int l, int c, Carte uneCarte) { // équivalent de déplacerPion
+        switch (uneCarte.NomCarte) {
+            case "Mante":
+                if ((l>=0 && l<4) && (c>=1 && c<5)){
+                        //Grille[l + 1][c - 1].AffecterCaseGrise();
+                        Grille[l + 1][c - 1].CaseGrise = true; //PROBLEME, L'affichage décale les cases...mais l'idée est là
+                }
+                if ((l>=0 && l<4) && (c>=0 && c<4)){   
+                        Grille[l + 1][c + 1].CaseGrise = true;
+                    }
+                if ((l>=1 && l<5) && (c>=0 && c<5)){
+                        Grille[l - 1][c].CaseGrise = true;
+                }
+                break;
+
+            case "Coq":
+                if ((l>=0 && l<5) && (c>=1 && c<5)){
+                        Grille[l][c - 1].CaseGrise = true;
+                    }
+                if ((l>=0 && l<5) && (c>=0 && c<4)){
+                        Grille[l][c + 1].CaseGrise = true;
+                }
+                if ((l>=1 && l<5) && (c>=1 && c<5)){
+                        Grille[l - 1][c - 1].CaseGrise = true;
+                }
+                if ((l>=0 && l<4) && (c>=0 && c<4)){
+                        Grille[l + 1][c + 1].CaseGrise = true;
+                }
+                break;
+
+                /*
+                } else if (uneCarte.NomCarte == "Crabe") {
+                    Grille[l][c - 2].AffecterCaseGrise();
+                    Grille[l][c + 2].AffecterCaseGrise();
+                    Grille[l + 1][c].AffecterCaseGrise();
+                } else if (uneCarte.NomCarte == "Sanglier") {
+                    Grille[l][c - 1].AffecterCaseGrise();
+                    Grille[l][c + 1].AffecterCaseGrise();
+                    Grille[l + 1][c].AffecterCaseGrise();
+                } else if (uneCarte.NomCarte == "Dragon") {
+                    Grille[l - 1][c - 1].AffecterCaseGrise();
+                    Grille[l - 1][c + 1].AffecterCaseGrise();
+                    Grille[l + 1][c - 2].AffecterCaseGrise();
+                    Grille[l + 1][c + 2].AffecterCaseGrise();
+                } else if (uneCarte.NomCarte == "Cobra") {
+                    Grille[l][c - 1].AffecterCaseGrise();
+                    Grille[l + 1][c + 1].AffecterCaseGrise();
+                    Grille[l - 1][c + 1].AffecterCaseGrise();
+                } else if (uneCarte.NomCarte == "Anguille") {
+                    Grille[l + 1][c - 1].AffecterCaseGrise();
+                    Grille[l - 1][c - 1].AffecterCaseGrise();
+                    Grille[l][c + 1].AffecterCaseGrise();
+                } else if (uneCarte.NomCarte == "Elephant") {
+                    Grille[l][c - 1].AffecterCaseGrise();
+                    Grille[l][c + 1].AffecterCaseGrise();
+                    Grille[l + 1][c - 1].AffecterCaseGrise();
+                    Grille[l + 1][c + 1].AffecterCaseGrise();
+                } else if (uneCarte.NomCarte == "Dragon") {
+                    Grille[l][c - 2].AffecterCaseGrise();
+                    Grille[l + 1][c + 1].AffecterCaseGrise();
+                    Grille[l - 1][c + 1].AffecterCaseGrise();
+                } else if (uneCarte.NomCarte == "Oie") {
+                    Grille[l][c - 1].AffecterCaseGrise();
+                    Grille[l][c + 1].AffecterCaseGrise();
+                    Grille[l + 1][c - 1].AffecterCaseGrise();
+                    Grille[l - 1][c + 1].AffecterCaseGrise();
+                } else if (uneCarte.NomCarte == "Cheval") {
+                    Grille[l][c - 1].AffecterCaseGrise();
+                    Grille[l + 1][c].AffecterCaseGrise();
+                    Grille[l - 1][c].AffecterCaseGrise();
+                } else if (uneCarte.NomCarte == "Singe") {
+                    Grille[l + 1][c - 1].AffecterCaseGrise();
+                    Grille[l + 1][c + 1].AffecterCaseGrise();
+                    Grille[l - 1][c - 1].AffecterCaseGrise();
+                    Grille[l - 1][c + 1].AffecterCaseGrise();
+                } else if (uneCarte.NomCarte == "Boeuf") {
+                    Grille[l][c + 1].AffecterCaseGrise();
+                    Grille[l - 1][c].AffecterCaseGrise();
+                    Grille[l + 1][c].AffecterCaseGrise();
+                } else if (uneCarte.NomCarte == "Lapin") {
+                    Grille[l - 1][c - 1].AffecterCaseGrise();
+                    Grille[l + 1][c + 1].AffecterCaseGrise();
+                    Grille[l][c + 2].AffecterCaseGrise();
+                } else if (uneCarte.NomCarte == "Tigre") {
+                    Grille[l + 2][c].AffecterCaseGrise();
+                    Grille[l - 1][c].AffecterCaseGrise();
+                } else if (uneCarte.NomCarte == "Grue") {
+                    Grille[l - 1][c - 1].AffecterCaseGrise();
+                    Grille[l - 1][c + 1].AffecterCaseGrise();
+                    Grille[l + 1][c].AffecterCaseGrise();
+                }*/
+
+        }
+    }
+
+        void PlacerCaseGriseBleu(int l, int c, Carte uneCarte) { // équivalent de déplacerPion
+        switch (uneCarte.NomCarte) {
+                case "Mante":
+                    if ((l>=1 && l<5) && (c>=0 && c<4)){
+                            Grille[l - 1][c + 1].CaseGrise = true;
+                    }
+                    if ((l>=1 && l<5) && (c>=1 && c<5)){
+                        Grille[l - 1][c - 1].CaseGrise = true;
+                    }
+                    if ((l>=0 && l<4) && (c>=0 && c<5)){
+                            Grille[l + 1][c].CaseGrise = true;
+                    }
+                    break;
+                case "Coq":
+                    if ((l>=0 && l<5) && (c>=1 && c<5)){
+                            Grille[l][c - 1].CaseGrise = true;
+                    }
+                    if ((l>=0 && l<5) && (c>=0 && c<4)){
+                            Grille[l][c + 1].CaseGrise = true;
+                    }
+                    if ((l>=1 && l<5) && (c>=1 && c<5)){
+                            Grille[l - 1][c - 1].CaseGrise = true;
+                    }
+                    if ((l>=0 && l<4) && (c>=1 && c<4)){
+                            Grille[l + 1][c + 1].CaseGrise = true;
+                    }
+                    break;
+            }
+
+            /*
+            } else if (uneCarte.NomCarte == "Crabe") {
+                    Grille[l][c - 2].AffecterCaseGrise();
+                    Grille[l][c + 2].AffecterCaseGrise();
+                    Grille[l + 1][c].AffecterCaseGrise();
+                } else if (uneCarte.NomCarte == "Sanglier") {
+                    Grille[l][c - 1].AffecterCaseGrise();
+                    Grille[l][c + 1].AffecterCaseGrise();
+                    Grille[l + 1][c].AffecterCaseGrise();
+                } else if (uneCarte.NomCarte == "Dragon") {
+                    Grille[l - 1][c - 1].AffecterCaseGrise();
+                    Grille[l - 1][c + 1].AffecterCaseGrise();
+                    Grille[l + 1][c - 2].AffecterCaseGrise();
+                    Grille[l + 1][c + 2].AffecterCaseGrise();
+                } else if (uneCarte.NomCarte == "Cobra") {
+                    Grille[l][c - 1].AffecterCaseGrise();
+                    Grille[l + 1][c + 1].AffecterCaseGrise();
+                    Grille[l - 1][c + 1].AffecterCaseGrise();
+                } else if (uneCarte.NomCarte == "Anguille") {
+                    Grille[l + 1][c - 1].AffecterCaseGrise();
+                    Grille[l - 1][c - 1].AffecterCaseGrise();
+                    Grille[l][c + 1].AffecterCaseGrise();
+                } else if (uneCarte.NomCarte == "Elephant") {
+                    Grille[l][c - 1].AffecterCaseGrise();
+                    Grille[l][c + 1].AffecterCaseGrise();
+                    Grille[l + 1][c - 1].AffecterCaseGrise();
+                    Grille[l + 1][c + 1].AffecterCaseGrise();
+                } else if (uneCarte.NomCarte == "Dragon") {
+                    Grille[l][c - 2].AffecterCaseGrise();
+                    Grille[l + 1][c + 1].AffecterCaseGrise();
+                    Grille[l - 1][c + 1].AffecterCaseGrise();
+                } else if (uneCarte.NomCarte == "Oie") {
+                    Grille[l][c - 1].AffecterCaseGrise();
+                    Grille[l][c + 1].AffecterCaseGrise();
+                    Grille[l + 1][c - 1].AffecterCaseGrise();
+                    Grille[l - 1][c + 1].AffecterCaseGrise();
+                } else if (uneCarte.NomCarte == "Cheval") {
+                    Grille[l][c - 1].AffecterCaseGrise();
+                    Grille[l + 1][c].AffecterCaseGrise();
+                    Grille[l - 1][c].AffecterCaseGrise();
+                } else if (uneCarte.NomCarte == "Singe") {
+                    Grille[l + 1][c - 1].AffecterCaseGrise();
+                    Grille[l + 1][c + 1].AffecterCaseGrise();
+                    Grille[l - 1][c - 1].AffecterCaseGrise();
+                    Grille[l - 1][c + 1].AffecterCaseGrise();
+                } else if (uneCarte.NomCarte == "Boeuf") {
+                    Grille[l][c + 1].AffecterCaseGrise();
+                    Grille[l - 1][c].AffecterCaseGrise();
+                    Grille[l + 1][c].AffecterCaseGrise();
+                } else if (uneCarte.NomCarte == "Lapin") {
+                    Grille[l - 1][c - 1].AffecterCaseGrise();
+                    Grille[l + 1][c + 1].AffecterCaseGrise();
+                    Grille[l][c + 2].AffecterCaseGrise();
+                } else if (uneCarte.NomCarte == "Tigre") {
+                    Grille[l + 2][c].AffecterCaseGrise();
+                    Grille[l - 1][c].AffecterCaseGrise();
+                } else if (uneCarte.NomCarte == "Grue") {
+                    Grille[l - 1][c - 1].AffecterCaseGrise();
+                    Grille[l - 1][c + 1].AffecterCaseGrise();
+                    Grille[l + 1][c].AffecterCaseGrise();
+                }*/
+        }
+
+        // BD : on place les case grises à partir d'un pion choisi par ses coordonnées, et d'une carte, non ? OK
+        // ou sont ces éléments quand on appelle cette méthode ? DANS CETTE CLASSE
+    }
 
 // déplacement des cartes dans parties
 

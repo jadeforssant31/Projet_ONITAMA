@@ -8,6 +8,7 @@ package projetonitama_forssant_sarinena;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -22,6 +23,8 @@ public class FenetreDeJeu extends javax.swing.JFrame {
     Carte CarteCourante;
     Carte TabCartePartie[] = new Carte[5];
     Pion PionCourant;
+    //PileCarte unePileCarte = new PileCarte();
+    //Partie unePartie = new Partie();
 
     // échange des valeurs des matrices
     int[][] Mante = {{1, 2}, {3, 1}, {3, 3}};
@@ -107,21 +110,39 @@ public class FenetreDeJeu extends javax.swing.JFrame {
         carte2_j2.setVisible(false);
         // On cache les pannels d'infos partie, joueur ainsi que ceux des cartes, ils seront visible seulement quand l'utilisateur aura appuyé sur le bouton pour demarrer une partie
 
+        
+
+        
+        /*Carte [] TabCartePartie = {CarteMante,CarteSinge,CarteCheval,CarteBoeuf,CarteGrue};
+        
+        
+        for (int i = 4; i >= 0; i--) { // on décremente car [0;Ø] en java est en haut à gauche, nous l'avons pris en bas a gauche
+            for (int j = 0; j < 1; j++) {
+                CarteGraphique carte_graphique = new CarteGraphique(TabCartePartie[i]);
+                grille_jeu.add(carte_graphique);
+            }}
+        
+        //Carte TabTransi[][] = new Carte[1][1];
+        unePileCarte.GrilleCarte[0][0] = CarteMante;
+        
+        CarteGraphique cartetransition = new CarteGraphique(unePileCarte.GrilleCarte[0][0]);
+        carte_transition.add(cartetransition);
+           
+        
         for (int i = 4; i >= 0; i--) { // on décremente car [0;Ø] en java est en haut à gauche, nous l'avons pris en bas a gauche
             for (int j = 0; j < 5; j++) {
                 CaseGraphique case_graphique = new CaseGraphique(PlateauJeu.Grille[i][j]);
                 grille_jeu.add(case_graphique);
-
-                
+  
                 // tabCarte ne va pas et plante l'affichage, carte specifique interface ok mais pas d'image
-                /*CarteGraphique carte_graphique1_j1 = new CarteGraphique(CarteMante);
+                CarteGraphique carte_graphique1_j1 = new CarteGraphique(CarteMante);
                 carte1_j1.add(carte_graphique1_j1);
                 CarteGraphique carte_graphique2_j1 = new CarteGraphique(CarteDragon);
                 carte2_j1.add(carte_graphique2_j1);
                 CarteGraphique carte_graphique1_j2 = new CarteGraphique(TabCartePartie[2]);
                 carte1_j2.add(carte_graphique1_j2);
                 CarteGraphique carte_graphique2_j2 = new CarteGraphique(TabCartePartie[3]);
-                carte2_j2.add(carte_graphique2_j2);*/
+                carte2_j2.add(carte_graphique2_j2);
                 CarteGraphique cartetransition = new CarteGraphique(CarteMante);
                 carte_transition.add(cartetransition);
                 
@@ -140,7 +161,7 @@ public class FenetreDeJeu extends javax.swing.JFrame {
                         Case c = case_graphique.CaseAssociee;
                         if (c.PionCourant == null) {
                             return;
-                        }
+                        }*/
                         /*
                         if (c.PionCourant.CouleurPion.equals(JoueurCourant.CouleurJoueur)) {
                             textemessage.setText(JoueurCourant.NomJoueur + " déplace un de ses pions"); //setText permet d'afficher des String sur une fenêtre de texte
@@ -176,14 +197,14 @@ public class FenetreDeJeu extends javax.swing.JFrame {
                             } else {
                                 textemessage.setText("Victoire par faute de " + ListeJoueurs[0].Nom); // explicite les règles aux joueurs
                             }
-                        }*/
+                        }
 
                     }
                 });
                 //grille_jeu.add(case_graphique);
             }
 
-        }
+        }*/
 
     }
 
@@ -221,6 +242,12 @@ public class FenetreDeJeu extends javax.swing.JFrame {
         Joueur2.CarteEnMain[0] = TabCartePartie[2];
         Joueur2.CarteEnMain[1] = TabCartePartie[3];
         CarteTransition = TabCartePartie[4];
+        
+        /*// Test sur placercartegrise
+        Joueur1.CarteEnMain[0] = CarteMante;
+        Joueur1.CarteEnMain[1] = CarteCoq;
+        Joueur2.CarteEnMain[0] = CarteMante;
+        Joueur2.CarteEnMain[1] = CarteCoq;*/
 
         // On determine qui commence à jouer
         Random joueur = new Random();
@@ -249,7 +276,7 @@ public class FenetreDeJeu extends javax.swing.JFrame {
         lbl_joueur_courant.setText(JoueurCourant.NomJoueur);
 
         //PlateauJeu.AfficherPlateauSurConsole();
-        //Tour();
+        Tour();
     }
 
     void Tour() { // équivalent de notre méthode Menu() achevée
@@ -258,16 +285,18 @@ public class FenetreDeJeu extends javax.swing.JFrame {
         String ChoixCarte;
         Scanner sc = new Scanner(System.in);
         ChoixCarte = sc.nextLine();
-        while (!ChoixCarte.equals(JoueurCourant.CarteEnMain[0].NomCarte) && !ChoixCarte.equals(JoueurCourant.CarteEnMain[1].NomCarte)) {
-            System.out.println("Carte invalide. Réessayer.");
-            ChoixCarte = sc.nextLine();
+        while (!ChoixCarte.equals(JoueurCourant.CarteEnMain[0].NomCarte) && !ChoixCarte.equals(JoueurCourant.CarteEnMain[1].NomCarte)){
+             System.out.println("Carte invalide. Réessayer.");
+             ChoixCarte = sc.nextLine();
         }
         System.out.println("la carte déplacement choisie est " + ChoixCarte);
-
-        /*System.out.println("Choisissez un pion à déplacer");
+        Carte CarteDuTour = CarteChoisie(ChoixCarte);
+        
+        System.out.println("Choisissez un pion à déplacer");
         int c;
         int l;
-        System.out.println("Donner les coordonnées du jeton à récuperer : ");
+        do{
+        System.out.println("Donner les coordonnées du pion à déplacer : ");
         System.out.println("Saisir colonne : ");
         c = sc.nextInt() - 1;
         while (c < 0 || c > 4) {
@@ -279,13 +308,16 @@ public class FenetreDeJeu extends javax.swing.JFrame {
         while (l < 0 || l > 4) {
             System.out.println("Ligne invalide. Réessayer.");
             l = sc.nextInt() - 1;
+        }
+        } while (ChoisirPion(l,c)!= true);
         
-        
-        
+        PlateauJeu.PlacerCaseGrise(JoueurCourant, l, c, CarteDuTour);
+        PlateauJeu.AfficherPlateauSurConsole();
+
         System.out.println("Choisissez une carte grise");
-        return true;
-    }*/
-    }
+    
+        }
+   
 
     public void JoueurSuivant() {
         // rotation des joueurs
@@ -345,6 +377,26 @@ public class FenetreDeJeu extends javax.swing.JFrame {
         // création tirage aléatoire parmi le résultat de la méthode SelectionCartePartie
         // attribution au hasard de 2 pour chaque joueur
         // affectation de la carte transition à un des joueurs
+    }
+    
+        Carte CarteChoisie(String unNomCarte){
+        if (JoueurCourant.CarteEnMain[0].NomCarte == unNomCarte){
+            return JoueurCourant.CarteEnMain[0];
+        }
+        else return JoueurCourant.CarteEnMain[1];
+    }
+        
+  boolean ChoisirPion(int l, int c) {
+        if (PlateauJeu.Grille[l][c].PionCourant == null) {
+            System.out.println("vous n'avez pas sélectionné de pion");
+            return false;
+        } else if (PlateauJeu.Grille[l][c].PionCourant.CouleurPion == JoueurCourant.CouleurJoueur) {
+            return true;
+        }
+        else {            
+            System.out.println("le pion selectionné n'est pas de votre couleur");
+            return false;
+        }
     }
 
     /**

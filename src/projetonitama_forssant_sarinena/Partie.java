@@ -21,7 +21,8 @@ public class Partie {
     Carte CarteTransition;
     Carte CarteCourante;
     Carte TabCartePartie[] = new Carte[5];
-
+    Carte GrilleCarte[][] = new Carte[5][1];
+    
     int[][] Mante = {{1, 2}, {3, 1}, {3, 3}};
     Carte CarteMante = new Carte("Mante", "Rouge", Mante);
 
@@ -216,12 +217,21 @@ public class Partie {
         }
         return uneCarte.NomCarte;
     }*/
+    
     String NomCarteChoisie(Carte uneCarte) {
         if (JoueurCourant.ChoisirCarteDansMain(uneCarte) != true) {
             return "Erreur...Choix de carte non valide";
         }
         return uneCarte.NomCarte;
     }
+    
+    Carte CarteChoisie(String unNomCarte){
+        if (JoueurCourant.CarteEnMain[0].NomCarte == unNomCarte){
+            return JoueurCourant.CarteEnMain[0];
+        }
+        else return JoueurCourant.CarteEnMain[1];
+    }
+    
 
     boolean ChoisirPion(Pion unPion) {
         if (unPion.CouleurPion == JoueurCourant.CouleurJoueur) {
@@ -231,7 +241,16 @@ public class Partie {
             return false;
         }
     }
-
+    
+        boolean ChoisirPion(int l, int c) {
+        if (PlateauJeu.Grille[l][c].PionCourant.CouleurPion == JoueurCourant.CouleurJoueur) {
+            return true;
+        } else {
+            System.out.println("le pion selectionné n'est pas de votre couleur");
+            return false;
+        }
+    }
+        
     void Tour() { // équivalent de notre méthode Menu() achevée
         System.out.println("Tour de " + JoueurCourant.NomJoueur);
         System.out.println("Choisissez une carte déplacement");
@@ -243,11 +262,12 @@ public class Partie {
              ChoixCarte = sc.nextLine();
         }
         System.out.println("la carte déplacement choisie est " + ChoixCarte);
+        Carte CarteDuTour = CarteChoisie(ChoixCarte);
         
-        /*System.out.println("Choisissez un pion à déplacer");
+        System.out.println("Choisissez un pion à déplacer");
         int c;
         int l;
-        System.out.println("Donner les coordonnées du jeton à récuperer : ");
+        System.out.println("Donner les coordonnées du pion à déplacer : ");
         System.out.println("Saisir colonne : ");
         c = sc.nextInt() - 1;
         while (c < 0 || c > 4) {
@@ -260,22 +280,12 @@ public class Partie {
             System.out.println("Ligne invalide. Réessayer.");
             l = sc.nextInt() - 1;
         
+
         
-        
+    
         System.out.println("Choisissez une carte grise");
-        return true;
-    }*/
+    
     }
-
-    boolean DeplacementPion(int l, int c, Carte uneCarte) { // à revoir
-        if (uneCarte.NomCarte == "Mante") {
-            //Plateau.Grille[l][c].PionCourant = Plateau.Grille[l+1][c].PionCourant;     
-
-//PROBLEME METTRE DES COORD DANS CLASSE PARTIE OU DES CARTES DANS CLASSE PLATEAU
-        }
-
-        // appeler méthode déplacer pion dans plateau
-        return true;
     }
 
     void JoueurSuivant() { // changement de joueur

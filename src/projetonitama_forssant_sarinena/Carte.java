@@ -27,7 +27,11 @@ public class Carte {
         Matrice[x][y] = 1;
     }
     // BD : je rajouterai un second parametre permettant de remplir la matrice pour chaque carte OK
-}     
+}  
+    
+    public Carte(){
+        CarteCourante = null;
+    }
 
 String LireCarte(){ //Retourne au joueur le nom de la carte
    return NomCarte;
