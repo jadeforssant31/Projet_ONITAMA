@@ -137,8 +137,8 @@ public class Plateau {
             for (int c = 0; c < 5; c++) {
                 if (Grille[l][c].PionCourant == null) {
                     System.out.print(" N ");
-                } else if (Grille[l][c].CaseGrise == true){
-                   System.out.print(" G "); 
+                } else if (Grille[l][c].CaseGrise == true) {
+                    System.out.print(" G ");
                 } else if ((Grille[l][c].PionCourant.CouleurPion) != "Rouge" && Grille[l][c].PionCourant.Roi == true) {
                     System.out.print(" A ");
                 } else if ((Grille[l][c].PionCourant.CouleurPion) != "Rouge") {
@@ -169,193 +169,426 @@ public class Plateau {
     void PlacerCaseGriseRouge(int l, int c, Carte uneCarte) { // équivalent de déplacerPion
         switch (uneCarte.NomCarte) {
             case "Mante":
-                if ((l>=0 && l<4) && (c>=1 && c<5)){
-                        //Grille[l + 1][c - 1].AffecterCaseGrise();
-                        Grille[l + 1][c - 1].CaseGrise = true; //PROBLEME, L'affichage décale les cases...mais l'idée est là
+                if ((l >= 0 && l < 4) && (c >= 1 && c < 5)) {
+                    //Grille[l + 1][c - 1].AffecterCaseGrise();
+                    Grille[l + 1][c - 1].CaseGrise = true; //PROBLEME, L'affichage décale les cases...mais l'idée est là
                 }
-                if ((l>=0 && l<4) && (c>=0 && c<4)){   
-                        Grille[l + 1][c + 1].CaseGrise = true;
-                    }
-                if ((l>=1 && l<5) && (c>=0 && c<5)){
-                        Grille[l - 1][c].CaseGrise = true;
+                if ((l >= 0 && l < 4) && (c >= 0 && c < 4)) {
+                    Grille[l + 1][c + 1].CaseGrise = true;
+                }
+                if ((l >= 1 && l < 5) && (c >= 0 && c < 5)) {
+                    Grille[l - 1][c].CaseGrise = true;
                 }
                 break;
 
             case "Coq":
-                if ((l>=0 && l<5) && (c>=1 && c<5)){
-                        Grille[l][c - 1].CaseGrise = true;
-                    }
-                if ((l>=0 && l<5) && (c>=0 && c<4)){
-                        Grille[l][c + 1].CaseGrise = true;
+                if ((l >= 0 && l < 5) && (c >= 1 && c < 5)) {
+                    Grille[l][c - 1].CaseGrise = true;
                 }
-                if ((l>=1 && l<5) && (c>=1 && c<5)){
-                        Grille[l - 1][c - 1].CaseGrise = true;
+                if ((l >= 0 && l < 5) && (c >= 0 && c < 4)) {
+                    Grille[l][c + 1].CaseGrise = true;
                 }
-                if ((l>=0 && l<4) && (c>=0 && c<4)){
-                        Grille[l + 1][c + 1].CaseGrise = true;
+                if ((l >= 1 && l < 5) && (c >= 1 && c < 5)) {
+                    Grille[l - 1][c - 1].CaseGrise = true;
+                }
+                if ((l >= 0 && l < 4) && (c >= 0 && c < 4)) {
+                    Grille[l + 1][c + 1].CaseGrise = true;
                 }
                 break;
 
-                /*
-                } else if (uneCarte.NomCarte == "Crabe") {
-                    Grille[l][c - 2].AffecterCaseGrise();
-                    Grille[l][c + 2].AffecterCaseGrise();
-                    Grille[l + 1][c].AffecterCaseGrise();
-                } else if (uneCarte.NomCarte == "Sanglier") {
-                    Grille[l][c - 1].AffecterCaseGrise();
-                    Grille[l][c + 1].AffecterCaseGrise();
-                    Grille[l + 1][c].AffecterCaseGrise();
-                } else if (uneCarte.NomCarte == "Dragon") {
-                    Grille[l - 1][c - 1].AffecterCaseGrise();
-                    Grille[l - 1][c + 1].AffecterCaseGrise();
-                    Grille[l + 1][c - 2].AffecterCaseGrise();
-                    Grille[l + 1][c + 2].AffecterCaseGrise();
-                } else if (uneCarte.NomCarte == "Cobra") {
-                    Grille[l][c - 1].AffecterCaseGrise();
-                    Grille[l + 1][c + 1].AffecterCaseGrise();
-                    Grille[l - 1][c + 1].AffecterCaseGrise();
-                } else if (uneCarte.NomCarte == "Anguille") {
-                    Grille[l + 1][c - 1].AffecterCaseGrise();
-                    Grille[l - 1][c - 1].AffecterCaseGrise();
-                    Grille[l][c + 1].AffecterCaseGrise();
-                } else if (uneCarte.NomCarte == "Elephant") {
-                    Grille[l][c - 1].AffecterCaseGrise();
-                    Grille[l][c + 1].AffecterCaseGrise();
-                    Grille[l + 1][c - 1].AffecterCaseGrise();
-                    Grille[l + 1][c + 1].AffecterCaseGrise();
-                } else if (uneCarte.NomCarte == "Dragon") {
-                    Grille[l][c - 2].AffecterCaseGrise();
-                    Grille[l + 1][c + 1].AffecterCaseGrise();
-                    Grille[l - 1][c + 1].AffecterCaseGrise();
-                } else if (uneCarte.NomCarte == "Oie") {
-                    Grille[l][c - 1].AffecterCaseGrise();
-                    Grille[l][c + 1].AffecterCaseGrise();
-                    Grille[l + 1][c - 1].AffecterCaseGrise();
-                    Grille[l - 1][c + 1].AffecterCaseGrise();
-                } else if (uneCarte.NomCarte == "Cheval") {
-                    Grille[l][c - 1].AffecterCaseGrise();
-                    Grille[l + 1][c].AffecterCaseGrise();
-                    Grille[l - 1][c].AffecterCaseGrise();
-                } else if (uneCarte.NomCarte == "Singe") {
-                    Grille[l + 1][c - 1].AffecterCaseGrise();
-                    Grille[l + 1][c + 1].AffecterCaseGrise();
-                    Grille[l - 1][c - 1].AffecterCaseGrise();
-                    Grille[l - 1][c + 1].AffecterCaseGrise();
-                } else if (uneCarte.NomCarte == "Boeuf") {
-                    Grille[l][c + 1].AffecterCaseGrise();
-                    Grille[l - 1][c].AffecterCaseGrise();
-                    Grille[l + 1][c].AffecterCaseGrise();
-                } else if (uneCarte.NomCarte == "Lapin") {
-                    Grille[l - 1][c - 1].AffecterCaseGrise();
-                    Grille[l + 1][c + 1].AffecterCaseGrise();
-                    Grille[l][c + 2].AffecterCaseGrise();
-                } else if (uneCarte.NomCarte == "Tigre") {
-                    Grille[l + 2][c].AffecterCaseGrise();
-                    Grille[l - 1][c].AffecterCaseGrise();
-                } else if (uneCarte.NomCarte == "Grue") {
-                    Grille[l - 1][c - 1].AffecterCaseGrise();
-                    Grille[l - 1][c + 1].AffecterCaseGrise();
-                    Grille[l + 1][c].AffecterCaseGrise();
-                }*/
+            case "Crabe":
+                if ((l >= 0 && l < 5) && (c >= 1 && c < 5)) {// BIEN CHECK POUR LE -2
+                    Grille[l][c - 2].CaseGrise = true;
+                }
+                if ((l >= 0 && l < 5) && (c >= 0 && c < 3)) { // BIEN CHECK POUR LE +2
+                    Grille[l][c + 2].CaseGrise = true;
+                }
+                if ((l >= 0 && l < 4) && (c >= 0 && c < 5)) {
+                    Grille[l + 1][c].CaseGrise = true;
+                }
+                break;
+
+            case "Sanglier":
+                if ((l >= 0 && l < 5) && (c >= 1 && c < 5)) {
+                    Grille[l][c - 1].CaseGrise = true;
+                }
+                if ((l >= 0 && l < 5) && (c >= 0 && c < 4)) {
+                    Grille[l][c + 1].CaseGrise = true;
+                }
+                if ((l >= 0 && l < 4) && (c >= 0 && c < 5)) {
+                    Grille[l + 1][c].CaseGrise = true;
+                }
+                break;
+
+            case "Dragon":
+                if ((l >= 1 && l < 5) && (c >= 1 && c < 5)) {
+                    Grille[l - 1][c - 1].CaseGrise = true;
+                }
+                if ((l >= 1 && l < 5) && (c >= 0 && c < 4)) {
+                    Grille[l - 1][c + 1].CaseGrise = true;
+                }
+                if ((l >= 0 && l < 4) && (c >= 2 && c < 5)) { // CHECK LE -2 // changement c-2 -> c<=2 à la place de 1
+                    Grille[l + 1][c - 2].CaseGrise = true;
+                }
+                if ((l >= 0 && l < 4) && (c >= 0 && c < 3)) { // CHECK LE +2
+                    Grille[l + 1][c + 2].CaseGrise = true;
+                }
+                break;
+
+            case "Cobra":
+                if ((l >= 0 && l < 5) && (c >= 1 && c < 5)) {
+                    Grille[l][c - 1].CaseGrise = true;
+                }
+                if ((l >= 0 && l < 4) && (c >= 0 && c < 4)) {
+                    Grille[l + 1][c + 1].CaseGrise = true;
+                }
+                if ((l >= 1 && l < 5) && (c >= 0 && c < 4)) {
+                    Grille[l - 1][c + 1].CaseGrise = true;
+                }
+                break;
+
+            case "Anguille":
+                if ((l >= 0 && l < 4) && (c >= 1 && c < 5)) {
+                    Grille[l + 1][c - 1].CaseGrise = true;
+                }
+                if ((l >= 1 && l < 5) && (c >= 1 && c < 5)) {
+                    Grille[l - 1][c - 1].CaseGrise = true;
+                }
+                if ((l >= 0 && l < 5) && (c >= 0 && c < 4)) {
+                    Grille[l][c + 1].CaseGrise = true;
+                }
+                break;
+
+            case "Elephant":
+                if ((l >= 0 && l < 5) && (c >= 1 && c < 5)) {
+                    Grille[l][c - 1].CaseGrise = true;
+                }
+                if ((l >= 0 && l < 5) && (c >= 0 && c < 4)) {
+                    Grille[l][c + 1].CaseGrise = true;
+                }
+                if ((l >= 0 && l < 4) && (c >= 1 && c < 5)) {
+                    Grille[l + 1][c - 1].CaseGrise = true;
+                }
+                if ((l >= 0 && l < 4) && (c >= 0 && c < 4)) {
+                    Grille[l + 1][c + 1].CaseGrise = true;
+                }
+                break;
+
+            case "Grenouille":
+                if ((l >= 0 && l < 5) && (c >= 2 && c < 5)) {
+                    Grille[l][c - 2].CaseGrise = true;
+                }
+                if ((l >= 0 && l < 4) && (c >= 1 && c < 5)) {
+                    Grille[l + 1][c - 1].CaseGrise = true;
+                }
+                if ((l >= 1 && l < 5) && (c >= 0 && c < 4)) {
+                    Grille[l - 1][c + 1].CaseGrise = true;
+                }
+                break;
+
+            case "Oie":
+                if ((l >= 0 && l < 5) && (c >= 1 && c < 5)) {
+                    Grille[l][c - 1].CaseGrise = true;
+                }
+                if ((l >= 0 && l < 5) && (c >= 0 && c < 4)) {
+                    Grille[l][c + 1].CaseGrise = true;
+                }
+                if ((l >= 0 && l < 4) && (c >= 1 && c < 5)) {
+                    Grille[l + 1][c - 1].CaseGrise = true;
+                }
+                if ((l >= 1 && l < 5) && (c >= 0 && c < 4)) {
+                    Grille[l - 1][c + 1].CaseGrise = true;
+                }
+                break;
+
+            case "Cheval":
+                if ((l >= 0 && l < 5) && (c >= 1 && c < 5)) {
+                    Grille[l][c - 1].CaseGrise = true;
+                }
+                if ((l >= 0 && l < 4) && (c >= 0 && c < 5)) {
+                    Grille[l + 1][c].CaseGrise = true;
+                }
+                if ((l >= 1 && l < 5) && (c >= 0 && c < 5)) {
+                    Grille[l - 1][c].CaseGrise = true;
+                }
+                break;
+
+            case "Singe":
+                if ((l >= 0 && l < 4) && (c >= 1 && c < 5)) {
+                    Grille[l + 1][c - 1].CaseGrise = true;
+                }
+                if ((l >= 0 && l < 4) && (c >= 0 && c < 4)) {
+                    Grille[l + 1][c + 1].CaseGrise = true;
+                }
+                if ((l >= 1 && l < 5) && (c >= 1 && c < 5)) {
+                    Grille[l - 1][c - 1].CaseGrise = true;
+                }
+                if ((l >= 1 && l < 5) && (c >= 0 && c < 4)) {
+                    Grille[l - 1][c + 1].CaseGrise = true;
+                }
+                break;
+
+            case "Boeuf":
+                if ((l >= 0 && l < 5) && (c >= 0 && c < 4)) {
+                    Grille[l][c + 1].CaseGrise = true;
+                }
+                if ((l >= 1 && l < 5) && (c >= 0 && c < 5)) {
+                    Grille[l - 1][c].CaseGrise = true;
+                }
+                if ((l >= 0 && l < 4) && (c >= 0 && c < 5)) {
+                    Grille[l + 1][c].CaseGrise = true;
+                }
+                break;
+
+            case "Lapin":
+                if ((l >= 1 && l < 5) && (c >= 1 && c < 5)) {
+                    Grille[l - 1][c - 1].CaseGrise = true;
+                }
+                if ((l >= 0 && l < 4) && (c >= 0 && c < 4)) {
+                    Grille[l + 1][c + 1].CaseGrise = true;
+                }
+                if ((l >= 0 && l < 5) && (c >= 0 && c < 3)) { // BIEN CHECK POUR LE +2
+                    Grille[l][c + 2].CaseGrise = true;
+                }
+                break;
+
+            case "Tigre":
+                if ((l >= 0 && l < 3) && (c >= 0 && c < 5)) { // BIEN CHECK POUR LE +2 DS LIGNE
+                    Grille[l + 2][c].CaseGrise = true;
+                }
+                if ((l >= 1 && l < 5) && (c >= 0 && c < 5)) {
+                    Grille[l - 1][c].CaseGrise = true;
+                }
+                break;
+
+            case "Grue":
+                if ((l >= 1 && l < 5) && (c >= 1 && c < 5)) {
+                    Grille[l - 1][c - 1].CaseGrise = true;
+                }
+                if ((l >= 1 && l < 5) && (c >= 0 && c < 4)) {
+                    Grille[l - 1][c + 1].CaseGrise = true;
+                }
+                if ((l >= 0 && l < 4) && (c >= 0 && c < 5)) {
+                    Grille[l + 1][c].CaseGrise = true;
+                }
+                break;
 
         }
     }
 
-        void PlacerCaseGriseBleu(int l, int c, Carte uneCarte) { // équivalent de déplacerPion
+    void PlacerCaseGriseBleu(int l, int c, Carte uneCarte) { // équivalent de déplacerPion
         switch (uneCarte.NomCarte) {
-                case "Mante":
-                    if ((l>=1 && l<5) && (c>=0 && c<4)){
-                            Grille[l - 1][c + 1].CaseGrise = true;
-                    }
-                    if ((l>=1 && l<5) && (c>=1 && c<5)){
-                        Grille[l - 1][c - 1].CaseGrise = true;
-                    }
-                    if ((l>=0 && l<4) && (c>=0 && c<5)){
-                            Grille[l + 1][c].CaseGrise = true;
-                    }
-                    break;
-                case "Coq":
-                    if ((l>=0 && l<5) && (c>=1 && c<5)){
-                            Grille[l][c - 1].CaseGrise = true;
-                    }
-                    if ((l>=0 && l<5) && (c>=0 && c<4)){
-                            Grille[l][c + 1].CaseGrise = true;
-                    }
-                    if ((l>=1 && l<5) && (c>=1 && c<5)){
-                            Grille[l - 1][c - 1].CaseGrise = true;
-                    }
-                    if ((l>=0 && l<4) && (c>=1 && c<4)){
-                            Grille[l + 1][c + 1].CaseGrise = true;
-                    }
-                    break;
-            }
+            case "Mante":
+                if ((l >= 1 && l < 5) && (c >= 0 && c < 4)) {
+                    Grille[l - 1][c + 1].CaseGrise = true;
+                }
+                if ((l >= 1 && l < 5) && (c >= 1 && c < 5)) {
+                    Grille[l - 1][c - 1].CaseGrise = true;
+                }
+                if ((l >= 0 && l < 4) && (c >= 0 && c < 5)) {
+                    Grille[l + 1][c].CaseGrise = true;
+                }
+                break;
 
-            /*
-            } else if (uneCarte.NomCarte == "Crabe") {
-                    Grille[l][c - 2].AffecterCaseGrise();
-                    Grille[l][c + 2].AffecterCaseGrise();
-                    Grille[l + 1][c].AffecterCaseGrise();
-                } else if (uneCarte.NomCarte == "Sanglier") {
-                    Grille[l][c - 1].AffecterCaseGrise();
-                    Grille[l][c + 1].AffecterCaseGrise();
-                    Grille[l + 1][c].AffecterCaseGrise();
-                } else if (uneCarte.NomCarte == "Dragon") {
-                    Grille[l - 1][c - 1].AffecterCaseGrise();
-                    Grille[l - 1][c + 1].AffecterCaseGrise();
-                    Grille[l + 1][c - 2].AffecterCaseGrise();
-                    Grille[l + 1][c + 2].AffecterCaseGrise();
-                } else if (uneCarte.NomCarte == "Cobra") {
-                    Grille[l][c - 1].AffecterCaseGrise();
-                    Grille[l + 1][c + 1].AffecterCaseGrise();
-                    Grille[l - 1][c + 1].AffecterCaseGrise();
-                } else if (uneCarte.NomCarte == "Anguille") {
-                    Grille[l + 1][c - 1].AffecterCaseGrise();
-                    Grille[l - 1][c - 1].AffecterCaseGrise();
-                    Grille[l][c + 1].AffecterCaseGrise();
-                } else if (uneCarte.NomCarte == "Elephant") {
-                    Grille[l][c - 1].AffecterCaseGrise();
-                    Grille[l][c + 1].AffecterCaseGrise();
-                    Grille[l + 1][c - 1].AffecterCaseGrise();
-                    Grille[l + 1][c + 1].AffecterCaseGrise();
-                } else if (uneCarte.NomCarte == "Dragon") {
-                    Grille[l][c - 2].AffecterCaseGrise();
-                    Grille[l + 1][c + 1].AffecterCaseGrise();
-                    Grille[l - 1][c + 1].AffecterCaseGrise();
-                } else if (uneCarte.NomCarte == "Oie") {
-                    Grille[l][c - 1].AffecterCaseGrise();
-                    Grille[l][c + 1].AffecterCaseGrise();
-                    Grille[l + 1][c - 1].AffecterCaseGrise();
-                    Grille[l - 1][c + 1].AffecterCaseGrise();
-                } else if (uneCarte.NomCarte == "Cheval") {
-                    Grille[l][c - 1].AffecterCaseGrise();
-                    Grille[l + 1][c].AffecterCaseGrise();
-                    Grille[l - 1][c].AffecterCaseGrise();
-                } else if (uneCarte.NomCarte == "Singe") {
-                    Grille[l + 1][c - 1].AffecterCaseGrise();
-                    Grille[l + 1][c + 1].AffecterCaseGrise();
-                    Grille[l - 1][c - 1].AffecterCaseGrise();
-                    Grille[l - 1][c + 1].AffecterCaseGrise();
-                } else if (uneCarte.NomCarte == "Boeuf") {
-                    Grille[l][c + 1].AffecterCaseGrise();
-                    Grille[l - 1][c].AffecterCaseGrise();
-                    Grille[l + 1][c].AffecterCaseGrise();
-                } else if (uneCarte.NomCarte == "Lapin") {
-                    Grille[l - 1][c - 1].AffecterCaseGrise();
-                    Grille[l + 1][c + 1].AffecterCaseGrise();
-                    Grille[l][c + 2].AffecterCaseGrise();
-                } else if (uneCarte.NomCarte == "Tigre") {
-                    Grille[l + 2][c].AffecterCaseGrise();
-                    Grille[l - 1][c].AffecterCaseGrise();
-                } else if (uneCarte.NomCarte == "Grue") {
-                    Grille[l - 1][c - 1].AffecterCaseGrise();
-                    Grille[l - 1][c + 1].AffecterCaseGrise();
-                    Grille[l + 1][c].AffecterCaseGrise();
-                }*/
+            case "Coq":
+                if ((l >= 0 && l < 5) && (c >= 1 && c < 5)) {
+                    Grille[l][c - 1].CaseGrise = true;
+                }
+                if ((l >= 0 && l < 5) && (c >= 0 && c < 4)) {
+                    Grille[l][c + 1].CaseGrise = true;
+                }
+                if ((l >= 1 && l < 5) && (c >= 1 && c < 5)) {
+                    Grille[l - 1][c - 1].CaseGrise = true;
+                }
+                if ((l >= 0 && l < 4) && (c >= 1 && c < 4)) {
+                    Grille[l + 1][c + 1].CaseGrise = true;
+                }
+                break;
+
+            case "Crabe":
+                if ((l >= 0 && l < 5) && (c >= 2 && c < 5)) { // CHECK LE -2
+                    Grille[l][c - 2].CaseGrise = true;
+                }
+                if ((l >= 0 && l < 4) && (c >= 0 && c < 3)) { // CHECK LE +2
+                    Grille[l + 1][c + 2].CaseGrise = true;
+                }
+                if ((l >= 1 && l < 5) && (c >= 0 && c < 5)) {
+                    Grille[l - 1][c].CaseGrise = true;
+                }
+                break;
+
+            case "Sanglier":
+                if ((l >= 0 && l < 5) && (c >= 1 && c < 5)) {
+                    Grille[l][c - 1].CaseGrise = true;
+                }
+                if ((l >= 0 && l < 5) && (c >= 0 && c < 4)) {
+                    Grille[l][c + 1].CaseGrise = true;
+                }
+                if ((l >= 1 && l < 5) && (c >= 0 && c < 5)) {
+                    Grille[l - 1][c].CaseGrise = true;
+                }
+                break;
+
+            case "Dragon":
+                if ((l >= 0 && l < 4) && (c >= 1 && c < 5)) {
+                    Grille[l + 1][c - 1].CaseGrise = true;
+                }
+                if ((l >= 0 && l < 4) && (c >= 0 && c < 4)) {
+                    Grille[l + 1][c + 1].CaseGrise = true;
+                }
+                if ((l >= 1 && l < 5) && (c >= 2 && c < 5)) {// CHECK LE -2 // changement c<=2 a la place de 1
+                    Grille[l - 1][c - 2].CaseGrise = true;
+                }
+                if ((l >= 1 && l < 5) && (c >= 0 && c < 3)) {// CHECK LE +2
+                    Grille[l - 1][c + 2].CaseGrise = true;
+                }
+                break;
+
+            case "Cobra":
+                if ((l >= 0 && l < 5) && (c >= 0 && c < 4)) {
+                    Grille[l][c + 1].CaseGrise = true;
+                }
+                if ((l >= 0 && l < 4) && (c >= 1 && c < 5)) {
+                    Grille[l + 1][c - 1].CaseGrise = true;
+                }
+                if ((l >= 1 && l < 5) && (c >= 1 && c < 5)) {
+                    Grille[l - 1][c - 1].CaseGrise = true;
+                }
+                break;
+
+            case "Anguille":
+                if ((l >= 1 && l < 5) && (c >= 0 && c < 4)) {
+                    Grille[l - 1][c + 1].CaseGrise = true;
+                }
+                if ((l >= 0 && l < 4) && (c >= 0 && c < 4)) {
+                    Grille[l + 1][c + 1].CaseGrise = true;
+                }
+                if ((l >= 0 && l < 5) && (c >= 1 && c < 5)) {
+                    Grille[l][c - 1].CaseGrise = true;
+                }
+                break;
+
+            case "Elephant":
+                if ((l >= 0 && l < 5) && (c >= 1 && c < 5)) {
+                    Grille[l][c - 1].CaseGrise = true;
+                }
+                if ((l >= 0 && l < 5) && (c >= 0 && c < 4)) {
+                    Grille[l][c + 1].CaseGrise = true;
+                }
+                if ((l >= 1 && l < 5) && (c >= 0 && c < 4)) {
+                    Grille[l - 1][c + 1].CaseGrise = true;
+                }
+                if ((l >= 1 && l < 5) && (c >= 1 && c < 5)) {
+                    Grille[l - 1][c - 1].CaseGrise = true;
+                }
+                break;
+
+            case "Grenouille":
+                if ((l >= 0 && l < 5) && (c >= 0 && c < 3)) { // BIEN CHECK POUR LE +2
+                    Grille[l][c + 2].CaseGrise = true;
+                }
+                if ((l >= 0 && l < 4) && (c >= 1 && c < 5)) {
+                    Grille[l + 1][c - 1].CaseGrise = true;
+                }
+                if ((l >= 1 && l < 5) && (c >= 0 && c < 4)) {
+                    Grille[l - 1][c + 1].CaseGrise = true;
+                }
+                break;
+
+            case "Oie":
+                if ((l >= 0 && l < 5) && (c >= 1 && c < 5)) {
+                    Grille[l][c - 1].CaseGrise = true;
+                }
+                if ((l >= 0 && l < 5) && (c >= 0 && c < 4)) {
+                    Grille[l][c + 1].CaseGrise = true;
+                }
+                if ((l >= 0 && l < 4) && (c >= 1 && c < 5)) {
+                    Grille[l + 1][c - 1].CaseGrise = true;
+                }
+                if ((l >= 1 && l < 5) && (c >= 0 && c < 4)) {
+                    Grille[l - 1][c + 1].CaseGrise = true;
+                }
+                break;
+
+            case "Cheval":
+                if ((l >= 0 && l < 5) && (c >= 0 && c < 4)) {
+                    Grille[l][c + 1].CaseGrise = true;
+                }
+                if ((l >= 0 && l < 4) && (c >= 0 && c < 5)) {
+                    Grille[l + 1][c].CaseGrise = true;
+                }
+                if ((l >= 1 && l < 5) && (c >= 0 && c < 5)) {
+                    Grille[l - 1][c].CaseGrise = true;
+                }
+                break;
+
+            case "Singe":
+                if ((l >= 0 && l < 4) && (c >= 1 && c < 5)) {
+                    Grille[l + 1][c - 1].CaseGrise = true;
+                }
+                if ((l >= 0 && l < 4) && (c >= 0 && c < 4)) {
+                    Grille[l + 1][c + 1].CaseGrise = true;
+                }
+                if ((l >= 1 && l < 5) && (c >= 1 && c < 5)) {
+                    Grille[l - 1][c - 1].CaseGrise = true;
+                }
+                if ((l >= 1 && l < 5) && (c >= 0 && c < 4)) {
+                    Grille[l - 1][c + 1].CaseGrise = true;
+                }
+                break;
+
+            case "Boeuf":
+                if ((l >= 0 && l < 5) && (c >= 1 && c < 5)) {
+                    Grille[l][c - 1].CaseGrise = true;
+                }
+                if ((l >= 0 && l < 4) && (c >= 0 && c < 5)) {
+                    Grille[l + 1][c].CaseGrise = true;
+                }
+                if ((l >= 1 && l < 5) && (c >= 0 && c < 5)) {
+                    Grille[l - 1][c].CaseGrise = true;
+                }
+                break;
+
+            case "Lapin":
+                if ((l >= 1 && l < 5) && (c >= 1 && c < 5)) {
+                    Grille[l - 1][c - 1].CaseGrise = true;
+                }
+                if ((l >= 0 && l < 4) && (c >= 0 && c < 4)) {
+                    Grille[l + 1][c + 1].CaseGrise = true;
+                }
+                if ((l >= 0 && l < 5) && (c >= 2 && c < 5)) { // BIEN CHECK POUR LE -2
+                    Grille[l][c - 2].CaseGrise = true;
+                }
+                break;
+
+            case "Tigre":
+                if ((l >= 2 && l < 5) && (c >= 0 && c < 5)) { // BIEN CHECK POUR LE +2 DS LIGNE
+                    Grille[l - 2][c].CaseGrise = true;
+                }
+                if ((l >= 0 && l < 4) && (c >= 0 && c < 5)) {
+                    Grille[l + 1][c].CaseGrise = true;
+                }
+                break;
+
+            case "Grue":
+                if ((l >= 0 && l < 4) && (c >= 1 && c < 5)) {
+                    Grille[l + 1][c - 1].CaseGrise = true;
+                }
+                if ((l >= 0 && l < 4) && (c >= 0 && c < 4)) {
+                    Grille[l + 1][c + 1].CaseGrise = true;
+                }
+                if ((l >= 1 && l < 5) && (c >= 0 && c < 5)) {
+                    Grille[l - 1][c].CaseGrise = true;
+                }
+                break;
+
         }
 
-        // BD : on place les case grises à partir d'un pion choisi par ses coordonnées, et d'une carte, non ? OK
-        // ou sont ces éléments quand on appelle cette méthode ? DANS CETTE CLASSE
     }
+
+    // BD : on place les case grises à partir d'un pion choisi par ses coordonnées, et d'une carte, non ? OK
+    // ou sont ces éléments quand on appelle cette méthode ? DANS CETTE CLASSE
+}
 
 // déplacement des cartes dans parties
 

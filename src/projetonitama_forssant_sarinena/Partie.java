@@ -283,7 +283,7 @@ public class Partie {
 
         
     
-        System.out.println("Choisissez une carte grise");
+        System.out.println("Choisissez une case grise");
     
     }
     }
