@@ -138,9 +138,9 @@ public class FenetreDeJeu extends javax.swing.JFrame {
                 CarteGraphique carte_graphique1_j2 = new CarteGraphique(TabCartePartie[2]);
                 carte1_j2.add(carte_graphique1_j2);
                 CarteGraphique carte_graphique2_j2 = new CarteGraphique(TabCartePartie[3]);
-                carte2_j2.add(carte_graphique2_j2);*/
-                CarteGraphique cartetransition = new CarteGraphique(CarteMante);
-                carte_transition.add(cartetransition);
+                carte2_j2.add(carte_graphique2_j2);
+                CarteGraphique cartetransition = new CarteGraphique(CarteDragon);
+                carte_transition.add(cartetransition);*/
                 
                 /*
                 cartetransition.addActionListener(new java.awt.event.ActionListener() { // ActionListener permet d'interagir avec la fenêtre graphique de jeu (cliquer sur les cases graphiques)
@@ -204,6 +204,18 @@ public class FenetreDeJeu extends javax.swing.JFrame {
             }
 
         }
+        CarteGraphique cartetransition = new CarteGraphique(CarteDragon);
+        carte_transition.add(cartetransition);
+        
+        cartetransition.addActionListener(new java.awt.event.ActionListener() { // ActionListener permet d'interagir avec la fenêtre graphique de jeu (cliquer sur les cases graphiques)
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
+                        Carte C = cartetransition.CarteAssociee;
+                        if (C.CarteCourante == null) {
+                            return;
+                        }
+
+                    }
+                }); 
     }
 
     void initialiserPartie() {
@@ -239,7 +251,8 @@ public class FenetreDeJeu extends javax.swing.JFrame {
         Joueur1.CarteEnMain[1] = TabCartePartie[1];
         Joueur2.CarteEnMain[0] = TabCartePartie[2];
         Joueur2.CarteEnMain[1] = TabCartePartie[3];
-        CarteTransition = TabCartePartie[4];
+        //CarteTransition = TabCartePartie[4];
+        CarteTransition = CarteDragon;
 
         /*// Test sur placercartegrise
         Joueur1.CarteEnMain[0] = CarteMante;
@@ -567,23 +580,23 @@ public class FenetreDeJeu extends javax.swing.JFrame {
         getContentPane().add(infos_partie, new org.netbeans.lib.awtextra.AbsoluteConstraints(1090, 540, 300, 250));
 
         carte1_j1.setBackground(new java.awt.Color(153, 51, 0));
-        carte1_j1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        carte1_j1.setLayout(new java.awt.GridLayout(1, 1));
         getContentPane().add(carte1_j1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 10, 300, 170));
 
         carte2_j1.setBackground(new java.awt.Color(153, 51, 0));
-        carte2_j1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        carte2_j1.setLayout(new java.awt.GridLayout(1, 1));
         getContentPane().add(carte2_j1, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 10, 300, 170));
 
         carte_transition.setBackground(new java.awt.Color(153, 51, 0));
-        carte_transition.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        carte_transition.setLayout(new java.awt.GridLayout(1, 1));
         getContentPane().add(carte_transition, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 350, 300, 170));
 
         carte1_j2.setBackground(new java.awt.Color(153, 51, 0));
-        carte1_j2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        carte1_j2.setLayout(new java.awt.GridLayout(1, 1));
         getContentPane().add(carte1_j2, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 690, 300, 170));
 
         carte2_j2.setBackground(new java.awt.Color(153, 51, 0));
-        carte2_j2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        carte2_j2.setLayout(new java.awt.GridLayout(1, 1));
         getContentPane().add(carte2_j2, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 690, 300, 170));
 
         setBounds(0, 0, 1416, 893);
@@ -601,6 +614,11 @@ public class FenetreDeJeu extends javax.swing.JFrame {
         carte2_j2.setVisible(true);
         initialiserPartie();
         grille_jeu.repaint();
+        carte1_j1.repaint();
+        carte2_j1.repaint();
+        carte1_j2.repaint();
+        carte2_j2.repaint();
+        carte_transition.repaint();
         //rafraichit le plateau de jeu (permet a avoir les elements directement sur le plateau et eviter leur apparition seulement au passage de la souris)
         btn_demarrer.setEnabled(false);
         //on désactive le bouton du demarrage de la partie lorsque celle ci est demarree
