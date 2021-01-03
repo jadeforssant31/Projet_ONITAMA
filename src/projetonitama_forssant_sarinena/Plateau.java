@@ -151,6 +151,7 @@ public class Plateau {
             }
             System.out.println(" " + (l + 1)); // affichage des numéros de lignes (l+1) car tableau commence à 0
         }
+        
         for (int c = 0; c < 5; c++) {
             System.out.print(" " + (c + 1) + " "); // affichage des colonnes (c+1) car tableau commence à 0
         }
@@ -171,10 +172,10 @@ public class Plateau {
             case "Mante":
                 if ((l >= 0 && l < 4) && (c >= 1 && c < 5)) {
                     //Grille[l + 1][c - 1].AffecterCaseGrise();
-                    Grille[l + 1][c - 1].CaseGrise = true; //PROBLEME, L'affichage décale les cases...mais l'idée est là
+                    Grille[l+1][c - 1].CaseGrise = true; //PROBLEME, L'affichage décale les cases...mais l'idée est là
                 }
                 if ((l >= 0 && l < 4) && (c >= 0 && c < 4)) {
-                    Grille[l + 1][c + 1].CaseGrise = true;
+                    Grille[l+1][c + 1].CaseGrise = true;
                 }
                 if ((l >= 1 && l < 5) && (c >= 0 && c < 5)) {
                     Grille[l - 1][c].CaseGrise = true;
@@ -386,7 +387,7 @@ public class Plateau {
                     Grille[l - 1][c - 1].CaseGrise = true;
                 }
                 if ((l >= 0 && l < 4) && (c >= 0 && c < 5)) {
-                    Grille[l + 1][c].CaseGrise = true;
+                    Grille[l+1][c].CaseGrise = true;
                 }
                 break;
 
