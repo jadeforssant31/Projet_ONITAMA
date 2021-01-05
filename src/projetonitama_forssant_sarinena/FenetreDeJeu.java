@@ -748,30 +748,40 @@ public class FenetreDeJeu extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_carte_transitionActionPerformed
 
     private void btn_c2_j2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_c2_j2ActionPerformed
-        
+        if (JoueurCourant == ListeJoueurs[1]) {
+            btn_c2_j2.setEnabled(false);
+            textemessage.setText("Ce n'est pas votre carte. Réessayez");
+        } else {
+            textemessage.setText("OK");
+        }
 
     }//GEN-LAST:event_btn_c2_j2ActionPerformed
 
     private void btn_c1_j1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_c1_j1ActionPerformed
-        
-        // affcher les cases grises selon le nom de la carte
+        if (JoueurCourant == ListeJoueurs[0]) {
+            btn_c1_j1.setEnabled(false);
+            textemessage.setText("Ce n'est pas votre carte. Réessayez");
+        } else {
+            textemessage.setText("OK");
+        }
     }//GEN-LAST:event_btn_c1_j1ActionPerformed
 
     private void btn_c2_j1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_c2_j1ActionPerformed
-        
-        // affcher les cases grises selon le nom de la carte
+        if (JoueurCourant == ListeJoueurs[0]) {
+            btn_c2_j1.setEnabled(false);
+            textemessage.setText("Ce n'est pas votre carte. Réessayez");
+        } else {
+            textemessage.setText("OK");
+        }
     }//GEN-LAST:event_btn_c2_j1ActionPerformed
 
     private void btn_c1_j2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_c1_j2ActionPerformed
-        textemessage.setText("OK");
-        // relier bouton a la carte
-        
-        //while (!.equals(JoueurCourant.CarteEnMain[2].NomCarte) && !panel_carte1_j2.equals(JoueurCourant.CarteEnMain[3].NomCarte)) {
-            textemessage.setText("Carte invalide. Réessayer.");
-        //}
-        //textemessage.setText("la carte déplacement choisie est " + );
-        // + affcher les cases grises selon le nom de la carte
-
+        if (JoueurCourant == ListeJoueurs[1]) {
+            btn_c1_j2.setEnabled(false);
+            textemessage.setText("Ce n'est pas votre carte. Réessayez");
+        } else {
+            textemessage.setText("OK");
+        }
     }//GEN-LAST:event_btn_c1_j2ActionPerformed
 
     /**
