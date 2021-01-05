@@ -140,7 +140,7 @@ public class Partie {
             JoueurCourant = ListeJoueurs[1];
         }
 
-        // affichage sur console ----- suivi du bon déroulement du jeu
+        /*// affichage sur console ----- suivi du bon déroulement du jeu
         System.out.println(Joueur1.NomJoueur + " possède les cartes " + Joueur1.CarteEnMain[0].NomCarte + " et " + Joueur1.CarteEnMain[1].NomCarte);
         System.out.println(Joueur2.NomJoueur + " possède les cartes " + Joueur2.CarteEnMain[0].NomCarte + " et " + Joueur2.CarteEnMain[1].NomCarte);
         System.out.println("La carte transition est " + CarteTransition.NomCarte);
@@ -149,7 +149,7 @@ public class Partie {
         System.out.println(Joueur2.NomJoueur + " possède les pions de couleur " + Joueur2.CouleurJoueur);
 
         PlateauJeu.AfficherPlateauSurConsole(); // affichage du jeu initialisé sur la console
-        // BD : methode non présente OK
+        // BD : methode non présente OK*/
     }
 
     void AttribuerCouleursAuxJoueurs() {
