@@ -408,7 +408,7 @@
         </Component>
       </SubComponents>
     </Container>
-    <Container class="javax.swing.JPanel" name="carte1_j1">
+    <Container class="javax.swing.JPanel" name="panel_carte1_j1">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="0" green="33" red="99" type="rgb"/>
@@ -425,7 +425,7 @@
         <Property name="rows" type="int" value="1"/>
       </Layout>
     </Container>
-    <Container class="javax.swing.JPanel" name="carte2_j1">
+    <Container class="javax.swing.JPanel" name="panel_carte2_j1">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="0" green="33" red="99" type="rgb"/>
@@ -442,7 +442,7 @@
         <Property name="rows" type="int" value="1"/>
       </Layout>
     </Container>
-    <Container class="javax.swing.JPanel" name="carte_transition">
+    <Container class="javax.swing.JPanel" name="panel_carte_transition">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="0" green="33" red="99" type="rgb"/>
@@ -459,7 +459,7 @@
         <Property name="rows" type="int" value="1"/>
       </Layout>
     </Container>
-    <Container class="javax.swing.JPanel" name="carte1_j2">
+    <Container class="javax.swing.JPanel" name="panel_carte1_j2">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="0" green="33" red="99" type="rgb"/>
@@ -476,7 +476,7 @@
         <Property name="rows" type="int" value="1"/>
       </Layout>
     </Container>
-    <Container class="javax.swing.JPanel" name="carte2_j2">
+    <Container class="javax.swing.JPanel" name="panel_carte2_j2">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="0" green="33" red="99" type="rgb"/>

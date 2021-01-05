@@ -44,7 +44,7 @@ public class CarteGraphique extends JButton {
   
     @Override
     public void paintComponent(Graphics G){
-        super.paintComponents(G);
+        super.paintComponent(G);
         String nom_carte = CarteAssociee.LireCarte();
         switch(nom_carte){
             case "Sanglier":
