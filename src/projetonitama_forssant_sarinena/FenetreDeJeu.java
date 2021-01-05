@@ -110,66 +110,110 @@ public class FenetreDeJeu extends javax.swing.JFrame {
         panel_carte2_j2.setVisible(false);
         // On cache les pannels d'infos partie, joueur ainsi que ceux des cartes, ils seront visible seulement quand l'utilisateur aura appuyé sur le bouton pour demarrer une partie
 
-        /*Carte [] TabCartePartie = {CarteMante,CarteSinge,CarteCheval,CarteBoeuf,CarteGrue};
-        
-        
-        for (int i = 4; i >= 0; i--) { // on décremente car [0;Ø] en java est en haut à gauche, nous l'avons pris en bas a gauche
-            for (int j = 0; j < 1; j++) {
-                CarteGraphique carte_graphique = new CarteGraphique(TabCartePartie[i]);
-                grille_jeu.add(carte_graphique);
-            }}
-        
-        //Carte TabTransi[][] = new Carte[1][1];
-        unePileCarte.GrilleCarte[0][0] = CarteMante;
-        
-        CarteGraphique cartetransition = new CarteGraphique(unePileCarte.GrilleCarte[0][0]);
-        carte_transition.add(cartetransition); */
+        DefinirCartesPartie();
+
+        CarteGraphique carte_graphique1_j1 = new CarteGraphique(TabCartePartie[0]);
+        panel_carte1_j1.add(carte_graphique1_j1);
+        CarteGraphique carte_graphique2_j1 = new CarteGraphique(TabCartePartie[1]);
+        panel_carte2_j1.add(carte_graphique2_j1);
+        CarteGraphique carte_graphique1_j2 = new CarteGraphique(TabCartePartie[2]);
+        panel_carte1_j2.add(carte_graphique1_j2);
+        CarteGraphique carte_graphique2_j2 = new CarteGraphique(TabCartePartie[3]);
+        panel_carte2_j2.add(carte_graphique2_j2);
+        CarteGraphique cartetransition = new CarteGraphique(TabCartePartie[4]);
+        panel_carte_transition.add(cartetransition);
+
+        carte_graphique1_j1.addActionListener(new java.awt.event.ActionListener() { // ActionListener permet d'interagir avec la fenêtre graphique de jeu (cliquer sur les cases graphiques)
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Carte c = carte_graphique1_j1.CarteAssociee;
+                if (c.CarteCourante == null) {
+                    return;
+                }
+                
+                if (c.equals(JoueurCourant.CarteEnMain[0])) {
+                    textemessage.setText(JoueurCourant.NomJoueur + " prend la carte " + JoueurCourant.CarteEnMain[0].LireCarte()); //setText permet d'afficher des String sur une fenêtre de texte
+                    //Jeton jetonrecup = c.recupererJeton();
+                    //joueurCourant.ajouterJeton(jetonrecup);
+                    JoueurSuivant();
+                } /*else {
+                    if (joueurCourant.nombreDesintegrateurs > 0) {
+                        textemessage.setText(joueurCourant.Nom + " désintègre un jeton adverse");
+                        c.supprimerJeton();
+                        joueurCourant.utiliserDesintegrateur();
+                        CouleurSuivante();
+                    } else {
+                        return;
+                    }
+                }
+                GrilleJeu.tasserGrille();
+                panneau_grille.repaint(); // rafraîchit, actualise le panneau d'affichage
+                lbl_j1_desint.setText(ListeJoueurs[0].nombreDesintegrateurs + ""); // double guillements force conversion en String
+                lbl_j2_desint.setText(ListeJoueurs[1].nombreDesintegrateurs + ""); // double guillements force conversion en String
+
+                boolean vict_j1 = GrilleJeu.etreGagnantePourJoueur(ListeJoueurs[0]);
+                boolean vict_j2 = GrilleJeu.etreGagnantePourJoueur(ListeJoueurs[1]);
+
+                if (vict_j1 && !vict_j2) {
+                    textemessage.setText("Victoire de " + ListeJoueurs[0].Nom);
+                }
+                if (vict_j2 && !vict_j1) {
+                    textemessage.setText("Victoire de " + ListeJoueurs[1].Nom);
+                }
+                if (vict_j1 && vict_j2) {
+                    if (joueurCourant == ListeJoueurs[0]) {
+                        textemessage.setText("Victoire par faute de " + ListeJoueurs[1].Nom); // explicite les règles aux joueurs
+                    } else {
+                        textemessage.setText("Victoire par faute de " + ListeJoueurs[0].Nom); // explicite les règles aux joueurs
+                    }
+                }*/
+
+            }
+        });
+
         for (int i = 4; i >= 0; i--) { // on décremente car [0;Ø] en java est en haut à gauche, nous l'avons pris en bas a gauche
             for (int j = 0; j < 5; j++) {
                 CaseGraphique case_graphique = new CaseGraphique(PlateauJeu.Grille[i][j]);
+
                 grille_jeu.add(case_graphique);
 
-                /*
-                 */
- /*
-                cartetransition.addActionListener(new java.awt.event.ActionListener() { // ActionListener permet d'interagir avec la fenêtre graphique de jeu (cliquer sur les cases graphiques)
+                /* public FenetreDeJeu() {
+        initComponents();
+        panneau_info_joueurs.setVisible(false); // le setVisible(boolean) rend la référence-objet visible ou non 
+        panneau_info_partie.setVisible(false);
+        btn_rejouer.setEnabled(false); // le setEnabled(boolean) rend le bouton fonctionnel ou non
+        btn_stop.setEnabled(true);
+        for (int i = 5; i >= 0; i--) {
+            for (int j = 0; j < 7; j++) {
+                CelluleGraphique cellGraph = new CelluleGraphique(GrilleJeu.Cellules[i][j]); // création des cellule graphique associée aux coordonnées du jeu console
+
+                cellGraph.addActionListener(new java.awt.event.ActionListener() { // ActionListener permet d'interagir avec la fenêtre graphique de jeu (cliquer sur les cases graphiques)
                     public void actionPerformed(java.awt.event.ActionEvent evt) {
-                        Carte C = cartetransition.CarteAssociee;
-                        if (C.CarteCourante == null) {
+                        Cellule c = cellGraph.celluleAssociee;
+                        if (c.jetonCourant == null) {
                             return;
                         }
-
-                    }
-                }); 
-
-                case_graphique.addActionListener(new java.awt.event.ActionListener() { // ActionListener permet d'interagir avec la fenêtre graphique de jeu (cliquer sur les cases graphiques)
-                    public void actionPerformed(java.awt.event.ActionEvent evt) {
-                        Case c = case_graphique.CaseAssociee;
-                        if (c.PionCourant == null) {
-                            return;
-                        }
-                        /*
-                        if (c.PionCourant.CouleurPion.equals(JoueurCourant.CouleurJoueur)) {
-                            textemessage.setText(JoueurCourant.NomJoueur + " déplace un de ses pions"); //setText permet d'afficher des String sur une fenêtre de texte
-                            //if (c.CaseGrise == true){
+                        if (c.jetonCourant.Couleur.equals(joueurCourant.Couleur)) {
+                            textemessage.setText(joueurCourant.Nom + " récupère un de ses jetons"); //setText permet d'afficher des String sur une fenêtre de texte
                             Jeton jetonrecup = c.recupererJeton();
-                            JoueurCourant.ajouterJeton(jetonrecup);
-                            JoueurSuivant();
+                            joueurCourant.ajouterJeton(jetonrecup);
+                            CouleurSuivante();
                         } else {
                             if (joueurCourant.nombreDesintegrateurs > 0) {
                                 textemessage.setText(joueurCourant.Nom + " désintègre un jeton adverse");
                                 c.supprimerJeton();
                                 joueurCourant.utiliserDesintegrateur();
-                                JoueurSuivant();
+                                CouleurSuivante();
                             } else {
                                 return;
                             }
                         }
-                        //PlateauJeu.tasserGrille();
-                        grille_jeu.repaint(); // rafraîchit, actualise le panneau d'affichage
+                        GrilleJeu.tasserGrille();
+                        panneau_grille.repaint(); // rafraîchit, actualise le panneau d'affichage
+                        lbl_j1_desint.setText(ListeJoueurs[0].nombreDesintegrateurs + ""); // double guillements force conversion en String
+                        lbl_j2_desint.setText(ListeJoueurs[1].nombreDesintegrateurs + ""); // double guillements force conversion en String
 
-                        boolean vict_j1 = PlateauJeu.etreGagnantePourJoueur(ListeJoueurs[0]);
-                        boolean vict_j2 = PlateauJeu.etreGagnantePourJoueur(ListeJoueurs[1]);
+                        boolean vict_j1 = GrilleJeu.etreGagnantePourJoueur(ListeJoueurs[0]);
+                        boolean vict_j2 = GrilleJeu.etreGagnantePourJoueur(ListeJoueurs[1]);
 
                         if (vict_j1 && !vict_j2) {
                             textemessage.setText("Victoire de " + ListeJoueurs[0].Nom);
@@ -187,33 +231,14 @@ public class FenetreDeJeu extends javax.swing.JFrame {
 
                     }
                 });
-                //grille_jeu.add(case_graphique);
+                panneau_grille.add(cellGraph);
             }
-                 */
+        }
+    }*/
             }
 
         }
-        
-        CarteGraphique carte_graphique1_j1 = new CarteGraphique(CarteMante);
-        panel_carte1_j1.add(carte_graphique1_j1);
-        CarteGraphique carte_graphique2_j1 = new CarteGraphique(CarteLapin);
-        panel_carte2_j1.add(carte_graphique2_j1);
-        CarteGraphique carte_graphique1_j2 = new CarteGraphique(TabCartePartie[2]);
-        panel_carte1_j2.add(carte_graphique1_j2);
-        CarteGraphique carte_graphique2_j2 = new CarteGraphique(TabCartePartie[3]);
-        panel_carte2_j2.add(carte_graphique2_j2);
-        CarteGraphique cartetransition = new CarteGraphique(CarteDragon);
-        panel_carte_transition.add(cartetransition);
 
-        cartetransition.addActionListener(new java.awt.event.ActionListener() { // ActionListener permet d'interagir avec la fenêtre graphique de jeu (cliquer sur les cases graphiques)
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Carte C = cartetransition.CarteAssociee;
-                if (C.CarteCourante == null) {
-                    return;
-                }
-
-            }
-        });
     }
 
     void initialiserPartie() {
@@ -242,6 +267,11 @@ public class FenetreDeJeu extends javax.swing.JFrame {
 
         // Tirage des cartes
         DefinirCartesPartie();
+        panel_carte1_j1.repaint();
+        panel_carte2_j1.repaint();
+        panel_carte1_j2.repaint();
+        panel_carte2_j2.repaint();
+        panel_carte_transition.repaint();
         //System.out.println(ListeCartes);
 
         // Attribution des cartes et affectation dela derniere en tant que carte transition
@@ -249,8 +279,7 @@ public class FenetreDeJeu extends javax.swing.JFrame {
         Joueur1.CarteEnMain[1] = TabCartePartie[1];
         Joueur2.CarteEnMain[0] = TabCartePartie[2];
         Joueur2.CarteEnMain[1] = TabCartePartie[3];
-        //CarteTransition = TabCartePartie[4];
-        CarteTransition = CarteDragon;
+        CarteTransition = TabCartePartie[4];
 
         /*// Test sur placercartegrise
         Joueur1.CarteEnMain[0] = CarteMante;
@@ -612,6 +641,8 @@ public class FenetreDeJeu extends javax.swing.JFrame {
         panel_carte2_j2.setVisible(true);
         initialiserPartie();
         grille_jeu.repaint();
+        infos_joueurs.repaint();
+        infos_partie.repaint();
         panel_carte1_j1.repaint();
         panel_carte2_j1.repaint();
         panel_carte1_j2.repaint();
@@ -628,7 +659,7 @@ public class FenetreDeJeu extends javax.swing.JFrame {
     }//GEN-LAST:event_nomjoueur2ActionPerformed
 
     private void btn_rejouerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_rejouerActionPerformed
-        infos_joueurs.setVisible(true);
+        infos_joueurs.setVisible(true); // problème sur rejouer qui ne repaint pas les cartes
         infos_partie.setVisible(true);
         initialiserPartie();
         grille_jeu.repaint(); //rafraichitl'affichage
@@ -637,7 +668,13 @@ public class FenetreDeJeu extends javax.swing.JFrame {
         panel_carte2_j1.setEnabled(true);
         panel_carte1_j2.setEnabled(true);
         panel_carte2_j1.setEnabled(true);
+        panel_carte1_j1.repaint();
+        panel_carte2_j1.repaint();
+        panel_carte1_j2.repaint();
+        panel_carte2_j2.repaint();
+        panel_carte_transition.repaint();
         textemessage.setText(" "); // efface le dernier message affiche dans le panneau infos partie
+        btn_rejouer.setEnabled(false);
     }//GEN-LAST:event_btn_rejouerActionPerformed
 
     private void btn_quitterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_quitterActionPerformed
