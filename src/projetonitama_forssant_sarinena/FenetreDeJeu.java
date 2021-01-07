@@ -128,6 +128,11 @@ public class FenetreDeJeu extends javax.swing.JFrame {
         CarteGraphique cartetransition = new CarteGraphique(TabCartePartie[4]);
         panel_carte_transition.add(cartetransition);
 
+        
+       
+        
+        
+        
         carte_graphique1_j1.addActionListener(new java.awt.event.ActionListener() { // ActionListener permet d'interagir avec la fenêtre graphique de jeu (cliquer sur les cases graphiques)
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Carte c = carte_graphique1_j1.CarteAssociee;
@@ -180,7 +185,27 @@ public class FenetreDeJeu extends javax.swing.JFrame {
             for (int j = 0; j < 5; j++) {
                 CaseGraphique case_graphique = new CaseGraphique(PlateauJeu.Grille[i][j]);
 
+                /*case_graphique.addActionListener(new java.awt.event.ActionListener() { // ActionListener permet d'interagir avec la fenêtre graphique de jeu (cliquer sur les cases graphiques)
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
+                        Case c = case_graphique.CaseAssociee;
+                        if (c.PionCourant == null) {
+                            return;
+                        }
+                        if (c.PionCourant.CouleurPion.equals(JoueurCourant.CouleurJoueur)) {
+                            textemessage.setText(JoueurCourant.Nom + " choisit ce pion"); //setText permet d'afficher des String sur une fenêtre de texte
+                            PlateauJeu.PlacerCaseGrise(JoueurCourant, l, c, CarteCourante); // trouver moyen de changer les coordonnées
+                            Jeton jetonrecup = c.recupererJeton();
+                            joueurCourant.ajouterJeton(jetonrecup);
+                            CouleurSuivante();
+                        }
+                */
+                
+                // A COMPLETER CHOIX PION
+                
+                
+
                 grille_jeu.add(case_graphique);
+                
 
                 /* public FenetreDeJeu() {
         initComponents();
@@ -272,7 +297,7 @@ public class FenetreDeJeu extends javax.swing.JFrame {
         AttribuerCouleursAuxJoueurs();
 
         // Tirage des cartes
-        DefinirCartesPartie();
+        //DefinirCartesPartie();
         panel_carte1_j1.repaint();
         panel_carte2_j1.repaint();
         panel_carte1_j2.repaint();
@@ -744,46 +769,53 @@ public class FenetreDeJeu extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_quitterActionPerformed
 
     private void btn_carte_transitionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_carte_transitionActionPerformed
-        textemessage.setText("OK");
+        textemessage.setText(JoueurCourant.NomJoueur + " prend la carte " + TabCartePartie[4].LireCarte());
     }//GEN-LAST:event_btn_carte_transitionActionPerformed
 
     private void btn_c2_j2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_c2_j2ActionPerformed
-        if (JoueurCourant == ListeJoueurs[1]) {
+        if (JoueurCourant == ListeJoueurs[0]) {
             btn_c2_j2.setEnabled(false);
             textemessage.setText("Ce n'est pas votre carte. Réessayez");
         } else {
-            textemessage.setText("OK");
+            textemessage.setText(JoueurCourant.NomJoueur + " prend la carte " + JoueurCourant.CarteEnMain[1].LireCarte());
+            CarteCourante = CarteChoisie(JoueurCourant.CarteEnMain[1].NomCarte);
         }
-
     }//GEN-LAST:event_btn_c2_j2ActionPerformed
 
     private void btn_c1_j1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_c1_j1ActionPerformed
-        if (JoueurCourant == ListeJoueurs[0]) {
+        if (JoueurCourant == ListeJoueurs[1]) {
             btn_c1_j1.setEnabled(false);
             textemessage.setText("Ce n'est pas votre carte. Réessayez");
         } else {
-            textemessage.setText("OK");
+            textemessage.setText(JoueurCourant.NomJoueur + " prend la carte " + JoueurCourant.CarteEnMain[0].LireCarte());
+            CarteCourante = CarteChoisie(JoueurCourant.CarteEnMain[1].NomCarte);
         }
     }//GEN-LAST:event_btn_c1_j1ActionPerformed
 
     private void btn_c2_j1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_c2_j1ActionPerformed
-        if (JoueurCourant == ListeJoueurs[0]) {
+        if (JoueurCourant == ListeJoueurs[1]) {
             btn_c2_j1.setEnabled(false);
             textemessage.setText("Ce n'est pas votre carte. Réessayez");
         } else {
-            textemessage.setText("OK");
+            textemessage.setText(JoueurCourant.NomJoueur + " prend la carte " + JoueurCourant.CarteEnMain[1].LireCarte());
+            CarteCourante = CarteChoisie(JoueurCourant.CarteEnMain[1].NomCarte);
         }
     }//GEN-LAST:event_btn_c2_j1ActionPerformed
 
     private void btn_c1_j2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_c1_j2ActionPerformed
-        if (JoueurCourant == ListeJoueurs[1]) {
+        if (JoueurCourant == ListeJoueurs[0]) {
             btn_c1_j2.setEnabled(false);
             textemessage.setText("Ce n'est pas votre carte. Réessayez");
         } else {
-            textemessage.setText("OK");
+            textemessage.setText(JoueurCourant.NomJoueur + " prend la carte " + JoueurCourant.CarteEnMain[0].LireCarte());
+            CarteCourante = CarteChoisie(JoueurCourant.CarteEnMain[1].NomCarte);
         }
     }//GEN-LAST:event_btn_c1_j2ActionPerformed
 
+
+    
+    
+    
     /**
      * @param args the command line arguments
      */
