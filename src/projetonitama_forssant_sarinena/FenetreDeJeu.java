@@ -108,11 +108,11 @@ public class FenetreDeJeu extends javax.swing.JFrame {
         panel_carte2_j1.setVisible(false);
         panel_carte1_j2.setVisible(false);
         panel_carte2_j2.setVisible(false);
+        c_transition.setVisible(false);
         btn_c1_j1.setVisible(false);
         btn_c2_j1.setVisible(false);
         btn_c1_j2.setVisible(false);
         btn_c2_j2.setVisible(false);
-        btn_carte_transition.setVisible(false);
         // On cache les pannels d'infos partie, joueur ainsi que ceux des cartes, ils seront visible seulement quand l'utilisateur aura appuyé sur le bouton pour demarrer une partie
 
         DefinirCartesPartie();
@@ -495,11 +495,11 @@ public class FenetreDeJeu extends javax.swing.JFrame {
         panel_carte_transition = new javax.swing.JPanel();
         panel_carte1_j2 = new javax.swing.JPanel();
         panel_carte2_j2 = new javax.swing.JPanel();
-        btn_carte_transition = new javax.swing.JButton();
         btn_c1_j2 = new javax.swing.JButton();
         btn_c2_j2 = new javax.swing.JButton();
         btn_c1_j1 = new javax.swing.JButton();
         btn_c2_j1 = new javax.swing.JButton();
+        c_transition = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -642,7 +642,7 @@ public class FenetreDeJeu extends javax.swing.JFrame {
         getContentPane().add(panel_carte2_j1, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 10, 300, 170));
 
         panel_carte_transition.setBackground(new java.awt.Color(153, 51, 0));
-        panel_carte_transition.setLayout(new java.awt.GridLayout());
+        panel_carte_transition.setLayout(new java.awt.GridLayout(1, 0));
         getContentPane().add(panel_carte_transition, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 350, 300, 170));
 
         panel_carte1_j2.setBackground(new java.awt.Color(153, 51, 0));
@@ -652,17 +652,6 @@ public class FenetreDeJeu extends javax.swing.JFrame {
         panel_carte2_j2.setBackground(new java.awt.Color(153, 51, 0));
         panel_carte2_j2.setLayout(new java.awt.GridLayout(1, 1));
         getContentPane().add(panel_carte2_j2, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 690, 300, 170));
-
-        btn_carte_transition.setBackground(new java.awt.Color(153, 51, 0));
-        btn_carte_transition.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
-        btn_carte_transition.setForeground(new java.awt.Color(255, 255, 255));
-        btn_carte_transition.setText("Carte Transition");
-        btn_carte_transition.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_carte_transitionActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btn_carte_transition, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 300, 190, 40));
 
         btn_c1_j2.setBackground(new java.awt.Color(153, 51, 0));
         btn_c1_j2.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
@@ -708,6 +697,14 @@ public class FenetreDeJeu extends javax.swing.JFrame {
         });
         getContentPane().add(btn_c2_j1, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 190, 130, 40));
 
+        c_transition.setBackground(new java.awt.Color(204, 51, 0));
+        c_transition.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
+        c_transition.setForeground(new java.awt.Color(255, 255, 255));
+        c_transition.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        c_transition.setText("Carte transition");
+        c_transition.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        getContentPane().add(c_transition, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 300, 130, 40));
+
         setBounds(0, 0, 1416, 893);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -721,11 +718,11 @@ public class FenetreDeJeu extends javax.swing.JFrame {
         panel_carte2_j1.setVisible(true);
         panel_carte1_j2.setVisible(true);
         panel_carte2_j2.setVisible(true);
+        c_transition.setVisible(true);
         btn_c1_j1.setVisible(true);
         btn_c2_j1.setVisible(true);
         btn_c1_j2.setVisible(true);
         btn_c2_j2.setVisible(true);
-        btn_carte_transition.setVisible(true);
         initialiserPartie();
         grille_jeu.repaint();
         infos_joueurs.repaint();
@@ -767,10 +764,6 @@ public class FenetreDeJeu extends javax.swing.JFrame {
     private void btn_quitterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_quitterActionPerformed
         super.dispose(); // ferme la fenetre de jeu
     }//GEN-LAST:event_btn_quitterActionPerformed
-
-    private void btn_carte_transitionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_carte_transitionActionPerformed
-        textemessage.setText(JoueurCourant.NomJoueur + " prend la carte " + TabCartePartie[4].LireCarte());
-    }//GEN-LAST:event_btn_carte_transitionActionPerformed
 
     private void btn_c2_j2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_c2_j2ActionPerformed
         if (JoueurCourant == ListeJoueurs[0]) {
@@ -858,10 +851,10 @@ public class FenetreDeJeu extends javax.swing.JFrame {
     private javax.swing.JButton btn_c1_j2;
     private javax.swing.JButton btn_c2_j1;
     private javax.swing.JButton btn_c2_j2;
-    private javax.swing.JButton btn_carte_transition;
     private javax.swing.JButton btn_demarrer;
     private javax.swing.JButton btn_quitter;
     private javax.swing.JButton btn_rejouer;
+    private javax.swing.JTextField c_transition;
     private javax.swing.JPanel debuter_partie;
     private javax.swing.JPanel grille_jeu;
     private javax.swing.JPanel infos_joueurs;
