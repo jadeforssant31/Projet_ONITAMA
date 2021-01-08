@@ -20,6 +20,31 @@ public class Plateau {
             }
         }
     }
+    
+    /*int LireCoordC(Pion unPion){
+        int l;
+        int c;
+        if (unPion == Grille[l][c].PionCourant){
+            
+                
+                }
+            
+        }
+        return -1;
+    }
+    
+        int LireCoordL(Case uneCase){
+        for (int l = 0; l < 5; l++) {
+            for (int c = 0; c < 5; c++) {
+                if (uneCase.PionCourant == Grille[l][c].PionCourant){
+                    return l;
+                
+                }
+            }
+        }
+        return -2;
+    }*/
+    
 
     void PositionnerPionsDepart() { // ajoute les 10 jetons sur le plateau, disposés d'une certaine manière
         for (int i = 0; i < 5; i++) {
@@ -165,7 +190,7 @@ public class Plateau {
             PlacerCaseGriseBleu(l, c, uneCarte);
         }
     }
-
+    
     // cases grises -> visualiser les potentiels mouvements de pions avec les cartes en main
     void PlacerCaseGriseRouge(int l, int c, Carte uneCarte) { // équivalent de déplacerPion
         switch (uneCarte.NomCarte) {

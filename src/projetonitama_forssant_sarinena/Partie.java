@@ -247,9 +247,10 @@ public class Partie {
             return true;
         } else {
             System.out.println("le pion selectionné n'est pas de votre couleur");
-            return false;
+            return false; 
         }
     }
+        
         
     void Tour() { // équivalent de notre méthode Menu() achevée
         System.out.println("Tour de " + JoueurCourant.NomJoueur);

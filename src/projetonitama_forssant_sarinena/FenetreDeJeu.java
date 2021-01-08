@@ -127,10 +127,6 @@ public class FenetreDeJeu extends javax.swing.JFrame {
         panel_carte2_j2.add(carte_graphique2_j2);
         CarteGraphique cartetransition = new CarteGraphique(TabCartePartie[4]);
         panel_carte_transition.add(cartetransition);
-
-        
-       
-        
         
         
         carte_graphique1_j1.addActionListener(new java.awt.event.ActionListener() { // ActionListener permet d'interagir avec la fenêtre graphique de jeu (cliquer sur les cases graphiques)
@@ -185,20 +181,37 @@ public class FenetreDeJeu extends javax.swing.JFrame {
             for (int j = 0; j < 5; j++) {
                 CaseGraphique case_graphique = new CaseGraphique(PlateauJeu.Grille[i][j]);
 
-                /*case_graphique.addActionListener(new java.awt.event.ActionListener() { // ActionListener permet d'interagir avec la fenêtre graphique de jeu (cliquer sur les cases graphiques)
+                case_graphique.addActionListener(new java.awt.event.ActionListener() { // ActionListener permet d'interagir avec la fenêtre graphique de jeu (cliquer sur les cases graphiques)
                     public void actionPerformed(java.awt.event.ActionEvent evt) {
                         Case c = case_graphique.CaseAssociee;
                         if (c.PionCourant == null) {
+                            textemessage.setText("La case sélectionnée est vide. Veuillez réessayer");
                             return;
                         }
-                        if (c.PionCourant.CouleurPion.equals(JoueurCourant.CouleurJoueur)) {
-                            textemessage.setText(JoueurCourant.Nom + " choisit ce pion"); //setText permet d'afficher des String sur une fenêtre de texte
-                            PlateauJeu.PlacerCaseGrise(JoueurCourant, l, c, CarteCourante); // trouver moyen de changer les coordonnées
+                        else if (!c.PionCourant.CouleurPion.equals(JoueurCourant.CouleurJoueur)) {
+                            textemessage.setText("Le pion sélectionné n'est pas valide. Veuillez réessayer"); //setText permet d'afficher des String sur une fenêtre de texte   
+                        }
+                        else if (c.PionCourant.CouleurPion.equals(JoueurCourant.CouleurJoueur)) {
+                            textemessage.setText(JoueurCourant.NomJoueur + " choisit ce pion"); //setText permet d'afficher des String sur une fenêtre de texte
+                            //PlateauJeu.PlacerCaseGrise(JoueurCourant, l, c, CarteCourante); // trouver moyen de changer les coordonnées
+                            /*Object source = evt.getSource();
+                            String composant = evt.getActionCommand();
+                            evt.get
+                            System.out.println(source);
+                            System.out.println(composant);
+                            int lig = PlateauJeu.LireCoordL(c);
+                            int col = PlateauJeu.LireCoordL(c);
+                            System.out.println(lig);
+                            System.out.println(col);
+                            Plateau
                             Jeton jetonrecup = c.recupererJeton();
                             joueurCourant.ajouterJeton(jetonrecup);
-                            CouleurSuivante();
+                            CouleurSuivante();*/
                         }
-                */
+                    
+                    }});
+                        
+                
                 
                 // A COMPLETER CHOIX PION
                 
@@ -266,8 +279,8 @@ public class FenetreDeJeu extends javax.swing.JFrame {
             }
         }
     }*/
-            }
-
+           
+                        }
         }
 
     }
@@ -295,6 +308,7 @@ public class FenetreDeJeu extends javax.swing.JFrame {
 
         //attribution des couleurs
         AttribuerCouleursAuxJoueurs();
+        
 
         // Tirage des cartes
         //DefinirCartesPartie();
@@ -404,8 +418,10 @@ public class FenetreDeJeu extends javax.swing.JFrame {
         } else {
             return false;
         }*/
-    void AttribuerCouleursAuxJoueurs() {
-        Random alea = new Random(); // attribution des couleurs aux joueurs au hasard
+    void AttribuerCouleursAuxJoueurs() { // A REECRIRE CAR JOUEUR EN FONCTION DE LA COULEUR QUI EST FIXE
+        ListeJoueurs[0].CouleurJoueur = "Bleu";
+        ListeJoueurs[1].CouleurJoueur = "Rouge";
+        /*Random alea = new Random(); // attribution des couleurs aux joueurs au hasard
         boolean ChoixJoueur;
         ChoixJoueur = alea.nextBoolean();
         if (ChoixJoueur == true) {
@@ -414,7 +430,7 @@ public class FenetreDeJeu extends javax.swing.JFrame {
         } else {
             ListeJoueurs[0].CouleurJoueur = "Rouge";
             ListeJoueurs[1].CouleurJoueur = "Bleu";
-        }
+        }*/
     }
 
     void DefinirCartesPartie() {
@@ -454,6 +470,7 @@ public class FenetreDeJeu extends javax.swing.JFrame {
             return false;
         }
     }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
