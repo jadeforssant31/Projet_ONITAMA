@@ -127,8 +127,7 @@ public class FenetreDeJeu extends javax.swing.JFrame {
         panel_carte2_j2.add(carte_graphique2_j2);
         CarteGraphique cartetransition = new CarteGraphique(TabCartePartie[4]);
         panel_carte_transition.add(cartetransition);
-        
-        
+
         carte_graphique1_j1.addActionListener(new java.awt.event.ActionListener() { // ActionListener permet d'interagir avec la fenêtre graphique de jeu (cliquer sur les cases graphiques)
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Carte c = carte_graphique1_j1.CarteAssociee;
@@ -187,38 +186,26 @@ public class FenetreDeJeu extends javax.swing.JFrame {
                         if (c.PionCourant == null) {
                             textemessage.setText("La case sélectionnée est vide. Veuillez réessayer");
                             return;
-                        }
-                        else if (!c.PionCourant.CouleurPion.equals(JoueurCourant.CouleurJoueur)) {
+                        } else if (!c.PionCourant.CouleurPion.equals(JoueurCourant.CouleurJoueur)) {
                             textemessage.setText("Le pion sélectionné n'est pas valide. Veuillez réessayer"); //setText permet d'afficher des String sur une fenêtre de texte   
-                        }
-                        else if (c.PionCourant.CouleurPion.equals(JoueurCourant.CouleurJoueur)) {
+                        } else if (c.PionCourant.CouleurPion.equals(JoueurCourant.CouleurJoueur)) {
                             textemessage.setText(JoueurCourant.NomJoueur + " choisit ce pion"); //setText permet d'afficher des String sur une fenêtre de texte
-                            //PlateauJeu.PlacerCaseGrise(JoueurCourant, l, c, CarteCourante); // trouver moyen de changer les coordonnées
-                            /*Object source = evt.getSource();
-                            String composant = evt.getActionCommand();
-                            evt.get
-                            System.out.println(source);
-                            System.out.println(composant);
                             int lig = PlateauJeu.LireCoordL(c);
-                            int col = PlateauJeu.LireCoordL(c);
-                            System.out.println(lig);
-                            System.out.println(col);
-                            Plateau
-                            Jeton jetonrecup = c.recupererJeton();
+                            int col = PlateauJeu.LireCoordC(c);
+                            //System.out.println(lig);
+                            //System.out.println(col);
+                            PlateauJeu.PlacerCaseGrise(JoueurCourant, lig, col, CarteCourante); // trouver moyen de changer les coordonnées
+                            /*Plateau Jeton jetonrecup = c.recupererJeton();
                             joueurCourant.ajouterJeton(jetonrecup);
-                            CouleurSuivante();*/
+                            CouleurSuivante();  */
                         }
-                    
-                    }});
-                        
-                
-                
-                // A COMPLETER CHOIX PION
-                
-                
 
+                    }
+                });
+
+                // A COMPLETER CHOIX PION
                 grille_jeu.add(case_graphique);
-                
+
 
                 /* public FenetreDeJeu() {
         initComponents();
@@ -279,8 +266,7 @@ public class FenetreDeJeu extends javax.swing.JFrame {
             }
         }
     }*/
-           
-                        }
+            }
         }
 
     }
@@ -308,7 +294,6 @@ public class FenetreDeJeu extends javax.swing.JFrame {
 
         //attribution des couleurs
         AttribuerCouleursAuxJoueurs();
-        
 
         // Tirage des cartes
         //DefinirCartesPartie();
@@ -470,7 +455,6 @@ public class FenetreDeJeu extends javax.swing.JFrame {
             return false;
         }
     }
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -822,10 +806,6 @@ public class FenetreDeJeu extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btn_c1_j2ActionPerformed
 
-
-    
-    
-    
     /**
      * @param args the command line arguments
      */

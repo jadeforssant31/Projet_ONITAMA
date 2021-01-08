@@ -33,6 +33,7 @@ boolean AffecterPion(Pion unPion){ //affecte le pion à une case suite à un mou
     }
 }
 
+        
 
 void AffecterCaseGrise(){
     CaseGrise = true;

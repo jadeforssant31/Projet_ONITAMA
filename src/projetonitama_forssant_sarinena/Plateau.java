@@ -21,14 +21,14 @@ public class Plateau {
         }
     }
     
-    /*int LireCoordC(Pion unPion){
-        int l;
-        int c;
-        if (unPion == Grille[l][c].PionCourant){
-            
+    int LireCoordC(Case uneCase){
+       for (int l = 0; l < 5; l++) {
+            for (int c = 0; c < 5; c++) {
+                if (uneCase.PionCourant == Grille[l][c].PionCourant){
+                    return c;
                 
                 }
-            
+            }
         }
         return -1;
     }
@@ -43,8 +43,8 @@ public class Plateau {
             }
         }
         return -2;
-    }*/
-    
+    }
+       
 
     void PositionnerPionsDepart() { // ajoute les 10 jetons sur le plateau, disposés d'une certaine manière
         for (int i = 0; i < 5; i++) {
