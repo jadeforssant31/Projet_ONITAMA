@@ -33,6 +33,15 @@ boolean AffecterPion(Pion unPion){ //affecte le pion à une case suite à un mou
     }
 }
 
+boolean PresenceCaseVide(){
+    if (PionCourant == null){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+
         
 
 void AffecterCaseGrise(){

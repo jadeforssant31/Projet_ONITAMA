@@ -404,11 +404,10 @@ public class FenetreDeJeu extends javax.swing.JFrame {
             return false;
         }*/
     void AttribuerCouleursAuxJoueurs() { // A REECRIRE CAR JOUEUR EN FONCTION DE LA COULEUR QUI EST FIXE
-        ListeJoueurs[0].CouleurJoueur = "Bleu";
-        ListeJoueurs[1].CouleurJoueur = "Rouge";
-        /*Random alea = new Random(); // attribution des couleurs aux joueurs au hasard
-        boolean ChoixJoueur;
+        Random alea = new Random(); // attribution des couleurs aux joueurs au hasard
+        /*boolean ChoixJoueur;
         ChoixJoueur = alea.nextBoolean();
+        
         if (ChoixJoueur == true) {
             ListeJoueurs[0].CouleurJoueur = "Bleu";
             ListeJoueurs[1].CouleurJoueur = "Rouge";
@@ -416,6 +415,13 @@ public class FenetreDeJeu extends javax.swing.JFrame {
             ListeJoueurs[0].CouleurJoueur = "Rouge";
             ListeJoueurs[1].CouleurJoueur = "Bleu";
         }*/
+       String nomjoueurBleu;
+       String nomjoueurRouge;
+        boolean CouleurJoueurs;
+        CouleurJoueurs = alea.nextBoolean();
+        if (CouleurJoueurs == true){
+        
+        }
     }
 
     void DefinirCartesPartie() {
@@ -519,7 +525,7 @@ public class FenetreDeJeu extends javax.swing.JFrame {
         infos_joueurs.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 10, -1, -1));
 
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("Joueur 1 : ");
+        jLabel4.setText("Joueur Bleu");
         infos_joueurs.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, -1, -1));
 
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
@@ -528,11 +534,11 @@ public class FenetreDeJeu extends javax.swing.JFrame {
 
         lbl_j1_nom.setBackground(new java.awt.Color(255, 255, 255));
         lbl_j1_nom.setForeground(new java.awt.Color(255, 255, 255));
-        lbl_j1_nom.setText("nomjoueur1");
-        infos_joueurs.add(lbl_j1_nom, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 50, -1, -1));
+        lbl_j1_nom.setText("nomjoueurbleu");
+        infos_joueurs.add(lbl_j1_nom, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 50, -1, -1));
 
         lbl_j1_couleur.setForeground(new java.awt.Color(255, 255, 255));
-        lbl_j1_couleur.setText("couleurjoueur1");
+        lbl_j1_couleur.setText("couleurjoueurbleu");
         infos_joueurs.add(lbl_j1_couleur, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 80, -1, -1));
 
         jSeparator1.setBackground(new java.awt.Color(0, 0, 153));
@@ -540,7 +546,7 @@ public class FenetreDeJeu extends javax.swing.JFrame {
         infos_joueurs.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, 210, -1));
 
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel7.setText("Joueur 2 : ");
+        jLabel7.setText("Joueur Rouge: ");
         infos_joueurs.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, -1, -1));
 
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
@@ -548,11 +554,11 @@ public class FenetreDeJeu extends javax.swing.JFrame {
         infos_joueurs.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, -1, -1));
 
         lbl_j2_nom.setForeground(new java.awt.Color(255, 255, 255));
-        lbl_j2_nom.setText("nomjoueur2");
-        infos_joueurs.add(lbl_j2_nom, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 150, -1, -1));
+        lbl_j2_nom.setText("nomjoueurrouge");
+        infos_joueurs.add(lbl_j2_nom, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 150, -1, -1));
 
         lbl_j2_couleur.setForeground(new java.awt.Color(255, 255, 255));
-        lbl_j2_couleur.setText("couleurjoueur2");
+        lbl_j2_couleur.setText("couleurjoueurrouge");
         infos_joueurs.add(lbl_j2_couleur, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 180, -1, -1));
 
         getContentPane().add(infos_joueurs, new org.netbeans.lib.awtextra.AbsoluteConstraints(1090, 260, 300, 230));
