@@ -12,8 +12,10 @@ package projetonitama_forssant_sarinena;
 public class Plateau {
 
     Case Grille[][] = new Case[5][5];
+    int[] useCoordPion;
 
     public Plateau() { // constructeur qui à chaque case du tableau crée une référence objet de classe cellule
+        useCoordPion = new int[2];
         for (int l = 0; l < 5; l++) {
             for (int c = 0; c < 5; c++) {
                 Grille[l][c] = new Case();
@@ -21,12 +23,23 @@ public class Plateau {
         }
     }
 
+void takePion(Case uneCase){
+if(uneCase != null){
+    useCoordPion[0] = LireCoordC(uneCase);
+    useCoordPion[1] = LireCoordL(uneCase);
+}
+else {
+    useCoordPion[0] = -1;
+    useCoordPion[1] = -1;
+}
+}
+
+
     int LireCoordC(Case uneCase) {
         for (int l = 0; l < 5; l++) {
             for (int c = 0; c < 5; c++) {
-                if (uneCase.PionCourant == Grille[l][c].PionCourant) {
+                if (uneCase == Grille[l][c]) {
                     return c;
-
                 }
             }
         }
@@ -36,7 +49,7 @@ public class Plateau {
     int LireCoordL(Case uneCase) {
         for (int l = 0; l < 5; l++) {
             for (int c = 0; c < 5; c++) {
-                if (uneCase.PionCourant == Grille[l][c].PionCourant) {
+                if (uneCase == Grille[l][c]) {
                     return l;
 
                 }
@@ -56,9 +69,6 @@ public class Plateau {
                 Pion unPionR = new Pion("Rouge");
                 Grille[0][i].PionCourant = unPionR;
             }
-        }
-
-        for (int i = 0; i < 5; i++) {
             if (i == 2) {
                 Pion RoiBleu = new Pion("Bleu");
                 RoiBleu.Roi = true;
@@ -126,7 +136,7 @@ public class Plateau {
         }
 // BD : sur quelle case on supprime le pion ?
     }
-
+    
     //methode alliant ConditionPierre et ConditionRuisseau
     boolean EtreGagnant(int l, int c, Pion unPion) {
         if (ConditionPierre(l, c, unPion) == true || ConditionRuisseau(l, c) == true) {
@@ -636,8 +646,9 @@ public class Plateau {
 
     }
 
-   boolean PeutDeplacerPion(Joueur unJoueur, int l, int c, Case uneCase) {
-        System.out.println(Grille[l][c].CaseGrise);
+   boolean PeutDeplacerPion(Joueur unJoueur, int l, int c) {
+       //Grille[l][c].CaseGrise = true;
+       System.out.println(Grille[l][c].CaseGrise);
         if (Grille[l][c].PionCourant == null && Grille[l][c].CaseGrise == false){
             System.out.println("Vous ne pouvez pas aller sur la case selectionnée");
             return false;
@@ -653,6 +664,7 @@ public class Plateau {
             return true;
         }
     }
+   
    
     Pion RemplacerPion(Joueur unJoueur, int l, int c, Pion unPion){
         //Grille[l][c].CaseGrise = false;

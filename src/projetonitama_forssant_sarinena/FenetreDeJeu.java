@@ -23,6 +23,7 @@ public class FenetreDeJeu extends javax.swing.JFrame {
     Carte CarteCourante;
     Carte TabCartePartie[] = new Carte[5];
     Pion PionCourant;
+    Pion UsePion;
     //PileCarte unePileCarte = new PileCarte();
     //Partie unePartie = new Partie();
 
@@ -181,29 +182,39 @@ public class FenetreDeJeu extends javax.swing.JFrame {
         for (int i = 4; i >= 0; i--) { // on décremente car [0;Ø] en java est en haut à gauche, nous l'avons pris en bas a gauche
             for (int j = 0; j < 5; j++) {
                 CaseGraphique case_graphique = new CaseGraphique(PlateauJeu.Grille[i][j]);
-
+                
                 case_graphique.addActionListener(new java.awt.event.ActionListener() { // ActionListener permet d'interagir avec la fenêtre graphique de jeu (cliquer sur les cases graphiques)
                     public void actionPerformed(java.awt.event.ActionEvent evt) {
                         Case c = case_graphique.CaseAssociee;
-                        if (c.presenceCaseGrise() == true) {
+                        //String CoulPion;
+                        //boolean RoiPion;
+                        if (c.CaseGrise == true) {
                             int lig = PlateauJeu.LireCoordL(c);
                             int col = PlateauJeu.LireCoordC(c);
-                            System.out.println(lig);
-                            System.out.println(col);
-                            //PlateauJeu.Grille[lig][col].CaseGrise = true;
-                            if (PlateauJeu.PeutDeplacerPion(JoueurCourant, lig, col, c) == true) {
+                            //System.out.println(lig);
+                            //System.out.println(col);
+                            if (PlateauJeu.PeutDeplacerPion(JoueurCourant, lig, col) == true) {
+                                //c.CaseGrise = false;
+                                col = PlateauJeu.useCoordPion[0];
+                                lig = PlateauJeu.useCoordPion[1]; 
+                                c.AffecterPion(PlateauJeu.Grille[lig][col].PionCourant);
+                                PlateauJeu.SupprimerPion(lig, col);
+                                for (int i = 4; i >= 0; i--) { // on décremente car [0;Ø] en java est en haut à gauche, nous l'avons pris en bas a gauche
+                                    for (int j = 0; j < 5; j++) {
+                                        PlateauJeu.Grille[i][j].CaseGrise = false;
+                                    }
+                                }
                                 //String CoulPion = PlateauJeu.LireCouleurPion(lig, col);
                                 //boolean RoiPion = PlateauJeu.Grille[lig][col].EstRoi;
                                 //PlateauJeu.RemplacerPion(JoueurCourant, lig, col, PlateauJeu.Grille[lig][col].PionCourant);
-                                //c.CaseGrise = false;
                                 //c.PionCourant = null;
                                 //c.PionCourant.CouleurPion = CoulPion;
                                 //c.PionCourant.Roi = RoiPion;
                                 textemessage.setText("c'est OK");
                                 grille_jeu.repaint();
-                                /*System.out.println(PionCourant.CouleurPion);
-                                System.out.println(PionCourant.EtreRoi());
-                                grille_jeu.repaint();*/
+                                //System.out.println(PionCourant.CouleurPion);
+                                //System.out.println(PionCourant.EtreRoi());
+                                grille_jeu.repaint();
                             }
                         } else if (!c.PionCourant.CouleurPion.equals(JoueurCourant.CouleurJoueur)) {
                             textemessage.setText("Le pion sélectionné n'est pas valide. Veuillez réessayer"); //setText permet d'afficher des String sur une fenêtre de texte   
@@ -214,20 +225,16 @@ public class FenetreDeJeu extends javax.swing.JFrame {
                             textemessage.setText(JoueurCourant.NomJoueur + " choisit ce pion"); //setText permet d'afficher des String sur une fenêtre de texte
                             int lig = PlateauJeu.LireCoordL(c);
                             int col = PlateauJeu.LireCoordC(c);
+                            PlateauJeu.takePion(c);
                             //CoulPion = PlateauJeu.LireCouleurPion(lig, col);
                             //RoiPion = PlateauJeu.Grille[lig][col].EstRoi;
-                            System.out.println(lig + "!");
-                            System.out.println(col + "!");
+                            //System.out.println(lig + "!");
+                            //System.out.println(col + "!");
                             PlateauJeu.PlacerCaseGrise(JoueurCourant, lig, col, CarteCourante); // trouver moyen de changer les coordonnées
                             //PlateauJeu.AfficherPlateauSurConsole();
                             grille_jeu.repaint();
-                            /*Plateau Jeton jetonrecup = c.recupererJeton();
-                            joueurCourant.ajouterJeton(jetonrecup);
-                            CouleurSuivante();  */
-
-                            //System.out.println(lig);
-                            //System.out.println(col);
-                               
+                            //UsePion = c.EnleverPionChoisi(); //ATTENTION USEPION SERT A RIEN
+                           
                         }}
 
                         /*else if (c.CaseGrise == true){

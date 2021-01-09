@@ -93,12 +93,13 @@ boolean presenceCaseGrise(){
     }
 }
 
+
 boolean SupprimerPion(){ //supprime le pion de la case 
     if(PionCourant==null){
         //System.out.println("Case vide");
         return false;
     }
-    else{
+    else{;
         PionCourant=null;
         //System.out.println("Suppression du pion effectuée");
         return true;
