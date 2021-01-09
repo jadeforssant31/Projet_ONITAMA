@@ -500,7 +500,8 @@ public class FenetreDeJeu extends javax.swing.JFrame {
         btn_c2_j2 = new javax.swing.JButton();
         btn_c1_j1 = new javax.swing.JButton();
         btn_c2_j1 = new javax.swing.JButton();
-        c_transition = new javax.swing.JTextField();
+        c_transition = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -698,13 +699,16 @@ public class FenetreDeJeu extends javax.swing.JFrame {
         });
         getContentPane().add(btn_c2_j1, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 190, 130, 40));
 
-        c_transition.setBackground(new java.awt.Color(204, 51, 0));
-        c_transition.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
+        c_transition.setBackground(new java.awt.Color(153, 0, 0));
         c_transition.setForeground(new java.awt.Color(255, 255, 255));
-        c_transition.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        c_transition.setText("Carte transition");
-        c_transition.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        getContentPane().add(c_transition, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 300, 130, 40));
+        c_transition.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel6.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setText("Carte Transition");
+        c_transition.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 5, -1, -1));
+
+        getContentPane().add(c_transition, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 300, 130, 30));
 
         setBounds(0, 0, 1416, 893);
     }// </editor-fold>//GEN-END:initComponents
@@ -851,7 +855,7 @@ public class FenetreDeJeu extends javax.swing.JFrame {
     private javax.swing.JButton btn_demarrer;
     private javax.swing.JButton btn_quitter;
     private javax.swing.JButton btn_rejouer;
-    private javax.swing.JTextField c_transition;
+    private javax.swing.JPanel c_transition;
     private javax.swing.JPanel debuter_partie;
     private javax.swing.JPanel grille_jeu;
     private javax.swing.JPanel infos_joueurs;
@@ -863,6 +867,7 @@ public class FenetreDeJeu extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JSeparator jSeparator1;
