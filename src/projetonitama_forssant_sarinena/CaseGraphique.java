@@ -32,20 +32,24 @@ public class CaseGraphique extends JButton {
     @Override
     public void paintComponent(Graphics G) {
         super.paintComponent(G);
-        if (CaseAssociee.presenceRoi() == true && CaseAssociee.LireCouleurDuPion() == "Rouge") {
-            setIcon(img_Roi_Rouge); 
+        if (CaseAssociee.presenceCaseGrise() == true){
+            setIcon(img_Case_Grise);
         } else if (CaseAssociee.presenceRoi() == true && CaseAssociee.LireCouleurDuPion() == "Bleu") {
             setIcon(img_Roi_Bleu);
         } 
+        else if (CaseAssociee.presenceRoi() == true && CaseAssociee.LireCouleurDuPion() == "Rouge") {
+            setIcon(img_Roi_Rouge); 
+        }
         else if(CaseAssociee.PresenceCaseVide() == true){
             setIcon(img_Case_Vide);
-        }else {
+        }
+        else {
             String couleur_pion = CaseAssociee.LireCouleurDuPion();
             switch (couleur_pion) {
                 case "Rouge":
                     setIcon(img_Pion_Rouge);
                     break;
-                case "Bleu":
+                default : //affiche pion bleu
                     setIcon(img_Pion_Bleu);
                     break;
             }

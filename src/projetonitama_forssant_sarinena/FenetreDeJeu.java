@@ -28,7 +28,8 @@ public class FenetreDeJeu extends javax.swing.JFrame {
 
     // échange des valeurs des matrices
     int[][] Mante = {{1, 2}, {3, 1}, {3, 3}};
-    Carte CarteMante = new Carte("Mante", "Rouge", Mante);
+    //Carte CarteMante = new Carte("Mante", "Rouge", Mante);
+    Carte CarteMante = new Carte("Mante");
 
     int[][] Singe = {{1, 1}, {1, 3}, {3, 1}, {3, 3}};
     Carte CarteSinge = new Carte("Singe", "Bleu", Singe);
@@ -64,7 +65,8 @@ public class FenetreDeJeu extends javax.swing.JFrame {
     Carte CarteLapin = new Carte("Lapin", "Bleu", Lapin);
 
     int[][] Crabe = {{2, 0}, {3, 2}, {2, 2}};
-    Carte CarteCrabe = new Carte("Crabe", "Bleu", Crabe);
+    //Carte CarteCrabe = new Carte("Crabe", "Bleu", Crabe);
+    Carte CarteCrabe = new Carte("Crabe");
 
     int[][] Elephant = {{2, 1}, {3, 1}, {2, 3}, {3, 3}};
     Carte CarteElephant = new Carte("Elephant", "Rouge", Elephant);
@@ -73,7 +75,8 @@ public class FenetreDeJeu extends javax.swing.JFrame {
     Carte CarteOie = new Carte("Oie", "Bleu", Oie);
 
     int[][] Coq = {{1, 1}, {2, 1}, {2, 3}, {3, 3}};
-    Carte CarteCoq = new Carte("Coq", "Rouge", Coq);
+    //Carte CarteCoq = new Carte("Coq", "Rouge", Coq);
+    Carte CarteCoq = new Carte("Coq");
 
     ArrayList<Carte> ListeCartes = new ArrayList<Carte>() {
         {
@@ -134,12 +137,11 @@ public class FenetreDeJeu extends javax.swing.JFrame {
                 if (c.CarteCourante == null) {
                     return;
                 }
-
                 if (c.equals(JoueurCourant.CarteEnMain[0])) {
                     textemessage.setText(JoueurCourant.NomJoueur + " prend la carte " + JoueurCourant.CarteEnMain[0].LireCarte()); //setText permet d'afficher des String sur une fenêtre de texte
                     //Jeton jetonrecup = c.recupererJeton();
                     //joueurCourant.ajouterJeton(jetonrecup);
-                    JoueurSuivant();
+                    //JoueurSuivant();
                 }
                 /*else {
                     if (joueurCourant.nombreDesintegrateurs > 0) {
@@ -188,17 +190,43 @@ public class FenetreDeJeu extends javax.swing.JFrame {
                             return;
                         } else if (!c.PionCourant.CouleurPion.equals(JoueurCourant.CouleurJoueur)) {
                             textemessage.setText("Le pion sélectionné n'est pas valide. Veuillez réessayer"); //setText permet d'afficher des String sur une fenêtre de texte   
-                        } else if (c.PionCourant.CouleurPion.equals(JoueurCourant.CouleurJoueur)) {
+                        } else if (c.presenceCaseGrise()==true){
+                                int lig = PlateauJeu.LireCoordL(c);
+                                int col = PlateauJeu.LireCoordC(c);
+                                if (PlateauJeu.PeutDeplacerPion(JoueurCourant, lig, col, PionCourant) == true){
+                                    c.AffecterPion(PionCourant);
+                                }
+                        }else if (c.PionCourant.CouleurPion.equals(JoueurCourant.CouleurJoueur)) {
                             textemessage.setText(JoueurCourant.NomJoueur + " choisit ce pion"); //setText permet d'afficher des String sur une fenêtre de texte
                             int lig = PlateauJeu.LireCoordL(c);
                             int col = PlateauJeu.LireCoordC(c);
                             //System.out.println(lig);
                             //System.out.println(col);
                             PlateauJeu.PlacerCaseGrise(JoueurCourant, lig, col, CarteCourante); // trouver moyen de changer les coordonnées
-                            /*Plateau Jeton jetonrecup = c.recupererJeton();
+                            //PlateauJeu.AfficherPlateauSurConsole();
+                            grille_jeu.repaint();
+                           /*Plateau Jeton jetonrecup = c.recupererJeton();
                             joueurCourant.ajouterJeton(jetonrecup);
                             CouleurSuivante();  */
-                        }
+                           
+                            //System.out.println(lig);
+                            //System.out.println(col);
+                            }
+                            
+                    /*else if (c.CaseGrise == true){
+                            int lig = PlateauJeu.LireCoordL(c);
+                            int col = PlateauJeu.LireCoordC(c);
+                            PlateauJeu.DeplacerPion(JoueurCourant, lig, col, PionCourant);
+                            if (c.PionCourant == null){
+                                c.AffecterPion(PionCourant);
+                            } else if (c.PionCourant.LireCouleurPion() == JoueurCourant.CouleurJoueur){
+                                textemessage.setText("Case occupée par un de vos pions. Veuillez réessayer");
+                            }
+                            else {
+                                c.AffecterPion(PionCourant);
+                            }
+                           */ 
+                        
 
                     }
                 });
@@ -311,10 +339,10 @@ public class FenetreDeJeu extends javax.swing.JFrame {
         Joueur2.CarteEnMain[1] = TabCartePartie[3];
         CarteTransition = TabCartePartie[4];
 
-        /*// Test sur placercartegrise
-        Joueur1.CarteEnMain[0] = CarteMante;
+        // Test sur placercartegrise
+        /*Joueur1.CarteEnMain[0] = CarteCrabe;
         Joueur1.CarteEnMain[1] = CarteCoq;
-        Joueur2.CarteEnMain[0] = CarteMante;
+        Joueur2.CarteEnMain[0] = CarteCrabe;
         Joueur2.CarteEnMain[1] = CarteCoq;*/
         // On determine qui commence à jouer
         Random joueur = new Random();
@@ -404,8 +432,11 @@ public class FenetreDeJeu extends javax.swing.JFrame {
             return false;
         }*/
     void AttribuerCouleursAuxJoueurs() { // A REECRIRE CAR JOUEUR EN FONCTION DE LA COULEUR QUI EST FIXE
-        Random alea = new Random(); // attribution des couleurs aux joueurs au hasard
-        /*boolean ChoixJoueur;
+        ListeJoueurs[0].CouleurJoueur = "Bleu";
+        ListeJoueurs[1].CouleurJoueur = "Rouge";
+        
+        /*Random alea = new Random(); // attribution des couleurs aux joueurs au hasard
+        boolean ChoixJoueur;
         ChoixJoueur = alea.nextBoolean();
         
         if (ChoixJoueur == true) {
@@ -414,14 +445,14 @@ public class FenetreDeJeu extends javax.swing.JFrame {
         } else {
             ListeJoueurs[0].CouleurJoueur = "Rouge";
             ListeJoueurs[1].CouleurJoueur = "Bleu";
-        }*/
-       String nomjoueurBleu;
-       String nomjoueurRouge;
+        }
+        String nomjoueurBleu; // A CONTINUER
+        String nomjoueurRouge;
         boolean CouleurJoueurs;
         CouleurJoueurs = alea.nextBoolean();
         if (CouleurJoueurs == true){
         
-        }
+        }*/
     }
 
     void DefinirCartesPartie() {
@@ -783,6 +814,7 @@ public class FenetreDeJeu extends javax.swing.JFrame {
         } else {
             textemessage.setText(JoueurCourant.NomJoueur + " prend la carte " + JoueurCourant.CarteEnMain[1].LireCarte());
             CarteCourante = CarteChoisie(JoueurCourant.CarteEnMain[1].NomCarte);
+            btn_c1_j2.setEnabled(false);
         }
     }//GEN-LAST:event_btn_c2_j2ActionPerformed
 
@@ -792,7 +824,8 @@ public class FenetreDeJeu extends javax.swing.JFrame {
             textemessage.setText("Ce n'est pas votre carte. Réessayez");
         } else {
             textemessage.setText(JoueurCourant.NomJoueur + " prend la carte " + JoueurCourant.CarteEnMain[0].LireCarte());
-            CarteCourante = CarteChoisie(JoueurCourant.CarteEnMain[1].NomCarte);
+            CarteCourante = CarteChoisie(JoueurCourant.CarteEnMain[0].NomCarte);
+            btn_c2_j1.setEnabled(false);
         }
     }//GEN-LAST:event_btn_c1_j1ActionPerformed
 
@@ -803,6 +836,7 @@ public class FenetreDeJeu extends javax.swing.JFrame {
         } else {
             textemessage.setText(JoueurCourant.NomJoueur + " prend la carte " + JoueurCourant.CarteEnMain[1].LireCarte());
             CarteCourante = CarteChoisie(JoueurCourant.CarteEnMain[1].NomCarte);
+            btn_c1_j1.setEnabled(false);
         }
     }//GEN-LAST:event_btn_c2_j1ActionPerformed
 
@@ -812,10 +846,13 @@ public class FenetreDeJeu extends javax.swing.JFrame {
             textemessage.setText("Ce n'est pas votre carte. Réessayez");
         } else {
             textemessage.setText(JoueurCourant.NomJoueur + " prend la carte " + JoueurCourant.CarteEnMain[0].LireCarte());
-            CarteCourante = CarteChoisie(JoueurCourant.CarteEnMain[1].NomCarte);
+            CarteCourante = CarteChoisie(JoueurCourant.CarteEnMain[0].NomCarte);
+            btn_c2_j2.setEnabled(false);
         }
     }//GEN-LAST:event_btn_c1_j2ActionPerformed
 
+                       
+    
     /**
      * @param args the command line arguments
      */

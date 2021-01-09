@@ -20,7 +20,7 @@ public class Carte {
         NomCarte = unNom;
         CouleurCarte = uneCouleur;
         Matrice = new int[5][5];
-        
+
         for (int i=0; i<MatCoord.length; i++){
         int x = MatCoord[i][0];
         int y = MatCoord[i][1];
@@ -29,8 +29,9 @@ public class Carte {
     // BD : je rajouterai un second parametre permettant de remplir la matrice pour chaque carte OK
 }  
     
-    public Carte(){
-        CarteCourante = null;
+    public Carte(String unNom){
+        NomCarte = unNom;
+        //CarteCourante = null;
     }
 
 String LireCarte(){ //Retourne au joueur le nom de la carte

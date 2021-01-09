@@ -20,31 +20,30 @@ public class Plateau {
             }
         }
     }
-    
-    int LireCoordC(Case uneCase){
-       for (int l = 0; l < 5; l++) {
+
+    int LireCoordC(Case uneCase) {
+        for (int l = 0; l < 5; l++) {
             for (int c = 0; c < 5; c++) {
-                if (uneCase.PionCourant == Grille[l][c].PionCourant){
+                if (uneCase.PionCourant == Grille[l][c].PionCourant) {
                     return c;
-                
+
                 }
             }
         }
         return -1;
     }
-    
-        int LireCoordL(Case uneCase){
+
+    int LireCoordL(Case uneCase) {
         for (int l = 0; l < 5; l++) {
             for (int c = 0; c < 5; c++) {
-                if (uneCase.PionCourant == Grille[l][c].PionCourant){
+                if (uneCase.PionCourant == Grille[l][c].PionCourant) {
                     return l;
-                
+
                 }
             }
         }
         return -2;
     }
-       
 
     void PositionnerPionsDepart() { // ajoute les 10 jetons sur le plateau, disposés d'une certaine manière
         for (int i = 0; i < 5; i++) {
@@ -69,6 +68,13 @@ public class Plateau {
                 Grille[4][i].PionCourant = unPionB;
             }
         }
+        
+        /*//Test pour déplacements
+        Grille[2][1].PionCourant = new Pion("Bleu");
+        Grille[2][1].PionCourant.Roi = true;
+        Grille[2][2].PionCourant = new Pion("Rouge");
+        Grille[2][2].PionCourant.Roi = true;*/
+
     }
 
     void ViderPlateau() { //vide le plateau en fin de partie // parcours la grille et initialise les données à 0 pour toutes les cellules, les trou noirs et les desintegrateurs
@@ -176,7 +182,7 @@ public class Plateau {
             }
             System.out.println(" " + (l + 1)); // affichage des numéros de lignes (l+1) car tableau commence à 0
         }
-        
+
         for (int c = 0; c < 5; c++) {
             System.out.print(" " + (c + 1) + " "); // affichage des colonnes (c+1) car tableau commence à 0
         }
@@ -190,21 +196,28 @@ public class Plateau {
             PlacerCaseGriseBleu(l, c, uneCarte);
         }
     }
-    
+
     // cases grises -> visualiser les potentiels mouvements de pions avec les cartes en main
     void PlacerCaseGriseRouge(int l, int c, Carte uneCarte) { // équivalent de déplacerPion
-        switch (uneCarte.NomCarte) {
+        System.out.println("case rouge");
+        String couleur_carte = uneCarte.LireCarte();
+        switch (couleur_carte) {
             case "Mante":
                 if ((l >= 0 && l < 4) && (c >= 1 && c < 5)) {
                     //Grille[l + 1][c - 1].AffecterCaseGrise();
-                    Grille[l+1][c - 1].CaseGrise = true; //PROBLEME, L'affichage décale les cases...mais l'idée est là
+                    Grille[l + 1][c - 1].CaseGrise = true; //PROBLEME, L'affichage décale les cases...mais l'idée est là
+                    //System.out.println("carte Mante");
+                    //break;
                 }
                 if ((l >= 0 && l < 4) && (c >= 0 && c < 4)) {
-                    Grille[l+1][c + 1].CaseGrise = true;
+                    Grille[l + 1][c + 1].CaseGrise = true;
+                    //break;
                 }
                 if ((l >= 1 && l < 5) && (c >= 0 && c < 5)) {
                     Grille[l - 1][c].CaseGrise = true;
+                    //break;
                 }
+                System.out.println("carte Mante");
                 break;
 
             case "Coq":
@@ -220,6 +233,7 @@ public class Plateau {
                 if ((l >= 0 && l < 4) && (c >= 0 && c < 4)) {
                     Grille[l + 1][c + 1].CaseGrise = true;
                 }
+                System.out.println("carte Coq");
                 break;
 
             case "Crabe":
@@ -232,6 +246,7 @@ public class Plateau {
                 if ((l >= 0 && l < 4) && (c >= 0 && c < 5)) {
                     Grille[l + 1][c].CaseGrise = true;
                 }
+                System.out.println("carte Crabe");
                 break;
 
             case "Sanglier":
@@ -387,7 +402,7 @@ public class Plateau {
                 }
                 break;
 
-            case "Grue":
+            default: //case grue
                 if ((l >= 1 && l < 5) && (c >= 1 && c < 5)) {
                     Grille[l - 1][c - 1].CaseGrise = true;
                 }
@@ -403,20 +418,27 @@ public class Plateau {
     }
 
     void PlacerCaseGriseBleu(int l, int c, Carte uneCarte) { // équivalent de déplacerPion
-        switch (uneCarte.NomCarte) {
+        System.out.println("case bleu");
+        String couleur_carte = uneCarte.LireCarte();
+        switch (couleur_carte) {
             case "Mante":
                 if ((l >= 1 && l < 5) && (c >= 0 && c < 4)) {
                     Grille[l - 1][c + 1].CaseGrise = true;
+                    //System.out.println("carte Mante");
+                    //break;
                 }
                 if ((l >= 1 && l < 5) && (c >= 1 && c < 5)) {
                     Grille[l - 1][c - 1].CaseGrise = true;
+                    //break;
                 }
                 if ((l >= 0 && l < 4) && (c >= 0 && c < 5)) {
-                    Grille[l+1][c].CaseGrise = true;
+                    Grille[l + 1][c].CaseGrise = true;
+                    //break;
                 }
+                System.out.println("carte Mante");
                 break;
 
-            case "Coq":
+            /*case "Coq":
                 if ((l >= 0 && l < 5) && (c >= 1 && c < 5)) {
                     Grille[l][c - 1].CaseGrise = true;
                 }
@@ -429,8 +451,9 @@ public class Plateau {
                 if ((l >= 0 && l < 4) && (c >= 1 && c < 4)) {
                     Grille[l + 1][c + 1].CaseGrise = true;
                 }
+                System.out.println("carte Coq");
                 break;
-
+             */
             case "Crabe":
                 if ((l >= 0 && l < 5) && (c >= 2 && c < 5)) { // CHECK LE -2
                     Grille[l][c - 2].CaseGrise = true;
@@ -441,6 +464,7 @@ public class Plateau {
                 if ((l >= 1 && l < 5) && (c >= 0 && c < 5)) {
                     Grille[l - 1][c].CaseGrise = true;
                 }
+                System.out.println("carte Crabe");
                 break;
 
             case "Sanglier":
@@ -596,7 +620,7 @@ public class Plateau {
                 }
                 break;
 
-            case "Grue":
+            default: //case grue
                 if ((l >= 0 && l < 4) && (c >= 1 && c < 5)) {
                     Grille[l + 1][c - 1].CaseGrise = true;
                 }
@@ -611,6 +635,25 @@ public class Plateau {
         }
 
     }
+
+    boolean PeutDeplacerPion(Joueur unJoueur, int l, int c, Pion unPion) {
+        if (Grille[l][c].CaseGrise != true) {
+            System.out.println("Vous ne pouvez pas aller sur la case selectionnée");
+            return false;
+        } else if (Grille[l][c].CaseGrise == true && Grille[l][c].PionCourant.CouleurPion == unJoueur.CouleurJoueur) {
+            System.out.println("La case selectionnée possède un de vos pions");
+            return false;
+        } else if (Grille[l][c]== null){
+            Grille[l][c].AffecterPion(unPion);
+            System.out.println("Le pion est bien affecté");
+            return true;
+        }
+        else {
+            return true;
+        }
+    }
+    
+    
 
     // BD : on place les case grises à partir d'un pion choisi par ses coordonnées, et d'une carte, non ? OK
     // ou sont ces éléments quand on appelle cette méthode ? DANS CETTE CLASSE

@@ -92,7 +92,7 @@ public class CarteGraphique extends JButton {
             case "Tigre":
                 setIcon(img_tigre);
                 break;
-            case "Grue":
+            default : //case grue
                 setIcon(img_grue);
                 break;
         }
