@@ -636,21 +636,30 @@ public class Plateau {
 
     }
 
-    boolean PeutDeplacerPion(Joueur unJoueur, int l, int c, Pion unPion) {
-        if (Grille[l][c].CaseGrise != true) {
+   boolean PeutDeplacerPion(Joueur unJoueur, int l, int c, Case uneCase) {
+        System.out.println(Grille[l][c].CaseGrise);
+        if (Grille[l][c].PionCourant == null && Grille[l][c].CaseGrise == false){
             System.out.println("Vous ne pouvez pas aller sur la case selectionnée");
             return false;
-        } else if (Grille[l][c].CaseGrise == true && Grille[l][c].PionCourant.CouleurPion == unJoueur.CouleurJoueur) {
+        } else if (Grille[l][c].PionCourant == null && Grille[l][c].CaseGrise != false){
+            System.out.println("La case est vide, le pion peut être affecté");
+            return true;
+        } else if (Grille[l][c].CaseGrise != false && Grille[l][c].PionCourant.CouleurPion == unJoueur.CouleurJoueur) {
             System.out.println("La case selectionnée possède un de vos pions");
             return false;
-        } else if (Grille[l][c]== null){
-            Grille[l][c].AffecterPion(unPion);
-            System.out.println("Le pion est bien affecté");
+        } else {
+       //(Grille[l][c].CaseGrise != false && Grille[l][c].PionCourant.CouleurPion != unJoueur.CouleurJoueur)
+            System.out.println("Le pion peut être bien affecté. La case choisie est celle d'un pion adverse");
             return true;
         }
-        else {
-            return true;
-        }
+    }
+   
+    Pion RemplacerPion(Joueur unJoueur, int l, int c, Pion unPion){
+        //Grille[l][c].CaseGrise = false;
+        //Grille[l][c].PionCourant = null;
+        Pion newPion = new Pion(unJoueur.CouleurJoueur);
+        newPion = Grille[l][c].PionCourant;
+        return newPion;
     }
     
     

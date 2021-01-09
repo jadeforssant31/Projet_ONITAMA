@@ -185,35 +185,52 @@ public class FenetreDeJeu extends javax.swing.JFrame {
                 case_graphique.addActionListener(new java.awt.event.ActionListener() { // ActionListener permet d'interagir avec la fenêtre graphique de jeu (cliquer sur les cases graphiques)
                     public void actionPerformed(java.awt.event.ActionEvent evt) {
                         Case c = case_graphique.CaseAssociee;
-                        if (c.PionCourant == null) {
-                            textemessage.setText("La case sélectionnée est vide. Veuillez réessayer");
-                            return;
+                        if (c.presenceCaseGrise() == true) {
+                            int lig = PlateauJeu.LireCoordL(c);
+                            int col = PlateauJeu.LireCoordC(c);
+                            System.out.println(lig);
+                            System.out.println(col);
+                            //PlateauJeu.Grille[lig][col].CaseGrise = true;
+                            if (PlateauJeu.PeutDeplacerPion(JoueurCourant, lig, col, c) == true) {
+                                //String CoulPion = PlateauJeu.LireCouleurPion(lig, col);
+                                //boolean RoiPion = PlateauJeu.Grille[lig][col].EstRoi;
+                                //PlateauJeu.RemplacerPion(JoueurCourant, lig, col, PlateauJeu.Grille[lig][col].PionCourant);
+                                //c.CaseGrise = false;
+                                //c.PionCourant = null;
+                                //c.PionCourant.CouleurPion = CoulPion;
+                                //c.PionCourant.Roi = RoiPion;
+                                textemessage.setText("c'est OK");
+                                grille_jeu.repaint();
+                                /*System.out.println(PionCourant.CouleurPion);
+                                System.out.println(PionCourant.EtreRoi());
+                                grille_jeu.repaint();*/
+                            }
                         } else if (!c.PionCourant.CouleurPion.equals(JoueurCourant.CouleurJoueur)) {
                             textemessage.setText("Le pion sélectionné n'est pas valide. Veuillez réessayer"); //setText permet d'afficher des String sur une fenêtre de texte   
-                        } else if (c.presenceCaseGrise()==true){
-                                int lig = PlateauJeu.LireCoordL(c);
-                                int col = PlateauJeu.LireCoordC(c);
-                                if (PlateauJeu.PeutDeplacerPion(JoueurCourant, lig, col, PionCourant) == true){
-                                    c.AffecterPion(PionCourant);
-                                }
-                        }else if (c.PionCourant.CouleurPion.equals(JoueurCourant.CouleurJoueur)) {
+                        } else if (c.PionCourant == null) {
+                            textemessage.setText("La case sélectionnée est vide. Veuillez réessayer");
+                            return;
+                        } else if (c.PionCourant.CouleurPion.equals(JoueurCourant.CouleurJoueur)) {
                             textemessage.setText(JoueurCourant.NomJoueur + " choisit ce pion"); //setText permet d'afficher des String sur une fenêtre de texte
                             int lig = PlateauJeu.LireCoordL(c);
                             int col = PlateauJeu.LireCoordC(c);
-                            //System.out.println(lig);
-                            //System.out.println(col);
+                            //CoulPion = PlateauJeu.LireCouleurPion(lig, col);
+                            //RoiPion = PlateauJeu.Grille[lig][col].EstRoi;
+                            System.out.println(lig + "!");
+                            System.out.println(col + "!");
                             PlateauJeu.PlacerCaseGrise(JoueurCourant, lig, col, CarteCourante); // trouver moyen de changer les coordonnées
                             //PlateauJeu.AfficherPlateauSurConsole();
                             grille_jeu.repaint();
-                           /*Plateau Jeton jetonrecup = c.recupererJeton();
+                            /*Plateau Jeton jetonrecup = c.recupererJeton();
                             joueurCourant.ajouterJeton(jetonrecup);
                             CouleurSuivante();  */
-                           
+
                             //System.out.println(lig);
                             //System.out.println(col);
-                            }
-                            
-                    /*else if (c.CaseGrise == true){
+                               
+                        }}
+
+                        /*else if (c.CaseGrise == true){
                             int lig = PlateauJeu.LireCoordL(c);
                             int col = PlateauJeu.LireCoordC(c);
                             PlateauJeu.DeplacerPion(JoueurCourant, lig, col, PionCourant);
@@ -225,11 +242,9 @@ public class FenetreDeJeu extends javax.swing.JFrame {
                             else {
                                 c.AffecterPion(PionCourant);
                             }
-                           */ 
-                        
-
-                    }
-                });
+                         */
+                    });
+                
 
                 // A COMPLETER CHOIX PION
                 grille_jeu.add(case_graphique);
@@ -295,9 +310,9 @@ public class FenetreDeJeu extends javax.swing.JFrame {
         }
     }*/
             }
-        }
+        }}
 
-    }
+    
 
     void initialiserPartie() {
         // vider Plateau OK
@@ -404,6 +419,44 @@ public class FenetreDeJeu extends javax.swing.JFrame {
 
     }
 
+    void TourInterface() { // équivalent de notre méthode Menu() achevée
+        System.out.println("Tour de " + JoueurCourant.NomJoueur);
+        textemessage.setText("Choisissez une carte déplacement");
+        String ChoixCarte;
+        Scanner sc = new Scanner(System.in);
+        ChoixCarte = sc.nextLine();
+        while (!JoueurCourant.CarteEnMain[0].equals(CarteCourante) && !JoueurCourant.CarteEnMain[1].equals(CarteCourante)) {
+            textemessage.setText("Choisissez une carte déplacement");
+        }
+        textemessage.setText("la carte déplacement choisie est " + CarteCourante.NomCarte);
+        Carte CarteDuTour = CarteChoisie(ChoixCarte);
+
+        textemessage.setText("Choisissez un pion à déplacer");
+        int c;
+        int l;
+        do {
+            System.out.println("Donner les coordonnées du pion à déplacer : ");
+            System.out.println("Saisir colonne : ");
+            c = sc.nextInt() - 1;
+            while (c < 0 || c > 4) {
+                System.out.println("Colonne invalide. Réessayer.");
+                c = sc.nextInt() - 1;
+            }
+            System.out.println("Saisir ligne : ");
+            l = sc.nextInt() - 1;
+            while (l < 0 || l > 4) {
+                System.out.println("Ligne invalide. Réessayer.");
+                l = sc.nextInt() - 1;
+            }
+        } while (ChoisirPion(l, c) != true);
+
+        PlateauJeu.PlacerCaseGrise(JoueurCourant, l, c, CarteDuTour);
+        PlateauJeu.AfficherPlateauSurConsole();
+
+        System.out.println("Choisissez une carte grise");
+
+    }
+
     public void JoueurSuivant() {
         // rotation des joueurs
         if (JoueurCourant == ListeJoueurs[0]) {
@@ -434,7 +487,7 @@ public class FenetreDeJeu extends javax.swing.JFrame {
     void AttribuerCouleursAuxJoueurs() { // A REECRIRE CAR JOUEUR EN FONCTION DE LA COULEUR QUI EST FIXE
         ListeJoueurs[0].CouleurJoueur = "Bleu";
         ListeJoueurs[1].CouleurJoueur = "Rouge";
-        
+
         /*Random alea = new Random(); // attribution des couleurs aux joueurs au hasard
         boolean ChoixJoueur;
         ChoixJoueur = alea.nextBoolean();
@@ -851,8 +904,6 @@ public class FenetreDeJeu extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btn_c1_j2ActionPerformed
 
-                       
-    
     /**
      * @param args the command line arguments
      */
