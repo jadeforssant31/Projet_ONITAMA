@@ -363,9 +363,10 @@ public class FenetreDeJeu extends javax.swing.JFrame {
 
         // Test sur placercartegrise
         /*Joueur1.CarteEnMain[0] = CarteCrabe;
-        Joueur1.CarteEnMain[1] = CarteCoq;
+        Joueur1.CarteEnMain[1] = CarteMante;
         Joueur2.CarteEnMain[0] = CarteCrabe;
-        Joueur2.CarteEnMain[1] = CarteCoq;*/
+        Joueur2.CarteEnMain[1] = CarteMante;*/
+        
         // On determine qui commence à jouer
         Random joueur = new Random();
         boolean premier_joueur = joueur.nextBoolean();

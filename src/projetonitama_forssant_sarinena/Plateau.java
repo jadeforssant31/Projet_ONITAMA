@@ -468,8 +468,8 @@ else {
                 if ((l >= 0 && l < 5) && (c >= 2 && c < 5)) { // CHECK LE -2
                     Grille[l][c - 2].CaseGrise = true;
                 }
-                if ((l >= 0 && l < 4) && (c >= 0 && c < 3)) { // CHECK LE +2
-                    Grille[l + 1][c + 2].CaseGrise = true;
+                if ((l >= 0 && l < 5) && (c >= 0 && c < 3)) { // CHECK LE +2
+                    Grille[l][c + 2].CaseGrise = true;
                 }
                 if ((l >= 1 && l < 5) && (c >= 0 && c < 5)) {
                     Grille[l - 1][c].CaseGrise = true;
