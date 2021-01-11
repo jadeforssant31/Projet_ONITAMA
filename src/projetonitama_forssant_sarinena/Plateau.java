@@ -145,13 +145,17 @@ else {
 // BD : sur quelle case on supprime le pion ?
     }
     
-    //methode alliant ConditionPierre et ConditionRuisseau
+    //methode alliant ConditionPierre et ConditionRuisseau 
+    // PARAMETRES Joueur unJoueur ?? 
+    //comment le recup?
     boolean EtreGagnant(int l, int c, Pion unPion) {
         if (ConditionPierre(l, c, unPion) == true || ConditionRuisseau(l, c) == true) {
             return true;
         }
         return false;
     }
+    
+   
 
     boolean ConditionPierre(int l, int c, Pion unPion) { //condition 1 pour gagner
         if (Grille[l][c].PionCourant.CouleurPion != unPion.CouleurPion && unPion.EtreRoi() == true) {
@@ -456,7 +460,7 @@ else {
                 System.out.println("carte Mante");
                 break;
 
-            /*case "Coq":
+            case "Coq":
                 if ((l >= 0 && l < 5) && (c >= 1 && c < 5)) {
                     Grille[l][c - 1].CaseGrise = true;
                 }
@@ -471,7 +475,7 @@ else {
                 }
                 System.out.println("carte Coq");
                 break;
-             */
+             
             case "Crabe":
                 if ((l >= 0 && l < 5) && (c >= 2 && c < 5)) { // CHECK LE -2
                     Grille[l][c - 2].CaseGrise = true;

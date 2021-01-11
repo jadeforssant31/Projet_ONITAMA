@@ -159,13 +159,13 @@ public class FenetreDeJeu extends javax.swing.JFrame {
                                 panel_carte_transition.remove(cartetransition);
 
                                 ChangementCartes();
-                               
+
                                 carte_graphique1_j1.CarteAssociee = TabCartePartie[0];
                                 carte_graphique2_j1.CarteAssociee = TabCartePartie[1];
                                 carte_graphique1_j2.CarteAssociee = TabCartePartie[2];
                                 carte_graphique2_j2.CarteAssociee = TabCartePartie[3];
                                 cartetransition.CarteAssociee = TabCartePartie[4];
-                                
+
                                 panel_carte1_j1.add(carte_graphique1_j1);
                                 panel_carte2_j1.add(carte_graphique2_j1);
                                 panel_carte1_j2.add(carte_graphique1_j2);
@@ -206,7 +206,28 @@ public class FenetreDeJeu extends javax.swing.JFrame {
                             grille_jeu.repaint();
                             //ATTENTION USEPION SERT A RIEN
 
+                            
+                        boolean victoire_J1 = PlateauJeu.EtreGagnant(lig, col, PionCourant);
+                        boolean victoire_J2=PlateauJeu.EtreGagnant(lig, col, PionCourant);
+                        
+                        if (victoire_J1 && !victoire_J2){
+                            textemessage.setText("Victoire de "+ ListeJoueurs[0].NomJoueur);
                         }
+                        else if (victoire_J2 && !victoire_J1){
+                            textemessage.setText("Victoire de "+ ListeJoueurs[1].NomJoueur);
+                        }
+                        else if (victoire_J1 && victoire_J2){
+                            if(JoueurCourant == ListeJoueurs[0]){
+                                textemessage.setText("Victoire par faute de "+ ListeJoueurs[1].NomJoueur);
+                            }
+                            else {
+                                textemessage.setText("Victoire par faute de "+ ListeJoueurs[0].NomJoueur);
+                            }
+                        }
+                        
+                           
+                        }
+                        
                     }
                 });
 
@@ -214,67 +235,10 @@ public class FenetreDeJeu extends javax.swing.JFrame {
                 grille_jeu.add(case_graphique);
 
 
-                /* public FenetreDeJeu() {
-        initComponents();
-        panneau_info_joueurs.setVisible(false); // le setVisible(boolean) rend la référence-objet visible ou non 
-        panneau_info_partie.setVisible(false);
-        btn_rejouer.setEnabled(false); // le setEnabled(boolean) rend le bouton fonctionnel ou non
-        btn_stop.setEnabled(true);
-        for (int i = 5; i >= 0; i--) {
-            for (int j = 0; j < 7; j++) {
-                CelluleGraphique cellGraph = new CelluleGraphique(GrilleJeu.Cellules[i][j]); // création des cellule graphique associée aux coordonnées du jeu console
-
-                cellGraph.addActionListener(new java.awt.event.ActionListener() { // ActionListener permet d'interagir avec la fenêtre graphique de jeu (cliquer sur les cases graphiques)
-                    public void actionPerformed(java.awt.event.ActionEvent evt) {
-                        Cellule c = cellGraph.celluleAssociee;
-                        if (c.jetonCourant == null) {
-                            return;
-                        }
-                        if (c.jetonCourant.Couleur.equals(joueurCourant.Couleur)) {
-                            textemessage.setText(joueurCourant.Nom + " récupère un de ses jetons"); //setText permet d'afficher des String sur une fenêtre de texte
-                            Jeton jetonrecup = c.recupererJeton();
-                            joueurCourant.ajouterJeton(jetonrecup);
-                            CouleurSuivante();
-                        } else {
-                            if (joueurCourant.nombreDesintegrateurs > 0) {
-                                textemessage.setText(joueurCourant.Nom + " désintègre un jeton adverse");
-                                c.supprimerJeton();
-                                joueurCourant.utiliserDesintegrateur();
-                                CouleurSuivante();
-                            } else {
-                                return;
-                            }
-                        }
-                        GrilleJeu.tasserGrille();
-                        panneau_grille.repaint(); // rafraîchit, actualise le panneau d'affichage
-                        lbl_j1_desint.setText(ListeJoueurs[0].nombreDesintegrateurs + ""); // double guillements force conversion en String
-                        lbl_j2_desint.setText(ListeJoueurs[1].nombreDesintegrateurs + ""); // double guillements force conversion en String
-
-                        boolean vict_j1 = GrilleJeu.etreGagnantePourJoueur(ListeJoueurs[0]);
-                        boolean vict_j2 = GrilleJeu.etreGagnantePourJoueur(ListeJoueurs[1]);
-
-                        if (vict_j1 && !vict_j2) {
-                            textemessage.setText("Victoire de " + ListeJoueurs[0].Nom);
-                        }
-                        if (vict_j2 && !vict_j1) {
-                            textemessage.setText("Victoire de " + ListeJoueurs[1].Nom);
-                        }
-                        if (vict_j1 && vict_j2) {
-                            if (joueurCourant == ListeJoueurs[0]) {
-                                textemessage.setText("Victoire par faute de " + ListeJoueurs[1].Nom); // explicite les règles aux joueurs
-                            } else {
-                                textemessage.setText("Victoire par faute de " + ListeJoueurs[0].Nom); // explicite les règles aux joueurs
-                            }
-                        }
-
-                    }
-                });
-                panneau_grille.add(cellGraph);
+                
             }
         }
-    }*/
-            }
-        }
+
     }
 
     void initialiserPartie() {
@@ -323,9 +287,9 @@ public class FenetreDeJeu extends javax.swing.JFrame {
         TabCartePartie[0]=Joueur2.CarteEnMain[1];
         TabCartePartie[4] = CarteTransition;*/
         // Test sur placercartegrise
-        /*Joueur1.CarteEnMain[0] = CarteCrabe;
+        /*Joueur1.CarteEnMain[0] = CarteCoq;
         Joueur1.CarteEnMain[1] = CarteMante;
-        Joueur2.CarteEnMain[0] = CarteCrabe;
+        Joueur2.CarteEnMain[0] = CarteCoq;
         Joueur2.CarteEnMain[1] = CarteMante;*/
 // On determine qui commence à jouer
         Random joueur = new Random();
@@ -500,8 +464,7 @@ public class FenetreDeJeu extends javax.swing.JFrame {
                                 System.out.println("tabcarte2gr " + carte_graphique1_j2.CarteAssociee.NomCarte);
                                 System.out.println("tabcarte3gr " + carte_graphique2_j2.CarteAssociee.NomCarte);
                                 System.out.println("cartetransitiongr " + cartetransition.CarteAssociee.NomCarte);*/
-        
-        /*CarteGraphique carte_graphique1_j1 = new CarteGraphique(TabCartePartie[0]);
+ /*CarteGraphique carte_graphique1_j1 = new CarteGraphique(TabCartePartie[0]);
         panel_carte1_j1.add(carte_graphique1_j1);
         CarteGraphique carte_graphique2_j1 = new CarteGraphique(TabCartePartie[1]);
         panel_carte2_j1.add(carte_graphique2_j1);
@@ -512,7 +475,7 @@ public class FenetreDeJeu extends javax.swing.JFrame {
         CarteGraphique cartetransition = new CarteGraphique(TabCartePartie[4]);
         panel_carte_transition.add(cartetransition);*/
 
-        /*grille_jeu.repaint();
+ /*grille_jeu.repaint();
         panel_carte1_j1.repaint();
         panel_carte2_j1.repaint();
         panel_carte1_j2.repaint();
@@ -527,23 +490,25 @@ public class FenetreDeJeu extends javax.swing.JFrame {
         JoueurSuivant();*/
     }
 
-    /*boolean TourDeJeu(Carte uneCarte, Pion unPion, ) { // A COMPLETER; combinaison de selection de carte et de deplacer pion
-        boolean ResultatAction;
+    /*boolean TourDeJeu(Carte uneCarte, Pion unPion, int l, int c) { // A COMPLETER; combinaison de selection de carte et de deplacer pion
+    boolean ResultatAction;
     ResultatAction=...;
-    boolean victoire_j1 = PlateauJeu.EtreGagnant();
-    boolean victoire_j2 = PlateauJeu.EtreGagnant();
-    if (victoire_j1 && !victoire_j2) textemessage.setText("Victoire de " + ListeJoueurs[0].NomJoueur);
-    if (victoire_j2 && !victoire_j1) textemessage.setText("Victoire de " + ListeJoueurs[1].NomJoueur);
-    if (victoire_j1 && victoire_j2){
-        if(JoueurCourant == ListeJoueurs[0]) textemessage.setText("Victoire de " + ListeJoueurs[1].NomJoueur);
-        else textemessage.setText("Victoire de " + ListeJoueurs[0].NomJoueur);
-    }
+    boolean victoire_j1 = PlateauJeu.ConditionPierre(l, c, unPion);
+    boolean victoire_j2 = PlateauJeu.ConditionPierre(l, c, unPion);
     
-        (ResultatAction == true) {
-            return true;
-        } else {
-            return false;
-        }*/
+    if (victoire_j1 == true && victoire_j2 == false) {
+    textemessage.setText("Victoire de " + ListeJoueurs[0].NomJoueur); 
+    return true;
+    }
+    else if (victoire_j2 == true && !victoire_j1 == false) {
+        textemessage.setText("Victoire de " + ListeJoueurs[1].NomJoueur);
+        return true;
+    }
+    else{
+        return false;
+    }
+    }*/
+    
     void AttribuerCouleursAuxJoueurs() { // A REECRIRE CAR JOUEUR EN FONCTION DE LA COULEUR QUI EST FIXE
         ListeJoueurs[0].CouleurJoueur = "Bleu";
         ListeJoueurs[1].CouleurJoueur = "Rouge";
