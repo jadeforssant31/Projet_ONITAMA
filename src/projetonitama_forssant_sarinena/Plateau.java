@@ -94,6 +94,14 @@ else {
             }
         }
     }
+    
+    void ViderCaseGrise() { //vide le plateau en fin de partie // parcours la grille et initialise les données à 0 pour toutes les cellules, les trou noirs et les desintegrateurs
+        for (int l = 0; l < 5; l++) {
+            for (int c = 0; c < 5; c++) {
+                Grille[l][c].CaseGrise = false;
+            }
+        }
+    }
 
     boolean CaseOccupee(int l, int c) { //renvoie si la case est occupée par un pion (adverse ou non)
         // BD : quelle case ? il manque les coordonnées en paramètre OK

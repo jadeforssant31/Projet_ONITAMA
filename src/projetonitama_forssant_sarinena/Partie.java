@@ -298,11 +298,18 @@ public class Partie {
         }
     }
 
-    Carte EchangeCarte(Carte uneCarte) {
+    Carte EchangeCarte() {
+        for (int i=0; i<5; i++){
+            if (TabCartePartie[i] == CarteCourante){
+            CarteTransition = TabCartePartie[i];
+            }
+        }
+        CarteCourante = CarteTransition;
         // la dernière carte jouée devient carte transition
         // changement de main, ajout de la 3e carte à l'autre joueur
         // BD: je vois a peu pres cette méthode. Ne pas oublier qu'il faudra, uen fois les cartes échangées, raffecter carteCourante comme une carte appartenant au joueur courant
-        //return uneCarte;  
+        //return uneCarte; 
+        System.out.println(CarteTransition.NomCarte);
         return CarteTransition;
     }
 }

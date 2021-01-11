@@ -49,9 +49,4 @@ public class Joueur {
         }
         return uneCarte.NomCarte;
     }
-
-    boolean UtiliserCarte(Carte NomCarte) {
-        return true;
-    }
-
 }
