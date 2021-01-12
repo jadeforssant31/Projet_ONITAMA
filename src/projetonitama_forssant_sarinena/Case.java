@@ -23,8 +23,11 @@ public Case () { // constructeur qui initialise les attributs
 
 boolean AffecterPion(Pion unPion){ //affecte le pion à une case suite à un mouvement
     if (PionCourant == null){
-       PionCourant = unPion; 
-       //System.out.println("pion affecté");
+       PionCourant = unPion;
+       PionCourant.Roi = unPion.Roi;
+       PionCourant.CouleurPion = unPion.CouleurPion;
+       //System.out.println(PionCourant.Roi);
+       //System.out.println(PionCourant.CouleurPion);
         return true;
     }
     else{

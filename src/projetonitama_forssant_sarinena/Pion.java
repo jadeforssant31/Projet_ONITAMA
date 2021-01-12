@@ -19,8 +19,23 @@ public class Pion {
         Roi = false;
     }
 
+    public Pion() {
+        CouleurPion = null;
+        Roi = false;
+    }
+
     String LireCouleurPion() { //retourne la couleur du pion
         return CouleurPion;
+    }
+
+    String LireRolePion() {
+        if (Roi == true) {
+            //System.out.println("Roi présent");
+            return "Roi";
+        } else {
+            //System.out.println("Roi absent");
+            return "Pion";
+        }
     }
 
     boolean EtreRoi() { //retourne le role du pion (pion simple ou roi)

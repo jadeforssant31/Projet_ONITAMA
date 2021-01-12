@@ -23,9 +23,6 @@ public class FenetreDeJeu extends javax.swing.JFrame {
     Carte CarteCourante;
     Carte TabCartePartie[] = new Carte[5];
     Pion PionCourant;
-    Pion UsePion;
-    //PileCarte unePileCarte = new PileCarte();
-    //Partie unePartie = new Partie();
 
     // échange des valeurs des matrices
     int[][] Mante = {{1, 2}, {3, 1}, {3, 3}};
@@ -139,18 +136,27 @@ public class FenetreDeJeu extends javax.swing.JFrame {
                 case_graphique.addActionListener(new java.awt.event.ActionListener() { // ActionListener permet d'interagir avec la fenêtre graphique de jeu (cliquer sur les cases graphiques)
                     public void actionPerformed(java.awt.event.ActionEvent evt) {
                         Case c = case_graphique.CaseAssociee;
-                        if (c.CaseGrise == true) {
+
+                       if (c.CaseGrise == true) {
                             int lig = PlateauJeu.LireCoordL(c);
                             int col = PlateauJeu.LireCoordC(c);
                             //System.out.println(lig);
                             //System.out.println(col);
-                            if (PlateauJeu.PeutDeplacerPion(JoueurCourant, lig, col) == true) {
+                            if (PlateauJeu.PeutDeplacerPion(JoueurCourant, lig, col) == true && PlateauJeu.Grille[lig][col].PionCourant == null) {
                                 col = PlateauJeu.useCoordPion[0];
                                 lig = PlateauJeu.useCoordPion[1];
+                                String couleur = PlateauJeu.useAttribPion[0];
+                                String role = PlateauJeu.useAttribPion[1];
+                                System.out.println(couleur);
+                                System.out.println(role);
+                                PlateauJeu.Grille[lig][col].AffecterPion(PionCourant);
                                 c.AffecterPion(PlateauJeu.Grille[lig][col].PionCourant);
+                                
                                 PlateauJeu.SupprimerPion(lig, col);
                                 PlateauJeu.ViderCaseGrise();
                                 textemessage.setText("c'est OK");
+                                PlateauJeu.takePion(PlateauJeu.Grille[lig][col]);
+                                PlateauJeu.takePion(c);
 
                                 panel_carte1_j1.remove(carte_graphique1_j1);
                                 panel_carte2_j1.remove(carte_graphique2_j1);
@@ -184,9 +190,127 @@ public class FenetreDeJeu extends javax.swing.JFrame {
                                 btn_c1_j2.setEnabled(true);
                                 btn_c2_j2.setEnabled(true);
 
-                                JoueurSuivant();
+                                //PlateauJeu.takePion(PlateauJeu.Grille[lig][col]);
+                                //PlateauJeu.takePion(c);
+                                int nouvcol = PlateauJeu.useCoordPion[0];
+                                int nouvlig = PlateauJeu.useCoordPion[1];
+                                String nouvcouleur = PlateauJeu.useAttribPion[0];
+                                String nouvrole = PlateauJeu.useAttribPion[1];
 
-                            } else {
+                                //c = PlateauJeu.Grille[nouvlig][nouvcol];
+                                //c.PionCourant.CouleurPion = PlateauJeu.Grille[nouvlig][nouvcol].LireCouleurDuPion();
+                                //c.PionCourant.Roi =  PlateauJeu.Grille[nouvlig][nouvcol].EstRoi;
+                                //System.out.println(PionCourant.CouleurPion);
+                                //System.out.println(PionCourant.Roi); 
+                                //System.out.println(c.PionCourant.CouleurPion);
+                                //System.out.println(c.PionCourant.Roi);        
+                                System.out.println(nouvlig);
+                                System.out.println(nouvcol);
+                                System.out.println(nouvcouleur);
+                                System.out.println(nouvrole);
+
+
+                                /*boolean victoire = PlateauJeu.EtreGagnant(nouvlig, nouvcol, PionCourant);
+                                System.out.println(victoire);
+
+                                if (victoire == true) {
+                                    textemessage.setText("Victoire de " + JoueurCourant);
+                                } else {
+                                    textemessage.setText("personne ne gagne");
+                                    JoueurSuivant();
+                                }*/
+                                
+                                PlateauJeu.AfficherPlateauSurConsole();
+                                JoueurSuivant();
+                                
+                            } else if (PlateauJeu.PeutDeplacerPion(JoueurCourant, lig, col) == true) {
+                                col = PlateauJeu.useCoordPion[0];
+                                lig = PlateauJeu.useCoordPion[1];
+                                String couleur = PlateauJeu.useAttribPion[0];
+                                String role = PlateauJeu.useAttribPion[1];
+                                System.out.println(couleur);
+                                System.out.println(role);
+                                
+                                c.SupprimerPion();
+
+                                PlateauJeu.Grille[lig][col].AffecterPion(PlateauJeu.Grille[lig][col].PionCourant);
+                                c.AffecterPion(PlateauJeu.Grille[lig][col].PionCourant);
+                                PlateauJeu.SupprimerPion(lig, col);
+                                PlateauJeu.ViderCaseGrise();
+                                textemessage.setText("c'est OK");
+                                //PlateauJeu.takePion(PlateauJeu.Grille[lig][col]);
+                                //PlateauJeu.takePion(c);
+
+                                panel_carte1_j1.remove(carte_graphique1_j1);
+                                panel_carte2_j1.remove(carte_graphique2_j1);
+                                panel_carte1_j2.remove(carte_graphique1_j2);
+                                panel_carte2_j2.remove(carte_graphique2_j2);
+                                panel_carte_transition.remove(cartetransition);
+
+                                ChangementCartes();
+
+                                carte_graphique1_j1.CarteAssociee = TabCartePartie[0];
+                                carte_graphique2_j1.CarteAssociee = TabCartePartie[1];
+                                carte_graphique1_j2.CarteAssociee = TabCartePartie[2];
+                                carte_graphique2_j2.CarteAssociee = TabCartePartie[3];
+                                cartetransition.CarteAssociee = TabCartePartie[4];
+
+                                panel_carte1_j1.add(carte_graphique1_j1);
+                                panel_carte2_j1.add(carte_graphique2_j1);
+                                panel_carte1_j2.add(carte_graphique1_j2);
+                                panel_carte2_j2.add(carte_graphique2_j2);
+                                panel_carte_transition.add(cartetransition);
+
+                                grille_jeu.repaint();
+                                panel_carte1_j1.repaint();
+                                panel_carte2_j1.repaint();
+                                panel_carte1_j2.repaint();
+                                panel_carte2_j2.repaint();
+                                panel_carte_transition.repaint();
+
+                                btn_c1_j1.setEnabled(true);
+                                btn_c2_j1.setEnabled(true);
+                                btn_c1_j2.setEnabled(true);
+                                btn_c2_j2.setEnabled(true);
+
+                                //PlateauJeu.takePion(PlateauJeu.Grille[lig][col]);
+                                //PlateauJeu.takePion(c);
+                                int nouvcol = PlateauJeu.useCoordPion[0];
+                                int nouvlig = PlateauJeu.useCoordPion[1];
+                                String nouvcouleur = PlateauJeu.useAttribPion[0];
+                                String nouvrole = PlateauJeu.useAttribPion[1];
+
+                               
+                                //c = PlateauJeu.Grille[nouvlig][nouvcol];
+                                //c.PionCourant.CouleurPion = PlateauJeu.Grille[nouvlig][nouvcol].LireCouleurDuPion();
+                                //c.PionCourant.Roi =  PlateauJeu.Grille[nouvlig][nouvcol].EstRoi;
+                                //System.out.println(PionCourant.CouleurPion);
+                                //System.out.println(PionCourant.Roi); 
+                                //System.out.println(c.PionCourant.CouleurPion);
+                                //System.out.println(c.PionCourant.Roi);    
+                                
+                                System.out.println(nouvlig);
+                                System.out.println(nouvcol);
+                                System.out.println(nouvcouleur);
+                                System.out.println(nouvrole);
+
+                                System.out.println("Passé par là");
+                                
+                                /*boolean victoire = PlateauJeu.EtreGagnant(nouvlig, nouvcol, PionCourant);
+                                System.out.println(victoire);
+
+                                if (victoire == true) {
+                                    textemessage.setText("Victoire de " + JoueurCourant);
+                                } else {
+                                    textemessage.setText("personne ne gagne");
+                                    JoueurSuivant();
+                                }*/
+                                
+                                PlateauJeu.AfficherPlateauSurConsole();
+                                JoueurSuivant();
+                                
+                            }
+                            else {
                                 textemessage.setText("Ce mouvement est impossible");
                             }
                         } else if (!c.PionCourant.CouleurPion.equals(JoueurCourant.CouleurJoueur)) {
@@ -202,43 +326,27 @@ public class FenetreDeJeu extends javax.swing.JFrame {
                             //System.out.println(lig + "!");
                             //System.out.println(col + "!");
                             PlateauJeu.PlacerCaseGrise(JoueurCourant, lig, col, CarteCourante); // trouver moyen de changer les coordonnées
-                            //PlateauJeu.AfficherPlateauSurConsole();
+                            PlateauJeu.AfficherPlateauSurConsole();
                             grille_jeu.repaint();
                             //ATTENTION USEPION SERT A RIEN
-
-                            
-                        boolean victoire_J1 = PlateauJeu.EtreGagnant(lig, col, PionCourant);
-                        boolean victoire_J2=PlateauJeu.EtreGagnant(lig, col, PionCourant);
-                        
-                        if (victoire_J1 && !victoire_J2){
-                            textemessage.setText("Victoire de "+ ListeJoueurs[0].NomJoueur);
                         }
-                        else if (victoire_J2 && !victoire_J1){
-                            textemessage.setText("Victoire de "+ ListeJoueurs[1].NomJoueur);
-                        }
-                        else if (victoire_J1 && victoire_J2){
-                            if(JoueurCourant == ListeJoueurs[0]){
-                                textemessage.setText("Victoire par faute de "+ ListeJoueurs[1].NomJoueur);
-                            }
-                            else {
-                                textemessage.setText("Victoire par faute de "+ ListeJoueurs[0].NomJoueur);
-                            }
-                        }
-                        
-                           
-                        }
-                        
+                       
                     }
                 });
 
                 // A COMPLETER CHOIX PION
                 grille_jeu.add(case_graphique);
 
-
-                
             }
         }
 
+    }
+
+    String CouleurJoueurGagnant(int l, int c, Pion unPion) {
+        if (PlateauJeu.EtreGagnant(l, c, PionCourant) == true) {
+            return JoueurCourant.CouleurJoueur;
+        }
+        return null;
     }
 
     void initialiserPartie() {
@@ -308,7 +416,7 @@ public class FenetreDeJeu extends javax.swing.JFrame {
         lbl_j2_couleur.setText(Joueur2.CouleurJoueur);
         lbl_joueur_courant.setText(JoueurCourant.NomJoueur);
 
-        //PlateauJeu.AfficherPlateauSurConsole();
+        PlateauJeu.AfficherPlateauSurConsole();
         //Tour();
     }
 
@@ -448,8 +556,9 @@ public class FenetreDeJeu extends javax.swing.JFrame {
 
         CarteTransition = nouvCarteTrans;
         TabCartePartie[4] = CarteTransition;
+        CarteCourante = null;
 
-        System.out.println("carte transition " + CarteTransition.NomCarte);
+        /*System.out.println("carte transition " + CarteTransition.NomCarte);
         System.out.println("carte 1 joueur courant " + JoueurCourant.CarteEnMain[0].NomCarte);
         System.out.println("carte 2 joueur courant " + JoueurCourant.CarteEnMain[1].NomCarte);
 
@@ -459,11 +568,11 @@ public class FenetreDeJeu extends javax.swing.JFrame {
         System.out.println("tabcarte3 " + TabCartePartie[3].NomCarte);
         System.out.println("cartetransition " + TabCartePartie[4].NomCarte);
 
-        /*System.out.println("tabcarte0gr " + carte_graphique1_j1.CarteAssociee.NomCarte);
-                                System.out.println("tabcarte1gr " + carte_graphique2_j1.CarteAssociee.NomCarte);
-                                System.out.println("tabcarte2gr " + carte_graphique1_j2.CarteAssociee.NomCarte);
-                                System.out.println("tabcarte3gr " + carte_graphique2_j2.CarteAssociee.NomCarte);
-                                System.out.println("cartetransitiongr " + cartetransition.CarteAssociee.NomCarte);*/
+        System.out.println("tabcarte0gr " + carte_graphique1_j1.CarteAssociee.NomCarte);
+        System.out.println("tabcarte1gr " + carte_graphique2_j1.CarteAssociee.NomCarte);
+        System.out.println("tabcarte2gr " + carte_graphique1_j2.CarteAssociee.NomCarte);
+        System.out.println("tabcarte3gr " + carte_graphique2_j2.CarteAssociee.NomCarte);
+        System.out.println("cartetransitiongr " + cartetransition.CarteAssociee.NomCarte);*/
  /*CarteGraphique carte_graphique1_j1 = new CarteGraphique(TabCartePartie[0]);
         panel_carte1_j1.add(carte_graphique1_j1);
         CarteGraphique carte_graphique2_j1 = new CarteGraphique(TabCartePartie[1]);
@@ -508,7 +617,6 @@ public class FenetreDeJeu extends javax.swing.JFrame {
         return false;
     }
     }*/
-    
     void AttribuerCouleursAuxJoueurs() { // A REECRIRE CAR JOUEUR EN FONCTION DE LA COULEUR QUI EST FIXE
         ListeJoueurs[0].CouleurJoueur = "Bleu";
         ListeJoueurs[1].CouleurJoueur = "Rouge";
