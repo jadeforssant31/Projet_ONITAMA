@@ -160,17 +160,18 @@ public class Plateau {
     //methode alliant ConditionPierre et ConditionRuisseau 
     // PARAMETRES Joueur unJoueur ?? 
     //comment le recup?
-    boolean EtreGagnant(int l, int c, Pion unPion) {
-        if (ConditionPierre(l, c, unPion) == true || ConditionRuisseau(l, c) == true) {
+    boolean EtreGagnant(int l1, int c1, int l2, int c2, String couleur, String role) {
+        if (ConditionPierre(l1, c1, couleur, role) == true || ConditionRuisseau(l2, c2) == true) {
             return true;
         }
         return false;
     }
 
-    boolean ConditionPierre(int l, int c, Pion unPion) { //condition 1 pour gagner
+    boolean ConditionPierre(int l, int c, String couleur, String role) { //condition 1 pour gagner
         if (Grille[l][c].PionCourant == null) {
             return false;
-        } else if (Grille[l][c].PionCourant.CouleurPion != unPion.CouleurPion && unPion.EtreRoi() == true) {
+        } else if (couleur != Grille[l][c].PionCourant.CouleurPion && role == "Roi") {
+            System.out.println("Le joueur courant gagne ! ");
             return true;
         } else {
             return false;
@@ -180,6 +181,7 @@ public class Plateau {
     boolean ConditionRuisseau(int l, int c) { // condition 2 pour gagner
         if (Grille[l][c].PionCourant.EtreRoi() == true && Grille[l][c].PionCourant.CouleurPion == "Bleu") {
             if (l == 0 && c == 2) {
+                System.out.println("Le joueur possédant les pions bleus gagne ! ");
                 return true;
             } else {
                 return false;
@@ -187,6 +189,7 @@ public class Plateau {
         }
         if (Grille[l][c].PionCourant.EtreRoi() == true && Grille[l][c].PionCourant.CouleurPion == "Rouge") {
             if (l == 4 && c == 2) {
+                System.out.println("Le joueur possédant les pions rouges gagne ! ");
                 return true;
             } else {
                 return false;
@@ -691,14 +694,6 @@ public class Plateau {
         }
     }
     
-    boolean TomberSurPionAdverse(Joueur unJoueur, int l, int c){
-        if (PeutDeplacerPion(unJoueur, l, c) == true && Grille[l][c].PionCourant.CouleurPion != unJoueur.CouleurJoueur){
-            System.out.println("Le pion peut être bien affecté. La case choisie est celle d'un pion adverse");
-            return true;
-        } else {
-            return false;
-        }
-    }
 
     Pion RemplacerPion(Joueur unJoueur, int l, int c, Pion unPion) {
         //Grille[l][c].CaseGrise = false;

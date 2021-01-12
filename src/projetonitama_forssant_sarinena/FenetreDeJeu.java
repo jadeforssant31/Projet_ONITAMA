@@ -136,8 +136,7 @@ public class FenetreDeJeu extends javax.swing.JFrame {
                 case_graphique.addActionListener(new java.awt.event.ActionListener() { // ActionListener permet d'interagir avec la fenêtre graphique de jeu (cliquer sur les cases graphiques)
                     public void actionPerformed(java.awt.event.ActionEvent evt) {
                         Case c = case_graphique.CaseAssociee;
-
-                       if (c.CaseGrise == true) {
+                        if (c.CaseGrise == true) {
                             int lig = PlateauJeu.LireCoordL(c);
                             int col = PlateauJeu.LireCoordC(c);
                             //System.out.println(lig);
@@ -149,15 +148,22 @@ public class FenetreDeJeu extends javax.swing.JFrame {
                                 String role = PlateauJeu.useAttribPion[1];
                                 System.out.println(couleur);
                                 System.out.println(role);
+                                
                                 PlateauJeu.Grille[lig][col].AffecterPion(PionCourant);
                                 c.AffecterPion(PlateauJeu.Grille[lig][col].PionCourant);
-                                
+ 
                                 PlateauJeu.SupprimerPion(lig, col);
                                 PlateauJeu.ViderCaseGrise();
                                 textemessage.setText("c'est OK");
+                                
+
+
+                                
+                                
                                 PlateauJeu.takePion(PlateauJeu.Grille[lig][col]);
                                 PlateauJeu.takePion(c);
-
+                               
+                                
                                 panel_carte1_j1.remove(carte_graphique1_j1);
                                 panel_carte2_j1.remove(carte_graphique2_j1);
                                 panel_carte1_j2.remove(carte_graphique1_j2);
@@ -196,6 +202,12 @@ public class FenetreDeJeu extends javax.swing.JFrame {
                                 int nouvlig = PlateauJeu.useCoordPion[1];
                                 String nouvcouleur = PlateauJeu.useAttribPion[0];
                                 String nouvrole = PlateauJeu.useAttribPion[1];
+                                
+                                PlateauJeu.ConditionRuisseau(nouvlig,nouvcol);
+                                System.out.println(PlateauJeu.ConditionRuisseau(nouvlig,nouvcol));
+                                if (PlateauJeu.ConditionRuisseau(nouvlig,nouvcol)==true){
+                                    FinDePartie();
+                                }
 
                                 //c = PlateauJeu.Grille[nouvlig][nouvcol];
                                 //c.PionCourant.CouleurPion = PlateauJeu.Grille[nouvlig][nouvcol].LireCouleurDuPion();
@@ -224,13 +236,16 @@ public class FenetreDeJeu extends javax.swing.JFrame {
                                 JoueurSuivant();
                                 
                             } else if (PlateauJeu.PeutDeplacerPion(JoueurCourant, lig, col) == true) {
+                                if (c.PionCourant.Roi == true){
                                 col = PlateauJeu.useCoordPion[0];
                                 lig = PlateauJeu.useCoordPion[1];
                                 String couleur = PlateauJeu.useAttribPion[0];
                                 String role = PlateauJeu.useAttribPion[1];
                                 System.out.println(couleur);
                                 System.out.println(role);
+
                                 
+                                System.out.println(PlateauJeu.ConditionPierre(lig, col, couleur, role));
                                 c.SupprimerPion();
 
                                 PlateauJeu.Grille[lig][col].AffecterPion(PlateauJeu.Grille[lig][col].PionCourant);
@@ -280,7 +295,7 @@ public class FenetreDeJeu extends javax.swing.JFrame {
                                 String nouvcouleur = PlateauJeu.useAttribPion[0];
                                 String nouvrole = PlateauJeu.useAttribPion[1];
 
-                               
+
                                 //c = PlateauJeu.Grille[nouvlig][nouvcol];
                                 //c.PionCourant.CouleurPion = PlateauJeu.Grille[nouvlig][nouvcol].LireCouleurDuPion();
                                 //c.PionCourant.Roi =  PlateauJeu.Grille[nouvlig][nouvcol].EstRoi;
@@ -293,9 +308,11 @@ public class FenetreDeJeu extends javax.swing.JFrame {
                                 System.out.println(nouvcol);
                                 System.out.println(nouvcouleur);
                                 System.out.println(nouvrole);
-
-                                System.out.println("Passé par là");
                                 
+                                //PlateauJeu.ConditionPierre(nouvlig, nouvcol, PionCourant.CouleurPion, PionCourant.LireRolePion());
+
+                                System.out.println("Passé par là niv roi");
+                                FinDePartie();
                                 /*boolean victoire = PlateauJeu.EtreGagnant(nouvlig, nouvcol, PionCourant);
                                 System.out.println(victoire);
 
@@ -309,10 +326,103 @@ public class FenetreDeJeu extends javax.swing.JFrame {
                                 PlateauJeu.AfficherPlateauSurConsole();
                                 JoueurSuivant();
                                 
+                                } else {
+                                col = PlateauJeu.useCoordPion[0];
+                                lig = PlateauJeu.useCoordPion[1];
+                                String couleur = PlateauJeu.useAttribPion[0];
+                                String role = PlateauJeu.useAttribPion[1];
+                                System.out.println(couleur);
+                                System.out.println(role);
+
+                                
+                                System.out.println(PlateauJeu.ConditionPierre(lig, col, couleur, role));
+                                c.SupprimerPion();
+
+                                PlateauJeu.Grille[lig][col].AffecterPion(PlateauJeu.Grille[lig][col].PionCourant);
+                                c.AffecterPion(PlateauJeu.Grille[lig][col].PionCourant);
+                                PlateauJeu.SupprimerPion(lig, col);
+                                PlateauJeu.ViderCaseGrise();
+                                textemessage.setText("c'est OK");
+                                //PlateauJeu.takePion(PlateauJeu.Grille[lig][col]);
+                                //PlateauJeu.takePion(c);
+
+                                panel_carte1_j1.remove(carte_graphique1_j1);
+                                panel_carte2_j1.remove(carte_graphique2_j1);
+                                panel_carte1_j2.remove(carte_graphique1_j2);
+                                panel_carte2_j2.remove(carte_graphique2_j2);
+                                panel_carte_transition.remove(cartetransition);
+
+                                ChangementCartes();
+
+                                carte_graphique1_j1.CarteAssociee = TabCartePartie[0];
+                                carte_graphique2_j1.CarteAssociee = TabCartePartie[1];
+                                carte_graphique1_j2.CarteAssociee = TabCartePartie[2];
+                                carte_graphique2_j2.CarteAssociee = TabCartePartie[3];
+                                cartetransition.CarteAssociee = TabCartePartie[4];
+
+                                panel_carte1_j1.add(carte_graphique1_j1);
+                                panel_carte2_j1.add(carte_graphique2_j1);
+                                panel_carte1_j2.add(carte_graphique1_j2);
+                                panel_carte2_j2.add(carte_graphique2_j2);
+                                panel_carte_transition.add(cartetransition);
+
+                                grille_jeu.repaint();
+                                panel_carte1_j1.repaint();
+                                panel_carte2_j1.repaint();
+                                panel_carte1_j2.repaint();
+                                panel_carte2_j2.repaint();
+                                panel_carte_transition.repaint();
+
+                                btn_c1_j1.setEnabled(true);
+                                btn_c2_j1.setEnabled(true);
+                                btn_c1_j2.setEnabled(true);
+                                btn_c2_j2.setEnabled(true);
+
+                                //PlateauJeu.takePion(PlateauJeu.Grille[lig][col]);
+                                //PlateauJeu.takePion(c);
+                                int nouvcol = PlateauJeu.useCoordPion[0];
+                                int nouvlig = PlateauJeu.useCoordPion[1];
+                                String nouvcouleur = PlateauJeu.useAttribPion[0];
+                                String nouvrole = PlateauJeu.useAttribPion[1];
+
+
+                                //c = PlateauJeu.Grille[nouvlig][nouvcol];
+                                //c.PionCourant.CouleurPion = PlateauJeu.Grille[nouvlig][nouvcol].LireCouleurDuPion();
+                                //c.PionCourant.Roi =  PlateauJeu.Grille[nouvlig][nouvcol].EstRoi;
+                                //System.out.println(PionCourant.CouleurPion);
+                                //System.out.println(PionCourant.Roi); 
+                                //System.out.println(c.PionCourant.CouleurPion);
+                                //System.out.println(c.PionCourant.Roi);    
+                                
+                                System.out.println(nouvlig);
+                                System.out.println(nouvcol);
+                                System.out.println(nouvcouleur);
+                                System.out.println(nouvrole);
+                                
+                                //PlateauJeu.ConditionPierre(nouvlig, nouvcol, PionCourant.CouleurPion, PionCourant.LireRolePion());
+
+                                System.out.println("Passé par là niv pion");
+                                
+                                /*boolean victoire = PlateauJeu.EtreGagnant(nouvlig, nouvcol, PionCourant);
+                                System.out.println(victoire);
+
+                                if (victoire == true) {
+                                    textemessage.setText("Victoire de " + JoueurCourant);
+                                } else {
+                                    textemessage.setText("personne ne gagne");
+                                    JoueurSuivant();
+                                }*/
+                                
+                                PlateauJeu.AfficherPlateauSurConsole();
+                                JoueurSuivant();
+                                }
                             }
                             else {
                                 textemessage.setText("Ce mouvement est impossible");
                             }
+                        } else if (c.PionCourant == null){
+                           textemessage.setText("Erreur. Case vide sélectionnée");
+                        
                         } else if (!c.PionCourant.CouleurPion.equals(JoueurCourant.CouleurJoueur)) {
                             textemessage.setText("Le pion sélectionné n'est pas valide. Veuillez réessayer"); //setText permet d'afficher des String sur une fenêtre de texte   
                         } else if (c.PionCourant == null) {
@@ -342,12 +452,6 @@ public class FenetreDeJeu extends javax.swing.JFrame {
 
     }
 
-    String CouleurJoueurGagnant(int l, int c, Pion unPion) {
-        if (PlateauJeu.EtreGagnant(l, c, PionCourant) == true) {
-            return JoueurCourant.CouleurJoueur;
-        }
-        return null;
-    }
 
     void initialiserPartie() {
         // vider Plateau OK
@@ -418,6 +522,16 @@ public class FenetreDeJeu extends javax.swing.JFrame {
 
         PlateauJeu.AfficherPlateauSurConsole();
         //Tour();
+    }
+    
+    void FinDePartie(){
+        textemessage.setText(JoueurCourant.NomJoueur + " gagne la partie !");
+        grille_jeu.setEnabled(false);
+        c_transition.setEnabled(false);
+        btn_c1_j1.setEnabled(false);
+        btn_c2_j1.setEnabled(false);
+        btn_c1_j2.setEnabled(false);
+        btn_c2_j2.setEnabled(false);   
     }
 
     void Tour() { // équivalent de notre méthode Menu() achevée
@@ -971,22 +1085,39 @@ public class FenetreDeJeu extends javax.swing.JFrame {
     }//GEN-LAST:event_nomjoueur2ActionPerformed
 
     private void btn_rejouerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_rejouerActionPerformed
-        infos_joueurs.setVisible(true); // problème sur rejouer qui ne repaint pas les cartes
+        // TODO add your handling code here:
+        //code qui sera éxécuté une fois que l'utilisateur aura appuyé sur le bouton "démarrer la partie"
+        infos_joueurs.setVisible(true);
         infos_partie.setVisible(true);
+        grille_jeu.setVisible(true);
+        panel_carte_transition.setVisible(true);
+        panel_carte1_j1.setVisible(true);
+        panel_carte2_j1.setVisible(true);
+        panel_carte1_j2.setVisible(true);
+        panel_carte2_j2.setVisible(true);
+        c_transition.setVisible(true);
+        btn_c1_j1.setVisible(true);
+        btn_c2_j1.setVisible(true);
+        btn_c1_j2.setVisible(true);
+        btn_c2_j2.setVisible(true);
+        btn_c1_j1.setEnabled(true);
+        btn_c2_j1.setEnabled(true);
+        btn_c1_j2.setEnabled(true);
+        btn_c2_j2.setEnabled(true);
         initialiserPartie();
-        grille_jeu.repaint(); //rafraichitl'affichage
-        btn_demarrer.setEnabled(false); // bloque la possibilite de cliquer plusieurs fois que le bouton demarrer
-        panel_carte1_j1.setEnabled(true);
-        panel_carte2_j1.setEnabled(true);
-        panel_carte1_j2.setEnabled(true);
-        panel_carte2_j1.setEnabled(true);
+        grille_jeu.repaint();
+        infos_joueurs.repaint();
+        infos_partie.repaint();
         panel_carte1_j1.repaint();
         panel_carte2_j1.repaint();
         panel_carte1_j2.repaint();
         panel_carte2_j2.repaint();
         panel_carte_transition.repaint();
-        textemessage.setText(" "); // efface le dernier message affiche dans le panneau infos partie
-        btn_rejouer.setEnabled(false);
+        textemessage.setText(" ");
+        //rafraichit le plateau de jeu (permet a avoir les elements directement sur le plateau et eviter leur apparition seulement au passage de la souris)
+        btn_demarrer.setEnabled(false);
+        //on désactive le bouton du demarrage de la partie lorsque celle ci est demarree
+        // evite de rafraichir le plateau en cours de partie
     }//GEN-LAST:event_btn_rejouerActionPerformed
 
     private void btn_quitterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_quitterActionPerformed
