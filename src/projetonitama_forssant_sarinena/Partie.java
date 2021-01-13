@@ -13,7 +13,7 @@ import java.util.Scanner;
  *
  * @author lucie
  */
-public class Partie {
+public class Partie { // CLASSE OU ON A DEPOSE LES METHODES CONCERNANT LA CONSOLE ET LES METHODES NON UTILISEES DANS FENETRE DE JEU
 
     Joueur ListeJoueurs[] = new Joueur[2];  // liste de 2 d'objet joueur à 2 cases. Sera initialisée quand les joueurs seront créés
     Plateau PlateauJeu = new Plateau(); // création de la référence objet GrilleJeu
@@ -21,8 +21,7 @@ public class Partie {
     Carte CarteTransition;
     Carte CarteCourante;
     Carte TabCartePartie[] = new Carte[5];
-    Carte GrilleCarte[][] = new Carte[5][1];
-    
+
     int[][] Mante = {{1, 2}, {3, 1}, {3, 3}};
     Carte CarteMante = new Carte("Mante", "Rouge", Mante);
 
@@ -122,7 +121,6 @@ public class Partie {
 
         // Tirage des cartes
         DefinirCartesPartie();
-        //System.out.println(ListeCartes);
 
         // Attribution des cartes et affectation dela derniere en tant que carte transition
         Joueur1.CarteEnMain[0] = TabCartePartie[0];
@@ -140,7 +138,7 @@ public class Partie {
             JoueurCourant = ListeJoueurs[1];
         }
 
-        /*// affichage sur console ----- suivi du bon déroulement du jeu
+        // affichage sur console ----- suivi du bon déroulement du jeu
         System.out.println(Joueur1.NomJoueur + " possède les cartes " + Joueur1.CarteEnMain[0].NomCarte + " et " + Joueur1.CarteEnMain[1].NomCarte);
         System.out.println(Joueur2.NomJoueur + " possède les cartes " + Joueur2.CarteEnMain[0].NomCarte + " et " + Joueur2.CarteEnMain[1].NomCarte);
         System.out.println("La carte transition est " + CarteTransition.NomCarte);
@@ -149,7 +147,6 @@ public class Partie {
         System.out.println(Joueur2.NomJoueur + " possède les pions de couleur " + Joueur2.CouleurJoueur);
 
         PlateauJeu.AfficherPlateauSurConsole(); // affichage du jeu initialisé sur la console
-        // BD : methode non présente OK*/
     }
 
     void AttribuerCouleursAuxJoueurs() {
@@ -190,19 +187,19 @@ public class Partie {
         return "La valeur recherchée n'existe pas";
     }
 
-    /*    String CarteExistanteDansMain() {
-        String val = null;
-        for (int i = 0; i < Joueur.CarteEnMain.length; i++) {
-            if (val == CarteEnMain[i].NomCarte) //retourner la position courante
-            {
-                return val;
-            }
+    boolean ChoisirPion(int l, int c) {
+        if (PlateauJeu.Grille[l][c].PionCourant == null) {
+            System.out.println("vous n'avez pas sélectionné de pion");
+            return false;
+        } else if (PlateauJeu.Grille[l][c].PionCourant.CouleurPion == JoueurCourant.CouleurJoueur) {
+            return true;
+        } else {
+            System.out.println("le pion selectionné n'est pas de votre couleur");
+            return false;
         }
-        return "La valeur recherchée n'existe pas";
     }
-        
-                 
-   boolean ChoisirCarteDansJeu(Carte uneCarte) {
+
+    boolean ChoisirCarteDansJeu(Carte uneCarte) {
         if (uneCarte.NomCarte == CarteExistanteDansJeu()) {
             return true;
         } else {
@@ -216,22 +213,22 @@ public class Partie {
             return "Erreur...Choix de carte non valide";
         }
         return uneCarte.NomCarte;
-    }*/
-    
+    }
+
     String NomCarteChoisie(Carte uneCarte) {
         if (JoueurCourant.ChoisirCarteDansMain(uneCarte) != true) {
             return "Erreur...Choix de carte non valide";
         }
         return uneCarte.NomCarte;
     }
-    
-    Carte CarteChoisie(String unNomCarte){
-        if (JoueurCourant.CarteEnMain[0].NomCarte == unNomCarte){
+
+    Carte CarteChoisie(String unNomCarte) {
+        if (JoueurCourant.CarteEnMain[0].NomCarte == unNomCarte) {
             return JoueurCourant.CarteEnMain[0];
+        } else {
+            return JoueurCourant.CarteEnMain[1];
         }
-        else return JoueurCourant.CarteEnMain[1];
     }
-    
 
     boolean ChoisirPion(Pion unPion) {
         if (unPion.CouleurPion == JoueurCourant.CouleurJoueur) {
@@ -241,56 +238,47 @@ public class Partie {
             return false;
         }
     }
-    
-        boolean ChoisirPion(int l, int c) {
-        if (PlateauJeu.Grille[l][c].PionCourant.CouleurPion == JoueurCourant.CouleurJoueur) {
-            return true;
-        } else {
-            System.out.println("le pion selectionné n'est pas de votre couleur");
-            return false; 
-        }
-    }
-        
-        
+
     void Tour() { // équivalent de notre méthode Menu() achevée
         System.out.println("Tour de " + JoueurCourant.NomJoueur);
         System.out.println("Choisissez une carte déplacement");
         String ChoixCarte;
         Scanner sc = new Scanner(System.in);
         ChoixCarte = sc.nextLine();
-        while (!ChoixCarte.equals(JoueurCourant.CarteEnMain[0].NomCarte) && !ChoixCarte.equals(JoueurCourant.CarteEnMain[1].NomCarte)){
-             System.out.println("Carte invalide. Réessayer.");
-             ChoixCarte = sc.nextLine();
+        while (!ChoixCarte.equals(JoueurCourant.CarteEnMain[0].NomCarte) && !ChoixCarte.equals(JoueurCourant.CarteEnMain[1].NomCarte)) {
+            System.out.println("Carte invalide. Réessayer.");
+            ChoixCarte = sc.nextLine();
         }
         System.out.println("la carte déplacement choisie est " + ChoixCarte);
         Carte CarteDuTour = CarteChoisie(ChoixCarte);
-        
+
         System.out.println("Choisissez un pion à déplacer");
         int c;
         int l;
-        System.out.println("Donner les coordonnées du pion à déplacer : ");
-        System.out.println("Saisir colonne : ");
-        c = sc.nextInt() - 1;
-        while (c < 0 || c > 4) {
-            System.out.println("Colonne invalide. Réessayer.");
+        do {
+            System.out.println("Donner les coordonnées du pion à déplacer : ");
+            System.out.println("Saisir colonne : ");
             c = sc.nextInt() - 1;
-        }
-        System.out.println("Saisir ligne : ");
-        l = sc.nextInt() - 1;
-        while (l < 0 || l > 4) {
-            System.out.println("Ligne invalide. Réessayer.");
+            while (c < 0 || c > 4) {
+                System.out.println("Colonne invalide. Réessayer.");
+                c = sc.nextInt() - 1;
+            }
+            System.out.println("Saisir ligne : ");
             l = sc.nextInt() - 1;
-        
+            while (l < 0 || l > 4) {
+                System.out.println("Ligne invalide. Réessayer.");
+                l = sc.nextInt() - 1;
+            }
+        } while (ChoisirPion(l, c) != true);
 
-        
-    
-        System.out.println("Choisissez une case grise");
-    
-    }
+        PlateauJeu.PlacerCaseGrise(JoueurCourant, l, c, CarteDuTour);
+        PlateauJeu.AfficherPlateauSurConsole();
+
+        System.out.println("Choisissez une carte grise");
+
     }
 
     void JoueurSuivant() { // changement de joueur
-        // BD : joueur suivant
         if (ListeJoueurs[0] == JoueurCourant) {
             JoueurCourant = ListeJoueurs[1];
         } else {
@@ -299,9 +287,11 @@ public class Partie {
     }
 
     Carte EchangeCarte() {
-        for (int i=0; i<5; i++){
-            if (TabCartePartie[i] == CarteCourante){
-            CarteTransition = TabCartePartie[i];
+        Carte NouvCarteTransit;
+        for (int i = 0; i < 5; i++) {
+            if (TabCartePartie[i] == CarteCourante) {
+                NouvCarteTransit = TabCartePartie[i];
+                return NouvCarteTransit;
             }
         }
         CarteCourante = CarteTransition;
@@ -309,7 +299,6 @@ public class Partie {
         // changement de main, ajout de la 3e carte à l'autre joueur
         // BD: je vois a peu pres cette méthode. Ne pas oublier qu'il faudra, uen fois les cartes échangées, raffecter carteCourante comme une carte appartenant au joueur courant
         //return uneCarte; 
-        System.out.println(CarteTransition.NomCarte);
-        return CarteTransition;
+        return null;
     }
 }

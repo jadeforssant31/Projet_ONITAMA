@@ -14,10 +14,7 @@ public class Joueur {
     String NomJoueur;
     String CouleurJoueur;
     Carte CarteEnMain[] = new Carte[2];
-    // Pion ListePions[] = new Pion[5]; // Necessaire ?
-    // BD : seulement 2 cartes en main pour un joueur OK
     Carte CarteCourante;
-    // BD : carte courante c'est bien la carte qu'il s'apprete à jouer ? OUI
 
     public Joueur(String unNomJoueur) { // constructeur qui passe le nom en paramètre et initialise les attributs
         NomJoueur = unNomJoueur;
@@ -33,7 +30,6 @@ public class Joueur {
 
 // le joueur joue la carte selectionnee
 //la carte va ensuite être mechngée avec celle qui etait au bord du plateau
-
     boolean ChoisirCarteDansMain(Carte uneCarte) {
         if (uneCarte.NomCarte == CarteEnMain[0].NomCarte || uneCarte.NomCarte == CarteEnMain[1].NomCarte) {
             return true;
@@ -42,8 +38,8 @@ public class Joueur {
             return false;
         }
     }
-    
-        String NomCarteChoisieDansMain(Carte uneCarte) {
+
+    String NomCarteChoisieDansMain(Carte uneCarte) {
         if (ChoisirCarteDansMain(uneCarte) != true) {
             return "Erreur...Choix de carte non valide";
         }

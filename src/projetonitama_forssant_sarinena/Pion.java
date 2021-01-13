@@ -30,22 +30,17 @@ public class Pion {
 
     String LireRolePion() {
         if (Roi == true) {
-            //System.out.println("Roi présent");
             return "Roi";
         } else {
-            //System.out.println("Roi absent");
             return "Pion";
         }
     }
 
     boolean EtreRoi() { //retourne le role du pion (pion simple ou roi)
-        if (Roi == true) {
-            //System.out.println("Roi présent");
+        if (Roi == true) { 
             return true;
         } else {
-            //System.out.println("Roi absent");
             return false;
         }
     }
-
 }

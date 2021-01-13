@@ -15,6 +15,11 @@ public class Carte {
     int Matrice[][];
     String CouleurCarte;
     Carte CarteCourante;
+    
+    public Carte(String unNom){
+        NomCarte = unNom;
+        //CarteCourante = null;
+    }
 
     public Carte(String unNom, String uneCouleur, int MatCoord[][]){ // constructeur qui passe le nom en paramètre et initialise les attributs
         NomCarte = unNom;
@@ -28,25 +33,8 @@ public class Carte {
     }
     // BD : je rajouterai un second parametre permettant de remplir la matrice pour chaque carte OK
 }  
-    
-    public Carte(String unNom){
-        NomCarte = unNom;
-        //CarteCourante = null;
-    }
 
 String LireCarte(){ //Retourne au joueur le nom de la carte
    return NomCarte;
-}
-
-/*String MouvementPossible(String unNom){ //retourne au joueur une matrice 5x5 avec l'action qu'il peut jouer (Elle sert encore ?)
-// BD : manque un vecteur en paramètre désignant le mouvement
-    return null;
-}*/
-
-
-
-
-
-
-       
+}      
 }

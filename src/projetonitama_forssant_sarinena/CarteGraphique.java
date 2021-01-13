@@ -34,14 +34,10 @@ public class CarteGraphique extends JButton {
     ImageIcon img_tigre = new javax.swing.ImageIcon(getClass().getResource("/images/tiger.jpg"));
     ImageIcon img_grue = new javax.swing.ImageIcon(getClass().getResource("/images/crane.jpg"));
 
-
-    
-    
     public CarteGraphique(Carte UneCarte){
         CarteAssociee = UneCarte;
     }
     
-  
     @Override
     public void paintComponent(Graphics G){
         super.paintComponent(G);

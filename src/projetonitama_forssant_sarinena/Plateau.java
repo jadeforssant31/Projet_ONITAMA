@@ -16,8 +16,10 @@ public class Plateau {
     String[] useAttribPion;
 
     public Plateau() { // constructeur qui à chaque case du tableau crée une référence objet de classe cellule
+        
         useCoordPion = new int[2];
         useAttribPion = new String[2];
+        
         for (int l = 0; l < 5; l++) {
             for (int c = 0; c < 5; c++) {
                 Grille[l][c] = new Case();
@@ -42,7 +44,6 @@ public class Plateau {
         }
     }
      
-
     int LireCoordC(Case uneCase) {
         for (int l = 0; l < 5; l++) {
             for (int c = 0; c < 5; c++) {
@@ -71,7 +72,6 @@ public class Plateau {
             if (i == 2) {
                 Pion RoiRouge = new Pion("Rouge");
                 RoiRouge.Roi = true;
-                //System.out.println(RoiRouge.EtreRoi());
                 Grille[0][2].PionCourant = RoiRouge;
             } else {
                 Pion unPionR = new Pion("Rouge");
@@ -86,17 +86,6 @@ public class Plateau {
                 Grille[4][i].PionCourant = unPionB;
             }
         }
-        for (int i = 1; i < 4; i++) {
-            for (int j = 0; j < 5; j++) {
-                Pion Pionlambda = new Pion();
-            }
-        }
-
-        /*//Test pour déplacements
-        Grille[2][1].PionCourant = new Pion("Bleu");
-        Grille[2][1].PionCourant.Roi = true;
-        Grille[2][2].PionCourant = new Pion("Rouge");
-        Grille[2][2].PionCourant.Roi = true;*/
     }
 
     void ViderPlateau() { //vide le plateau en fin de partie // parcours la grille et initialise les données à 0 pour toutes les cellules, les trou noirs et les desintegrateurs
@@ -116,7 +105,6 @@ public class Plateau {
     }
 
     boolean CaseOccupee(int l, int c) { //renvoie si la case est occupée par un pion (adverse ou non)
-        // BD : quelle case ? il manque les coordonnées en paramètre OK
         if (Grille[l][c].PionCourant != null) {
             System.out.println("case occupée par pion");
             return true;
@@ -125,56 +113,15 @@ public class Plateau {
     }
 
     String LireCouleurPion(int l, int c) { // renvoie la couleur du pion 
-        // BD : la couleur de quel pion? celui qui est sur quelle cas? idem que précédent OK
         return Grille[l][c].PionCourant.CouleurPion;
-    }
-
-//methode alliant AjouterPion et SupprimerPion
-// utilisée lors de la capture d'un pion adverse
-    boolean RemplacerPion(int l, int c, Pion unPion) { // attention aux références
-        // BD : remplacer le pion de quelle case, par quoi ? manque coords et le nouveau pion OK
-        if (Grille[l][c].PionCourant == null) {
-            return false;
-        }
-        if (Grille[l][c].PionCourant.CouleurPion == unPion.CouleurPion) {
-            return false;
-        } else {
-            //Grille[l][c] = null;
-            unPion = Grille[l][c].PionCourant;
-            return true;
-        }
     }
 
     boolean SupprimerPion(int l, int c) { // supprime le pion du plateau
         if (Grille[l][c].PionCourant == null) { // vérifie que case soit non vide
-            //System.out.println("Case vide");
             return false;
         } else {
             Grille[l][c].PionCourant = null;
-            //System.out.println("Suppression du jeton effectuée");
             return true;
-        }
-// BD : sur quelle case on supprime le pion ?
-    }
-
-    //methode alliant ConditionPierre et ConditionRuisseau 
-    // PARAMETRES Joueur unJoueur ?? 
-    //comment le recup?
-    boolean EtreGagnant(int l1, int c1, int l2, int c2, String couleur, String role) {
-        if (ConditionPierre(l1, c1, couleur, role) == true || ConditionRuisseau(l2, c2) == true) {
-            return true;
-        }
-        return false;
-    }
-
-    boolean ConditionPierre(int l, int c, String couleur, String role) { //condition 1 pour gagner
-        if (Grille[l][c].PionCourant == null) {
-            return false;
-        } else if (couleur != Grille[l][c].PionCourant.CouleurPion && role == "Roi") {
-            System.out.println("Le joueur courant gagne ! ");
-            return true;
-        } else {
-            return false;
         }
     }
 
@@ -200,7 +147,6 @@ public class Plateau {
 
     void AfficherPlateauSurConsole() {
         // affiche la grille dans la console
-
         for (int l = 4; l >= 0; l--) { // boucle décrémentée car l'affichage conventionnel et celui pris par les tableaux est inversé
             for (int c = 0; c < 5; c++) {
                 if (Grille[l][c].PionCourant == null && Grille[l][c].CaseGrise == true) {
@@ -228,6 +174,7 @@ public class Plateau {
         System.out.println(); // affichage global du tableau
     }
 
+    
     void PlacerCaseGrise(Joueur unJoueur, int l, int c, Carte uneCarte) {
         if (unJoueur.CouleurJoueur == "Rouge") {
             PlacerCaseGriseRouge(l, c, uneCarte);
@@ -243,20 +190,15 @@ public class Plateau {
         switch (couleur_carte) {
             case "Mante":
                 if ((l >= 0 && l < 4) && (c >= 1 && c < 5)) {
-                    //Grille[l + 1][c - 1].AffecterCaseGrise();
-                    Grille[l + 1][c - 1].CaseGrise = true; //PROBLEME, L'affichage décale les cases...mais l'idée est là
-                    //System.out.println("carte Mante");
-                    //break;
+                    Grille[l + 1][c - 1].CaseGrise = true;
                 }
                 if ((l >= 0 && l < 4) && (c >= 0 && c < 4)) {
                     Grille[l + 1][c + 1].CaseGrise = true;
-                    //break;
                 }
                 if ((l >= 1 && l < 5) && (c >= 0 && c < 5)) {
                     Grille[l - 1][c].CaseGrise = true;
-                    //break;
                 }
-                System.out.println("carte Mante");
+                //System.out.println("carte Mante");
                 break;
 
             case "Coq":
@@ -272,11 +214,11 @@ public class Plateau {
                 if ((l >= 0 && l < 4) && (c >= 0 && c < 4)) {
                     Grille[l + 1][c + 1].CaseGrise = true;
                 }
-                System.out.println("carte Coq");
+                //System.out.println("carte Coq");
                 break;
 
             case "Crabe":
-                if ((l >= 0 && l < 5) && (c >= 1 && c < 5)) {// BIEN CHECK POUR LE -2
+                if ((l >= 0 && l < 5) && (c >= 2 && c < 5)) {// BIEN CHECK POUR LE -2
                     Grille[l][c - 2].CaseGrise = true;
                 }
                 if ((l >= 0 && l < 5) && (c >= 0 && c < 3)) { // BIEN CHECK POUR LE +2
@@ -452,7 +394,6 @@ public class Plateau {
                     Grille[l + 1][c].CaseGrise = true;
                 }
                 break;
-
         }
     }
 
@@ -676,8 +617,6 @@ public class Plateau {
     }
 
     boolean PeutDeplacerPion(Joueur unJoueur, int l, int c) {
-        //Grille[l][c].CaseGrise = true;
-        //System.out.println(Grille[l][c].CaseGrise);
         if (Grille[l][c].PionCourant == null && Grille[l][c].CaseGrise == false) {
             System.out.println("Vous ne pouvez pas aller sur la case selectionnée");
             return false;
@@ -687,25 +626,10 @@ public class Plateau {
         } else if (Grille[l][c].CaseGrise != false && Grille[l][c].PionCourant.CouleurPion == unJoueur.CouleurJoueur) {
             System.out.println("La case selectionnée possède un de vos pions");
             return false;
-        } else {
-            //(Grille[l][c].CaseGrise != false && Grille[l][c].PionCourant.CouleurPion != unJoueur.CouleurJoueur)
+        } else { //(Grille[l][c].CaseGrise != false && Grille[l][c].PionCourant.CouleurPion != unJoueur.CouleurJoueur)
             System.out.println("Le pion peut être bien affecté. La case choisie est celle d'un pion adverse");
             return true;
         }
     }
-    
-
-    Pion RemplacerPion(Joueur unJoueur, int l, int c, Pion unPion) {
-        //Grille[l][c].CaseGrise = false;
-        //Grille[l][c].PionCourant = null;
-        Pion newPion = new Pion(unJoueur.CouleurJoueur);
-        newPion = Grille[l][c].PionCourant;
-        return newPion;
-    }
-
-    // BD : on place les case grises à partir d'un pion choisi par ses coordonnées, et d'une carte, non ? OK
-    // ou sont ces éléments quand on appelle cette méthode ? DANS CETTE CLASSE
 }
-
-// déplacement des cartes dans parties
 
