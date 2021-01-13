@@ -22,55 +22,58 @@ public class Partie { // CLASSE OU ON A DEPOSE LES METHODES CONCERNANT LA CONSOL
     Carte CarteCourante;
     Carte TabCartePartie[] = new Carte[5];
 
-    int[][] Mante = {{1, 2}, {3, 1}, {3, 3}};
-    Carte CarteMante = new Carte("Mante", "Rouge", Mante);
+   // Matrice pas utilisées (cf constructeur carte)
+    //int[][] Mante = {{1, 2}, {3, 1}, {3, 3}};
+    Carte CarteMante = new Carte("Mante");
 
-    int[][] Singe = {{1, 1}, {1, 3}, {3, 1}, {3, 3}};
-    Carte CarteSinge = new Carte("Singe", "Bleu", Singe);
+    //int[][] Singe = {{1, 1}, {1, 3}, {3, 1}, {3, 3}};
+    Carte CarteSinge = new Carte("Singe");
 
-    int[][] Cheval = {{2, 1}, {1, 2}, {3, 2}};
-    Carte CarteCheval = new Carte("Cheval", "Rouge", Cheval);
+    //int[][] Cheval = {{2, 1}, {1, 2}, {3, 2}};
+    Carte CarteCheval = new Carte("Cheval");
 
-    int[][] Boeuf = {{1, 2}, {3, 2}, {2, 3}};
-    Carte CarteBoeuf = new Carte("Boeuf", "Bleu", Boeuf);
+    //int[][] Boeuf = {{1, 2}, {3, 2}, {2, 3}};
+    Carte CarteBoeuf = new Carte("Boeuf");
 
-    int[][] Grue = {{1, 1}, {3, 2}, {1, 3}};
-    Carte CarteGrue = new Carte("Grue", "Bleu", Grue);
+    //int[][] Grue = {{1, 1}, {3, 2}, {1, 3}};
+    Carte CarteGrue = new Carte("Grue");
 
-    int[][] Sanglier = {{2, 1}, {2, 3}, {3, 2}};
-    Carte CarteSanglier = new Carte("Sanglier", "Rouge", Sanglier);
+    //int[][] Sanglier = {{2, 1}, {2, 3}, {3, 2}};
+    Carte CarteSanglier = new Carte("Sanglier");
 
-    int[][] Anguille = {{1, 1}, {3, 1}, {2, 3}};
-    Carte CarteAnguille = new Carte("Anguille", "Bleu", Anguille);
+    //int[][] Anguille = {{1, 1}, {3, 1}, {2, 3}};
+    Carte CarteAnguille = new Carte("Anguille");
 
-    int[][] Cobra = {{2, 1}, {1, 3}, {3, 3}};
-    Carte CarteCobra = new Carte("Cobra", "Rouge", Cobra);
+    //int[][] Cobra = {{2, 1}, {1, 3}, {3, 3}};
+    Carte CarteCobra = new Carte("Cobra");
 
-    int[][] Tigre = {{1, 2}, {4, 2}};
-    Carte CarteTigre = new Carte("Tigre", "Bleu", Tigre);
+    //int[][] Tigre = {{1, 2}, {4, 2}};
+    Carte CarteTigre = new Carte("Tigre");
 
-    int[][] Dragon = {{3, 0}, {1, 1}, {1, 3}, {3, 4}};
-    Carte CarteDragon = new Carte("Dragon", "Rouge", Dragon);
+    //int[][] Dragon = {{3, 0}, {1, 1}, {1, 3}, {3, 4}};
+    Carte CarteDragon = new Carte("Dragon");
 
-    int[][] Grenouille = {{2, 0}, {1, 3}, {3, 1}};
-    Carte CarteGrenouille = new Carte("Grenouille", "Bleu", Grenouille);
+    //int[][] Grenouille = {{2, 0}, {1, 3}, {3, 1}};
+    Carte CarteGrenouille = new Carte("Grenouille");
 
-    int[][] Lapin = {{1, 1}, {3, 3}, {2, 4}};
-    Carte CarteLapin = new Carte("Lapin", "Bleu", Lapin);
+    //int[][] Lapin = {{1, 1}, {3, 3}, {2, 4}};
+    Carte CarteLapin = new Carte("Lapin");
 
-    int[][] Crabe = {{2, 0}, {3, 2}, {2, 2}};
-    Carte CarteCrabe = new Carte("Crabe", "Bleu", Crabe);
+    //int[][] Crabe = {{2, 0}, {3, 2}, {2, 2}};
+    Carte CarteCrabe = new Carte("Crabe");
 
-    int[][] Elephant = {{2, 1}, {3, 1}, {2, 3}, {3, 3}};
-    Carte CarteElephant = new Carte("Elephant", "Rouge", Elephant);
+    //int[][] Elephant = {{2, 1}, {3, 1}, {2, 3}, {3, 3}};
+    Carte CarteElephant = new Carte("Elephant");
 
-    int[][] Oie = {{1, 2}, {3, 1}, {2, 1}, {2, 3}};
-    Carte CarteOie = new Carte("Oie", "Bleu", Oie);
+    //int[][] Oie = {{1, 2}, {3, 1}, {2, 1}, {2, 3}};
+    Carte CarteOie = new Carte("Oie");
 
-    int[][] Coq = {{1, 1}, {2, 1}, {2, 3}, {3, 3}};
-    Carte CarteCoq = new Carte("Coq", "Rouge", Coq);
+    //int[][] Coq = {{1, 1}, {2, 1}, {2, 3}, {3, 3}};
+    Carte CarteCoq = new Carte("Coq");
 
-    ArrayList<Carte> ListeCartes = new ArrayList<Carte>() {
+
+    //On regroupe les 16 cartes dans une liste
+    ArrayList<Carte> ListeCartes = new ArrayList<Carte>() { 
         {
             add(CarteMante);
             add(CarteSinge);
@@ -91,16 +94,11 @@ public class Partie { // CLASSE OU ON A DEPOSE LES METHODES CONCERNANT LA CONSOL
         }
     };
 
+    
+    // On initialise sur console
     void initialiserPartie() {
-
-        // vider Plateau OK
-        // Entrée des joueurs et affectation dans tableau OK
-        // Sélection des 5 cartes déplacements OK
-        // Attribution des couleurs OK
-        // Tirage et attribution des cartes OK
-        // Determine qui est le premier joueur OK
-        // Placer Pions (Rouge en bas/bleu en haut) OK
-        // On vide le plateau
+        
+        // On vide le plateau de jeu
         PlateauJeu.ViderPlateau();
 
         // création des 2 joueurs et affectation dans tableau
@@ -149,8 +147,12 @@ public class Partie { // CLASSE OU ON A DEPOSE LES METHODES CONCERNANT LA CONSOL
         PlateauJeu.AfficherPlateauSurConsole(); // affichage du jeu initialisé sur la console
     }
 
+   
+    
+    // METHODE NON UTILISEE
+    // On attribue une couleur à chaque joueur 
     void AttribuerCouleursAuxJoueurs() {
-        Random alea = new Random(); // attribution des joueurs au hasard
+        Random alea = new Random(); // Random -> permet d'attribuer au hasard
         boolean ChoixJoueur;
         ChoixJoueur = alea.nextBoolean();
         if (ChoixJoueur == true) {
@@ -162,7 +164,8 @@ public class Partie { // CLASSE OU ON A DEPOSE LES METHODES CONCERNANT LA CONSOL
         }
     }
 
-    void DefinirCartesPartie() { // définit la pile des 5 cartes pour une partie
+    //Tirage aléatoire de 5 cartes parmis les 16 disponibles
+    void DefinirCartesPartie() { 
         Random rand = new Random();
         int NbreCartes = 5;
 
@@ -176,6 +179,7 @@ public class Partie { // CLASSE OU ON A DEPOSE LES METHODES CONCERNANT LA CONSOL
         //return (TabCartePartie);
     }
 
+    //METHODE NON UTILISEE
     String CarteExistanteDansJeu() {
         String val = null;
         for (int i = 0; i < TabCartePartie.length; i++) {
@@ -187,6 +191,7 @@ public class Partie { // CLASSE OU ON A DEPOSE LES METHODES CONCERNANT LA CONSOL
         return "La valeur recherchée n'existe pas";
     }
 
+    //METHODE NON UTILISEE
     boolean ChoisirPion(int l, int c) {
         if (PlateauJeu.Grille[l][c].PionCourant == null) {
             System.out.println("vous n'avez pas sélectionné de pion");
@@ -199,6 +204,8 @@ public class Partie { // CLASSE OU ON A DEPOSE LES METHODES CONCERNANT LA CONSOL
         }
     }
 
+    
+    //METHODE NON UTILISEE
     boolean ChoisirCarteDansJeu(Carte uneCarte) {
         if (uneCarte.NomCarte == CarteExistanteDansJeu()) {
             return true;
@@ -208,6 +215,8 @@ public class Partie { // CLASSE OU ON A DEPOSE LES METHODES CONCERNANT LA CONSOL
         }
     }
 
+    
+    //METHODE NON UTILISEE
     String NomCarteChoisieDansJeu(Carte uneCarte) {
         if (ChoisirCarteDansJeu(uneCarte) != true) {
             return "Erreur...Choix de carte non valide";
@@ -215,6 +224,7 @@ public class Partie { // CLASSE OU ON A DEPOSE LES METHODES CONCERNANT LA CONSOL
         return uneCarte.NomCarte;
     }
 
+    // NON UTILISEE
     String NomCarteChoisie(Carte uneCarte) {
         if (JoueurCourant.ChoisirCarteDansMain(uneCarte) != true) {
             return "Erreur...Choix de carte non valide";
@@ -239,7 +249,9 @@ public class Partie { // CLASSE OU ON A DEPOSE LES METHODES CONCERNANT LA CONSOL
         }
     }
 
-    void Tour() { // équivalent de notre méthode Menu() achevée
+    // METHODE NON UTILISEE
+    //permet le choix d'une carte, puis celui d'un pion et enfin d'une case grise
+    void Tour() { 
         System.out.println("Tour de " + JoueurCourant.NomJoueur);
         System.out.println("Choisissez une carte déplacement");
         String ChoixCarte;
@@ -274,11 +286,12 @@ public class Partie { // CLASSE OU ON A DEPOSE LES METHODES CONCERNANT LA CONSOL
         PlateauJeu.PlacerCaseGrise(JoueurCourant, l, c, CarteDuTour);
         PlateauJeu.AfficherPlateauSurConsole();
 
-        System.out.println("Choisissez une carte grise");
+        System.out.println("Choisissez une case grise");
 
     }
-
-    void JoueurSuivant() { // changement de joueur
+// METHODE NON UTILISEE
+    // définit selon le joueur courant le joueur suivant
+    void JoueurSuivant() { 
         if (ListeJoueurs[0] == JoueurCourant) {
             JoueurCourant = ListeJoueurs[1];
         } else {
@@ -286,6 +299,8 @@ public class Partie { // CLASSE OU ON A DEPOSE LES METHODES CONCERNANT LA CONSOL
         }
     }
 
+    // METHODE NON UTILISEE
+    // Crée pour échanger la carte venant d'être jouée avec la carte transition
     Carte EchangeCarte() {
         Carte NouvCarteTransit;
         for (int i = 0; i < 5; i++) {
@@ -295,10 +310,7 @@ public class Partie { // CLASSE OU ON A DEPOSE LES METHODES CONCERNANT LA CONSOL
             }
         }
         CarteCourante = CarteTransition;
-        // la dernière carte jouée devient carte transition
-        // changement de main, ajout de la 3e carte à l'autre joueur
-        // BD: je vois a peu pres cette méthode. Ne pas oublier qu'il faudra, uen fois les cartes échangées, raffecter carteCourante comme une carte appartenant au joueur courant
-        //return uneCarte; 
+        
         return null;
     }
 }

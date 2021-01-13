@@ -12,7 +12,7 @@ package projetonitama_forssant_sarinena;
 public class Pion {
 
     String CouleurPion;
-    boolean Roi; // BD : ok pour Role. On pouvait aussi le gérer en tant que boolean, ou rajouter une méthode etreRoi OK
+    boolean Roi; 
 
     public Pion(String uneCouleurPion) { // constructeur qui passe le nom en paramètre et initialise les attributs
         CouleurPion = uneCouleurPion;
@@ -28,6 +28,7 @@ public class Pion {
         return CouleurPion;
     }
 
+    //retourne le role du pion
     String LireRolePion() {
         if (Roi == true) {
             return "Roi";
@@ -36,7 +37,8 @@ public class Pion {
         }
     }
 
-    boolean EtreRoi() { //retourne le role du pion (pion simple ou roi)
+    // renvoie true si le pion est roi, false sinon (pion simple)
+    boolean EtreRoi() { 
         if (Roi == true) { 
             return true;
         } else {

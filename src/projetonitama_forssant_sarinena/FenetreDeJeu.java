@@ -21,60 +21,61 @@ public class FenetreDeJeu extends javax.swing.JFrame {
     Joueur JoueurCourant;
     Carte CarteTransition;
     Carte CarteCourante;
-    Carte TabCartePartie[] = new Carte[5];
+    Carte TabCartePartie[] = new Carte[5]; // Création d'un tableau contenant les 5 cartes tirées au sort pour la partie
     Pion PionCourant;
 
-    // échange des valeurs des matrices
     
+    // Matrice pas utilisées (cf constructeur carte)
     //int[][] Mante = {{1, 2}, {3, 1}, {3, 3}};
     Carte CarteMante = new Carte("Mante");
 
-    int[][] Singe = {{1, 1}, {1, 3}, {3, 1}, {3, 3}};
+    //int[][] Singe = {{1, 1}, {1, 3}, {3, 1}, {3, 3}};
     Carte CarteSinge = new Carte("Singe");
 
-    int[][] Cheval = {{2, 1}, {1, 2}, {3, 2}};
-    Carte CarteCheval = new Carte("Cheval", "Rouge", Cheval);
+    //int[][] Cheval = {{2, 1}, {1, 2}, {3, 2}};
+    Carte CarteCheval = new Carte("Cheval");
 
-    int[][] Boeuf = {{1, 2}, {3, 2}, {2, 3}};
-    Carte CarteBoeuf = new Carte("Boeuf", "Bleu", Boeuf);
+    //int[][] Boeuf = {{1, 2}, {3, 2}, {2, 3}};
+    Carte CarteBoeuf = new Carte("Boeuf");
 
-    int[][] Grue = {{1, 1}, {3, 2}, {1, 3}};
-    Carte CarteGrue = new Carte("Grue", "Bleu", Grue);
+    //int[][] Grue = {{1, 1}, {3, 2}, {1, 3}};
+    Carte CarteGrue = new Carte("Grue");
 
-    int[][] Sanglier = {{2, 1}, {2, 3}, {3, 2}};
-    Carte CarteSanglier = new Carte("Sanglier", "Rouge", Sanglier);
+    //int[][] Sanglier = {{2, 1}, {2, 3}, {3, 2}};
+    Carte CarteSanglier = new Carte("Sanglier");
 
-    int[][] Anguille = {{1, 1}, {3, 1}, {2, 3}};
-    Carte CarteAnguille = new Carte("Anguille", "Bleu", Anguille);
+    //int[][] Anguille = {{1, 1}, {3, 1}, {2, 3}};
+    Carte CarteAnguille = new Carte("Anguille");
 
-    int[][] Cobra = {{2, 1}, {1, 3}, {3, 3}};
-    Carte CarteCobra = new Carte("Cobra", "Rouge", Cobra);
+    //int[][] Cobra = {{2, 1}, {1, 3}, {3, 3}};
+    Carte CarteCobra = new Carte("Cobra");
 
-    int[][] Tigre = {{1, 2}, {4, 2}};
-    Carte CarteTigre = new Carte("Tigre", "Bleu", Tigre);
+    //int[][] Tigre = {{1, 2}, {4, 2}};
+    Carte CarteTigre = new Carte("Tigre");
 
-    int[][] Dragon = {{3, 0}, {1, 1}, {1, 3}, {3, 4}};
-    Carte CarteDragon = new Carte("Dragon", "Rouge", Dragon);
+    //int[][] Dragon = {{3, 0}, {1, 1}, {1, 3}, {3, 4}};
+    Carte CarteDragon = new Carte("Dragon");
 
-    int[][] Grenouille = {{2, 0}, {1, 3}, {3, 1}};
-    Carte CarteGrenouille = new Carte("Grenouille", "Bleu", Grenouille);
+    //int[][] Grenouille = {{2, 0}, {1, 3}, {3, 1}};
+    Carte CarteGrenouille = new Carte("Grenouille");
 
-    int[][] Lapin = {{1, 1}, {3, 3}, {2, 4}};
-    Carte CarteLapin = new Carte("Lapin", "Bleu", Lapin);
+    //int[][] Lapin = {{1, 1}, {3, 3}, {2, 4}};
+    Carte CarteLapin = new Carte("Lapin");
 
-    int[][] Crabe = {{2, 0}, {3, 2}, {2, 2}};
+    //int[][] Crabe = {{2, 0}, {3, 2}, {2, 2}};
     Carte CarteCrabe = new Carte("Crabe");
 
-    int[][] Elephant = {{2, 1}, {3, 1}, {2, 3}, {3, 3}};
-    Carte CarteElephant = new Carte("Elephant", "Rouge", Elephant);
+    //int[][] Elephant = {{2, 1}, {3, 1}, {2, 3}, {3, 3}};
+    Carte CarteElephant = new Carte("Elephant");
 
-    int[][] Oie = {{1, 2}, {3, 1}, {2, 1}, {2, 3}};
-    Carte CarteOie = new Carte("Oie", "Bleu", Oie);
+    //int[][] Oie = {{1, 2}, {3, 1}, {2, 1}, {2, 3}};
+    Carte CarteOie = new Carte("Oie");
 
-    int[][] Coq = {{1, 1}, {2, 1}, {2, 3}, {3, 3}};
+    //int[][] Coq = {{1, 1}, {2, 1}, {2, 3}, {3, 3}};
     Carte CarteCoq = new Carte("Coq");
 
     
+    //On regroupe toutes les cartes dans une liste afin de simplifier le tirage des cartes au hasard 
     ArrayList<Carte> ListeCartes = new ArrayList<Carte>() {
         {
             add(CarteMante);
@@ -113,90 +114,101 @@ public class FenetreDeJeu extends javax.swing.JFrame {
         btn_c2_j1.setVisible(false);
         btn_c1_j2.setVisible(false);
         btn_c2_j2.setVisible(false);
-        // On cache les pannels d'infos partie, joueur ainsi que ceux des cartes, ils seront visible seulement quand l'utilisateur aura appuyé sur le bouton pour demarrer une partie
+        // On cache tout les panels et boutons sauf celui de la grille de jeu et celui qui permet aux joueurs de rentrer leur nom 
+        // et de démarrer une partie
 
         DefinirCartesPartie();
 
-        CarteGraphique carte_graphique1_j1 = new CarteGraphique(TabCartePartie[0]);
+        // On créé les 5 cartes graphiques qui vont être affichées sur le jeu
+        CarteGraphique carte_graphique1_j1 = new CarteGraphique(TabCartePartie[0]); // appartient au joueur Bleu
         panel_carte1_j1.add(carte_graphique1_j1);
-        CarteGraphique carte_graphique2_j1 = new CarteGraphique(TabCartePartie[1]);
+        CarteGraphique carte_graphique2_j1 = new CarteGraphique(TabCartePartie[1]);// appartient au joueur Bleu
         panel_carte2_j1.add(carte_graphique2_j1);
-        CarteGraphique carte_graphique1_j2 = new CarteGraphique(TabCartePartie[2]);
+        CarteGraphique carte_graphique1_j2 = new CarteGraphique(TabCartePartie[2]);// appartient au joueur Rouge
         panel_carte1_j2.add(carte_graphique1_j2);
-        CarteGraphique carte_graphique2_j2 = new CarteGraphique(TabCartePartie[3]);
+        CarteGraphique carte_graphique2_j2 = new CarteGraphique(TabCartePartie[3]);// appartient au joueur Rouge
         panel_carte2_j2.add(carte_graphique2_j2);
-        CarteGraphique cartetransition = new CarteGraphique(TabCartePartie[4]);
+        CarteGraphique cartetransition = new CarteGraphique(TabCartePartie[4]); // Carte au bord du plateau
         panel_carte_transition.add(cartetransition);
 
         for (int i = 4; i >= 0; i--) { // on décremente car [0;Ø] en java est en haut à gauche, nous l'avons pris en bas a gauche
             for (int j = 0; j < 5; j++) {
-                CaseGraphique case_graphique = new CaseGraphique(PlateauJeu.Grille[i][j]);
+                CaseGraphique case_graphique = new CaseGraphique(PlateauJeu.Grille[i][j]);// On créée les 25 cases du plateau
 
                 case_graphique.addActionListener(new java.awt.event.ActionListener() { // ActionListener permet d'interagir avec la fenêtre graphique de jeu (cliquer sur les cases graphiques)
                     public void actionPerformed(java.awt.event.ActionEvent evt) {
-                        Case c = case_graphique.CaseAssociee;
-                        if (c.CaseGrise == true) {
+                        Case c = case_graphique.CaseAssociee; // permet d'allier la casegraphique a la case associée
+                        // Seulement si la case choisie est grise, cad si il est possible pour le pion choisi de se déplacer dessus
+                        if (c.CaseGrise == true) { 
                             int lig = PlateauJeu.LireCoordL(c);
                             int col = PlateauJeu.LireCoordC(c);
-                            //System.out.println(lig);
+                            //System.out.println(lig); //permet de vérifier les coordonnées de la case grise choisie
                             //System.out.println(col);
                             
+                           
                             if (PlateauJeu.PeutDeplacerPion(JoueurCourant, lig, col) == true && PlateauJeu.Grille[lig][col].PionCourant == null) {
                                 col = PlateauJeu.useCoordPion[0];
                                 lig = PlateauJeu.useCoordPion[1];
+                                // Permet de vérifier les attributs du pion sur la case visée
                                 //String couleur = PlateauJeu.useAttribPion[0];
                                 //String role = PlateauJeu.useAttribPion[1];
-                                //System.out.println(couleur);
+                                //System.out.println(couleur); // on print pour vérifier sur la partie console
                                 //System.out.println(role);
 
-                                PlateauJeu.Grille[lig][col].AffecterPion(PionCourant);
-                                c.AffecterPion(PlateauJeu.Grille[lig][col].PionCourant);
+                                PlateauJeu.Grille[lig][col].AffecterPion(PionCourant); // On affecte le pion sur la case (interface console)
+                                c.AffecterPion(PlateauJeu.Grille[lig][col].PionCourant);// On affecte le pion sur la case (interface graphique)
 
-                                PlateauJeu.SupprimerPion(lig, col);
-                                PlateauJeu.ViderCaseGrise();
+                                PlateauJeu.SupprimerPion(lig, col); // On supprime le pion présent auparavant sur la case
+                                PlateauJeu.ViderCaseGrise(); // On supprime la case grise
                                 
-                                textemessage.setText("Déplacement effectué");
+                                textemessage.setText("Déplacement effectué"); // Info au joueur sur le panel infos_partie
 
-                                PlateauJeu.takePion(PlateauJeu.Grille[lig][col]);
-                                PlateauJeu.takePion(c);
+                                PlateauJeu.takePion(PlateauJeu.Grille[lig][col]); // sur console
+                                PlateauJeu.takePion(c); // sur interface
 
+                                // On supprime les images des cartes graphiques mises sur les panels
                                 panel_carte1_j1.remove(carte_graphique1_j1);
                                 panel_carte2_j1.remove(carte_graphique2_j1);
                                 panel_carte1_j2.remove(carte_graphique1_j2);
                                 panel_carte2_j2.remove(carte_graphique2_j2);
                                 panel_carte_transition.remove(cartetransition);
-                                ChangementCartes();
+                                ChangementCartes(); //Echange de la carte venant d'être jouée avec la carte transition
+                                // on attribue les nouvelles cartes aux cartes graphiques
                                 carte_graphique1_j1.CarteAssociee = TabCartePartie[0];
                                 carte_graphique2_j1.CarteAssociee = TabCartePartie[1];
                                 carte_graphique1_j2.CarteAssociee = TabCartePartie[2];
                                 carte_graphique2_j2.CarteAssociee = TabCartePartie[3];
                                 cartetransition.CarteAssociee = TabCartePartie[4];
+                                // On ajoute les images des nouvelles cartes graphiques sur les panels
                                 panel_carte1_j1.add(carte_graphique1_j1);
                                 panel_carte2_j1.add(carte_graphique2_j1);
                                 panel_carte1_j2.add(carte_graphique1_j2);
                                 panel_carte2_j2.add(carte_graphique2_j2);
                                 panel_carte_transition.add(cartetransition);
 
-                                RafraichissementPanelBouton();
+                                RafraichissementPanelBouton();// On rafraichit l'affichage
                                 
                                 int nouvcol = PlateauJeu.useCoordPion[0];
                                 int nouvlig = PlateauJeu.useCoordPion[1];
                                 //String nouvcouleur = PlateauJeu.useAttribPion[0];
                                 //String nouvrole = PlateauJeu.useAttribPion[1];
 
-                                PlateauJeu.ConditionRuisseau(nouvlig, nouvcol);
+                                PlateauJeu.ConditionRuisseau(nouvlig, nouvcol); // vérification de la condition ruisseau 
                                 
-                                System.out.println(PlateauJeu.ConditionRuisseau(nouvlig, nouvcol));
+                                //vérification console
+                                // print false si elle n'est pas vérifiée, true sinon
+                                System.out.println(PlateauJeu.ConditionRuisseau(nouvlig, nouvcol)); 
                                 if (PlateauJeu.ConditionRuisseau(nouvlig, nouvcol) == true) {
-                                    System.out.println("Victoire par Condition Ruisseau");
-                                    textemessage.setText("Victoire par Condition Ruisseau");
-                                    FinDePartie();
+                                    System.out.println("Victoire par Condition Ruisseau"); // Affichage sur console
+                                    textemessage.setText("Victoire par Condition Ruisseau"); // Affichage dans infos_partie sur l'interface
+                                    FinDePartie(); // procédure de fin de partie
                                 }
                                 else {
                                     PlateauJeu.AfficherPlateauSurConsole();
                                     JoueurSuivantEtBouton();
                                 }
       
+                                // Verifications faites sur la console pour veiller au bon déroulement des étapes
                                 //System.out.println(nouvlig);
                                 //System.out.println(nouvcol);
                                 //System.out.println(nouvcouleur);
@@ -206,44 +218,48 @@ public class FenetreDeJeu extends javax.swing.JFrame {
                             } 
                             
                             else if (PlateauJeu.PeutDeplacerPion(JoueurCourant, lig, col) == true) {
-                                if (c.PionCourant.Roi == true) {
+                                if (c.PionCourant.Roi == true) { // Si la case graphique visée est un roi
                                     col = PlateauJeu.useCoordPion[0];
                                     lig = PlateauJeu.useCoordPion[1];
+                                    
                                     //String couleur = PlateauJeu.useAttribPion[0];
                                     //String role = PlateauJeu.useAttribPion[1];
                                     //System.out.println(couleur);
                                     //System.out.println(role);
 
-                                    c.SupprimerPion();
-                                    PlateauJeu.Grille[lig][col].AffecterPion(PlateauJeu.Grille[lig][col].PionCourant);
-                                    c.AffecterPion(PlateauJeu.Grille[lig][col].PionCourant);
-                                    PlateauJeu.SupprimerPion(lig, col);
-                                    PlateauJeu.ViderCaseGrise();
+                                    c.SupprimerPion(); // On supprime le pion sur l'interface
+                                    PlateauJeu.Grille[lig][col].AffecterPion(PlateauJeu.Grille[lig][col].PionCourant); // On affecte sur la console
+                                    c.AffecterPion(PlateauJeu.Grille[lig][col].PionCourant); // On affecte sur l'interface
+                                    PlateauJeu.SupprimerPion(lig, col); // On supprime le pion sur la console
+                                    PlateauJeu.ViderCaseGrise(); // vide la case grise, elle redevient vide
                                     
-                                    textemessage.setText("Déplacement effetué");
+                                    textemessage.setText("Déplacement effetué"); // Vérification console
 
+                                    // On supprime les images des cartes graphiques mises sur les panels
                                     panel_carte1_j1.remove(carte_graphique1_j1);
                                     panel_carte2_j1.remove(carte_graphique2_j1);
                                     panel_carte1_j2.remove(carte_graphique1_j2);
                                     panel_carte2_j2.remove(carte_graphique2_j2);
                                     panel_carte_transition.remove(cartetransition);
-                                    ChangementCartes();
+                                    ChangementCartes();//Echange de la carte venant d'être jouée avec la carte transition
+                                // on attribue les nouvelles cartes aux cartes graphiques
                                     carte_graphique1_j1.CarteAssociee = TabCartePartie[0];
                                     carte_graphique2_j1.CarteAssociee = TabCartePartie[1];
                                     carte_graphique1_j2.CarteAssociee = TabCartePartie[2];
                                     carte_graphique2_j2.CarteAssociee = TabCartePartie[3];
                                     cartetransition.CarteAssociee = TabCartePartie[4];
+                                     // On ajoute les images des nouvelles cartes graphiques sur les panels
                                     panel_carte1_j1.add(carte_graphique1_j1);
                                     panel_carte2_j1.add(carte_graphique2_j1);
                                     panel_carte1_j2.add(carte_graphique1_j2);
                                     panel_carte2_j2.add(carte_graphique2_j2);
                                     panel_carte_transition.add(cartetransition);
 
-                                    RafraichissementPanelBouton();
+                                    RafraichissementPanelBouton(); //raffraichit l'affichage
 
-                                    System.out.println("Victoire par Condition Pierre");
-                                    textemessage.setText("Victoire par Condition Pierre");
-                                    FinDePartie();
+                                    System.out.println("Victoire par Condition Pierre"); // print sur jeu console
+                                    textemessage.setText("Victoire par Condition Pierre"); // Affichage sur le panel infos_partie
+                                    FinDePartie(); // procédure de fon de partie
 
                                 } else {
                                     col = PlateauJeu.useCoordPion[0];
@@ -253,85 +269,82 @@ public class FenetreDeJeu extends javax.swing.JFrame {
                                     //System.out.println(couleur);
                                     //System.out.println(role);
 
-                                    c.SupprimerPion();
-
-                                    PlateauJeu.Grille[lig][col].AffecterPion(PlateauJeu.Grille[lig][col].PionCourant);
-                                    c.AffecterPion(PlateauJeu.Grille[lig][col].PionCourant);
-                                    PlateauJeu.SupprimerPion(lig, col);
-                                    PlateauJeu.ViderCaseGrise();
+                                    c.SupprimerPion(); // On supprime le pion sur l'interface
+                                    PlateauJeu.Grille[lig][col].AffecterPion(PlateauJeu.Grille[lig][col].PionCourant);// on affecte le pion courant (console)
+                                    c.AffecterPion(PlateauJeu.Grille[lig][col].PionCourant);// On affecte le pion courant sur la case (interface graphique)
+                                    PlateauJeu.SupprimerPion(lig, col); // On supprime le pion (console)
+                                    PlateauJeu.ViderCaseGrise(); // Case redevient vide
                                     
-                                    textemessage.setText("Déplacement effectué");
+                                    textemessage.setText("Déplacement effectué"); // info au joueur sur le panel infos_partie
          
+                                     // On supprime les images des cartes graphiques mises sur les panels
                                     panel_carte1_j1.remove(carte_graphique1_j1);
                                     panel_carte2_j1.remove(carte_graphique2_j1);
                                     panel_carte1_j2.remove(carte_graphique1_j2);
                                     panel_carte2_j2.remove(carte_graphique2_j2);
                                     panel_carte_transition.remove(cartetransition);
-                                    ChangementCartes();
+                                    ChangementCartes(); //Echange de la carte venant d'être jouée avec la carte transition
+                                // on attribue les nouvelles cartes aux cartes graphiques
                                     carte_graphique1_j1.CarteAssociee = TabCartePartie[0];
                                     carte_graphique2_j1.CarteAssociee = TabCartePartie[1];
                                     carte_graphique1_j2.CarteAssociee = TabCartePartie[2];
                                     carte_graphique2_j2.CarteAssociee = TabCartePartie[3];
                                     cartetransition.CarteAssociee = TabCartePartie[4];
+                                    // On ajoute les images des nouvelles cartes graphiques sur les panels
                                     panel_carte1_j1.add(carte_graphique1_j1);
                                     panel_carte2_j1.add(carte_graphique2_j1);
                                     panel_carte1_j2.add(carte_graphique1_j2);
                                     panel_carte2_j2.add(carte_graphique2_j2);
                                     panel_carte_transition.add(cartetransition);
 
-                                    RafraichissementPanelBouton();
+                                    RafraichissementPanelBouton(); // On rafraichit l'affichage
 
-                                    System.out.println("Pion a mangé un Autre Pion");
+                                    System.out.println("Pion a mangé un Autre Pion"); // Print sur console pour vérification
 
-                                    PlateauJeu.AfficherPlateauSurConsole();
-                                    JoueurSuivantEtBouton();
+                                    PlateauJeu.AfficherPlateauSurConsole(); //afichage du plateau de jeu sur la console
+                                    JoueurSuivantEtBouton(); // passe au joueur suivant et bloque les boutons qui ne le concernent pas
                                 }
                             } else {
-                                textemessage.setText("Mouvement impossible");
+                                textemessage.setText("Mouvement impossible"); // Le joueur clique sur une case qui n'est pas grise
                             }
                         } 
-                        else if (c.PionCourant == null) {
+                        else if (c.PionCourant == null) { // Le joueur n'a pas selectionné de pion
                             textemessage.setText("Erreur. Case vide");
                         } 
-                        else if (CarteCourante == null && c.PionCourant.CouleurPion.equals(JoueurCourant.CouleurJoueur)) {
+                        else if (CarteCourante == null && c.PionCourant.CouleurPion.equals(JoueurCourant.CouleurJoueur)) { // Le joueur a selectione un pion valide maias pas de carte
                             textemessage.setText("Carte Déplacement non sélectionnée");
                         } 
                         else if (!c.PionCourant.CouleurPion.equals(JoueurCourant.CouleurJoueur)) {
-                            textemessage.setText("Le pion sélectionné non valide"); //setText permet d'afficher des String sur une fenêtre de texte   
+                            textemessage.setText("Le pion sélectionné non valide"); // Le joueur n'a pas selectionné un pion de sa couleur   
                         } 
                         else if (c.PionCourant == null) {
-                            textemessage.setText("La case sélectionnée est vide");
+                            textemessage.setText("La case sélectionnée est vide"); // Le joueur a cliqué sur une case vide
                         } 
-                        else if (c.PionCourant.CouleurPion.equals(JoueurCourant.CouleurJoueur)) {
+                        else if (c.PionCourant.CouleurPion.equals(JoueurCourant.CouleurJoueur)) { // Le joueur a selectioné un pion de sa couleur
                             textemessage.setText(JoueurCourant.NomJoueur + " choisit ce pion"); //setText permet d'afficher des String sur une fenêtre de texte
                             int lig = PlateauJeu.LireCoordL(c);
                             int col = PlateauJeu.LireCoordC(c);
                             PlateauJeu.takePion(c);
-                            //System.out.println(lig + "!");
+                            //System.out.println(lig + "!"); // verification du passage dans la boucle
                             //System.out.println(col + "!");
-                            PlateauJeu.ViderCaseGrise();
+                            PlateauJeu.ViderCaseGrise(); 
                             PlateauJeu.PlacerCaseGrise(JoueurCourant, lig, col, CarteCourante);
                             PlateauJeu.AfficherPlateauSurConsole();
                             
-                            RafraichissementPanelBouton();
+                            RafraichissementPanelBouton(); // rafraichit l'affichage
                         }
                     }
                 });
-                grille_jeu.add(case_graphique);
+                grille_jeu.add(case_graphique); // ajout des cases graphiques sur la grille de jeu (interface)
             }
         }
     }
  
+    
+    // On initialise sur la fenêtre graphique
     void initialiserPartie() {
-        // vider Plateau OK
-        // Entrée des joueurs et affectation dans tableau OK
-        // Sélection des 5 cartes déplacements OK
-        // Attribution des couleurs OK
-        // Tirage et attribution des cartes OK
-        // Determine qui est le premier joueur OK
-        // Placer Pions (Rouge en bas/bleu en haut)OK
 
-        // On vide le plateau
+        // On vide le plateau et on positionne les pions de départ
         PlateauJeu.ViderPlateau();
         PlateauJeu.PositionnerPionsDepart();
 
@@ -346,7 +359,7 @@ public class FenetreDeJeu extends javax.swing.JFrame {
         //attribution des couleurs
         AttribuerCouleursAuxJoueurs();
 
-        // Attribution des cartes et affectation dela derniere en tant que carte transition
+        // Attribution des cartes et affectation de la derniere en tant que carte transition
         Joueur1.CarteEnMain[0] = TabCartePartie[0];
         Joueur1.CarteEnMain[1] = TabCartePartie[1];
         Joueur2.CarteEnMain[0] = TabCartePartie[2];
@@ -354,6 +367,7 @@ public class FenetreDeJeu extends javax.swing.JFrame {
         CarteTransition = TabCartePartie[4];
 
         // On determine qui commence à jouer
+        // On bloque les boutons du joueur adverse
         PremierJoueurEtBouton();
 
         // affiche les noms/couleurs des joueurs dans le pannel des informations joueurs/ informations partie
@@ -363,9 +377,12 @@ public class FenetreDeJeu extends javax.swing.JFrame {
         lbl_j2_couleur.setText(Joueur2.CouleurJoueur);
         lbl_joueur_courant.setText(JoueurCourant.NomJoueur);
 
-        PlateauJeu.AfficherPlateauSurConsole();
+        PlateauJeu.AfficherPlateauSurConsole(); // Affichage sur console
     }
 
+    //Procédure de fin de partie:
+    // affichage du gagnant sur le panel infos_partie
+    // Bloquage des boutons des cartes
     void FinDePartie() {
         textemessage.setText(JoueurCourant.NomJoueur + " gagne la partie !");
         grille_jeu.setEnabled(false);
@@ -376,8 +393,10 @@ public class FenetreDeJeu extends javax.swing.JFrame {
         btn_c2_j2.setEnabled(false);
     }
 
+    // On détermine le premier joueur au hasard
+    // On bloque les boutons qui ne sont pas au joueur courant
     void PremierJoueurEtBouton() {
-        // On determine qui commence à jouer
+   
         Random joueur = new Random();
         boolean premier_joueur = joueur.nextBoolean();
         if (premier_joueur) {
@@ -396,7 +415,9 @@ public class FenetreDeJeu extends javax.swing.JFrame {
         }
     }
     
-        void RafraichissementPanelBouton() {
+    // Allège le code
+    //méthode où sont regroupées les commandes qui rafraichissent l'affichage de la grille, des panels et des boutons
+        void RafraichissementPanelBouton() { 
         grille_jeu.repaint();
         panel_carte1_j1.repaint();
         panel_carte2_j1.repaint();
@@ -409,6 +430,7 @@ public class FenetreDeJeu extends javax.swing.JFrame {
         btn_c2_j2.setEnabled(true);
     }
 
+    //     
     Carte EchangeCarte() {
         Carte NouvCarteTransit;
         for (int i = 0; i < 5; i++) {
@@ -425,6 +447,7 @@ public class FenetreDeJeu extends javax.swing.JFrame {
         return null;
     }
 
+    //Passage au joueur suivant et bloque les boutons du joueur adverse dont ce n'est pas le tour
     public void JoueurSuivantEtBouton() {
         // rotation des joueurs
         if (JoueurCourant == ListeJoueurs[0]) {
@@ -441,13 +464,14 @@ public class FenetreDeJeu extends javax.swing.JFrame {
             btn_c1_j1.setEnabled(true);
             btn_c2_j1.setEnabled(true);
         }
-        lbl_joueur_courant.setText(JoueurCourant.NomJoueur);
+        lbl_joueur_courant.setText(JoueurCourant.NomJoueur); // rafraichit l'affichage du nom du joueur courant sur l'interface graphique
     }
 
+    // Echange la carte qui vient d'être jouée avec la carte transition
     public void ChangementCartes() {
         Carte nouvCarteTrans;
         nouvCarteTrans = EchangeCarte();
-        //System.out.println(nouvCarteTrans.NomCarte);
+        //System.out.println(nouvCarteTrans.NomCarte); // vérification sur console
         if (nouvCarteTrans == JoueurCourant.CarteEnMain[0] && JoueurCourant.CarteEnMain[0] == TabCartePartie[0]) {
             JoueurCourant.CarteEnMain[0] = CarteTransition;
             TabCartePartie[0] = JoueurCourant.CarteEnMain[0];
@@ -495,11 +519,13 @@ public class FenetreDeJeu extends javax.swing.JFrame {
         System.out.println("cartetransitiongr " + cartetransition.CarteAssociee.NomCarte);*/
     }
 
+    // Couleur prédéfinies
     void AttribuerCouleursAuxJoueurs() {
         ListeJoueurs[0].CouleurJoueur = "Bleu";
         ListeJoueurs[1].CouleurJoueur = "Rouge";
     }
 
+    // Méthode qui efectue un tirage de 5 cartes parmis les 16 disponibles et qui les stocke dans un tableau prévu
     void DefinirCartesPartie() { 
         Random rand = new Random();
         int NbreCartes = 5;
@@ -511,11 +537,10 @@ public class FenetreDeJeu extends javax.swing.JFrame {
             //System.out.println(TabCartePartie[i].NomCarte);
             ListeCartes.remove(randomIndex);
         }
-        // création tirage aléatoire parmi le résultat de la méthode SelectionCartePartie
-        // attribution au hasard de 2 pour chaque joueur
-        // affectation de la carte transition à un des joueurs
+     
     }
 
+    //Retourne le nom de la carte choisie par le joueur
     Carte CarteChoisie(String unNomCarte) {
         if (JoueurCourant.CarteEnMain[0].NomCarte == unNomCarte) {
             return JoueurCourant.CarteEnMain[0];
@@ -782,8 +807,8 @@ public class FenetreDeJeu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_demarrerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_demarrerActionPerformed
-        // TODO add your handling code here:
-        //code qui sera éxécuté une fois que l'utilisateur aura appuyé sur le bouton "démarrer la partie"
+//code qui sera éxécuté une fois que l'utilisateur aura appuyé sur le bouton "démarrer la partie"
+// On zffiche tout les panels et les boutons 
         infos_joueurs.setVisible(true);
         infos_partie.setVisible(true);
         panel_carte_transition.setVisible(true);
@@ -796,7 +821,7 @@ public class FenetreDeJeu extends javax.swing.JFrame {
         btn_c2_j1.setVisible(true);
         btn_c1_j2.setVisible(true);
         btn_c2_j2.setVisible(true);
-        initialiserPartie();
+        initialiserPartie(); // On initialise la partie
         grille_jeu.repaint();
         infos_joueurs.repaint();
         infos_partie.repaint();
@@ -805,10 +830,10 @@ public class FenetreDeJeu extends javax.swing.JFrame {
         panel_carte1_j2.repaint();
         panel_carte2_j2.repaint();
         panel_carte_transition.repaint();
-        //rafraichit le plateau de jeu (permet a avoir les elements directement sur le plateau et eviter leur apparition seulement au passage de la souris)
+        //rafraichit le plateau de jeu et les panels 
+        //permet d'avoir les élements directement sur le plateau et éviter leur apparition seulement au passage de la souris)
         btn_demarrer.setEnabled(false);
-        //on désactive le bouton du demarrage de la partie lorsque celle ci est demarree
-        // evite de rafraichir le plateau en cours de partie
+        //on désactive le bouton "démarrer une partie" lorsque qu'une partie est démarrée cad éviter de rafraichir le plateau en cours de partie
     }//GEN-LAST:event_btn_demarrerActionPerformed
 
     private void nomjoueur2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nomjoueur2ActionPerformed
@@ -816,8 +841,8 @@ public class FenetreDeJeu extends javax.swing.JFrame {
     }//GEN-LAST:event_nomjoueur2ActionPerformed
 
     private void btn_rejouerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_rejouerActionPerformed
-        // TODO add your handling code here:
-        //code qui sera éxécuté une fois que l'utilisateur aura appuyé sur le bouton "démarrer la partie"
+//code qui sera éxécuté une fois que l'utilisateur aura appuyé sur le bouton "rejouer"
+// Même déroulé que le bouton "démarrer partie": affichage de tout les panels et boutons
         infos_joueurs.setVisible(true);
         infos_partie.setVisible(true);
         grille_jeu.setVisible(true);
@@ -835,7 +860,7 @@ public class FenetreDeJeu extends javax.swing.JFrame {
         btn_c2_j1.setEnabled(true);
         btn_c1_j2.setEnabled(true);
         btn_c2_j2.setEnabled(true);
-        initialiserPartie();
+        initialiserPartie();// Initialisation de la partie
         grille_jeu.repaint();
         infos_joueurs.repaint();
         infos_partie.repaint();
@@ -858,6 +883,8 @@ public class FenetreDeJeu extends javax.swing.JFrame {
     private void btn_c2_j2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_c2_j2ActionPerformed
             textemessage.setText(JoueurCourant.NomJoueur + " prend la carte " + JoueurCourant.CarteEnMain[1].LireCarte());
             CarteCourante = CarteChoisie(JoueurCourant.CarteEnMain[1].NomCarte);
+            // On affiche dans le panel infos_partie la carte correspondante
+            // La carte correspondant a ce bouton devient la carte courante
     }//GEN-LAST:event_btn_c2_j2ActionPerformed
 
     private void btn_c1_j1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_c1_j1ActionPerformed

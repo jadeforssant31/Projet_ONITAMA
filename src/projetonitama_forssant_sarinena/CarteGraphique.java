@@ -15,8 +15,10 @@ import javax.swing.JButton;
  */
 public class CarteGraphique extends JButton {
     
+    // Création d'une CarteAssociee, permet de travailler sur la partie graphique
     Carte CarteAssociee;
     
+    // Création des images utilisées dans la partie graphique
     ImageIcon img_sanglier = new javax.swing.ImageIcon(getClass().getResource("/images/boar.jpg"));
     ImageIcon img_cobra = new javax.swing.ImageIcon(getClass().getResource("/images/cobra.jpg"));
     ImageIcon img_crabe = new javax.swing.ImageIcon(getClass().getResource("/images/crab.jpg"));
@@ -34,15 +36,17 @@ public class CarteGraphique extends JButton {
     ImageIcon img_tigre = new javax.swing.ImageIcon(getClass().getResource("/images/tiger.jpg"));
     ImageIcon img_grue = new javax.swing.ImageIcon(getClass().getResource("/images/crane.jpg"));
 
-    public CarteGraphique(Carte UneCarte){
+    
+    public CarteGraphique(Carte UneCarte){ // Constructeur qui passe initialise les attributs
         CarteAssociee = UneCarte;
     }
     
+    // méthode permettant d'afficher les images dans la fenêtre graphique
     @Override
     public void paintComponent(Graphics G){
         super.paintComponent(G);
         String nom_carte = CarteAssociee.LireCarte();
-        switch(nom_carte){
+        switch(nom_carte){ // Choix du switch pour éviter les if else imbriqués
             case "Sanglier":
                 setIcon(img_sanglier);
                 break;

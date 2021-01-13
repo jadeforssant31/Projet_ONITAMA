@@ -15,8 +15,10 @@ import javax.swing.JButton;
  */
 public class CaseGraphique extends JButton {
 
+    // Création d'une CaseAssociée, permet de travailler sur la partie graphique
     Case CaseAssociee;
 
+    // Création des images utilisées dans la partie graphique
     ImageIcon img_Roi_Rouge = new javax.swing.ImageIcon(getClass().getResource("/images/CaseRoiRouge.png"));
     ImageIcon img_Pion_Rouge = new javax.swing.ImageIcon(getClass().getResource("/images/CasePionRouge.png"));
     ImageIcon img_Roi_Bleu = new javax.swing.ImageIcon(getClass().getResource("/images/CaseRoiBleu.png"));
@@ -28,10 +30,12 @@ public class CaseGraphique extends JButton {
     ImageIcon img_Roi_Rouge_Grise = new javax.swing.ImageIcon(getClass().getResource("/images/CaseRoiRougeGrise.png"));
     ImageIcon img_Pion_Rouge_Grise = new javax.swing.ImageIcon(getClass().getResource("/images/CasePionRougeGrise.png"));
 
-    public CaseGraphique(Case uneCase) {
+    public CaseGraphique(Case uneCase) { // constructeur qui initialise les attributs
         CaseAssociee = uneCase;
     }
 
+    
+    // méthode qui permer d'afficher les images dans la fenêtre de jeu
     @Override
     public void paintComponent(Graphics G) {
         super.paintComponent(G);
@@ -57,7 +61,7 @@ public class CaseGraphique extends JButton {
                 case "Rouge":
                     setIcon(img_Pion_Rouge);
                     break;
-                default: //affiche pion bleu
+                default: // Si aucune des conditions au dessus n'est remplie, affichage du pion bleu
                     setIcon(img_Pion_Bleu);
                     break;
             }

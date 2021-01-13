@@ -27,7 +27,7 @@ boolean AffecterPion(Pion unPion){ //affecte le pion à une case suite à un mou
        PionCourant.Roi = unPion.Roi;
        PionCourant.CouleurPion = unPion.CouleurPion;
        //System.out.println(PionCourant.Roi);
-       //System.out.println(PionCourant.CouleurPion);
+       //System.out.println(PionCourant.CouleurPion); // System.out.print pour vérifier le fonctionnement
         return true;
     }
     else{
@@ -35,7 +35,7 @@ boolean AffecterPion(Pion unPion){ //affecte le pion à une case suite à un mou
     }
 }
 
-boolean PresenceCaseVide(){
+boolean PresenceCaseVide(){  // renvoie true si la case est vide, false sinon
     if (PionCourant == null){
         return true;
     }
@@ -44,7 +44,7 @@ boolean PresenceCaseVide(){
     }
 }
 
-void AffecterCaseGrise(){
+void AffecterCaseGrise(){ //Grise la case
     CaseGrise = true;
 }
 
@@ -69,7 +69,7 @@ boolean LireRoleDuPion(){ //retourne la couleur du pion joué
     }
 }
 
-boolean presenceRoi(){
+boolean presenceRoi(){ // retourne true si il y a un roi, false sinon
     if (LireRoleDuPion() == true){
         EstRoi = true ;
         return true;
@@ -79,7 +79,7 @@ boolean presenceRoi(){
     }
 }
 
-boolean presenceCaseGrise(){
+boolean presenceCaseGrise(){ // retourne true si il y a une case grise, false sinon
     if (CaseGrise == true){
         return true;
     }
