@@ -20,7 +20,7 @@ public class Partie { // CLASSE OU ON A DEPOSE LES METHODES CONCERNANT LA CONSOL
     Joueur JoueurCourant;
     Carte CarteTransition;
     Carte CarteCourante;
-    Carte TabCartePartie[] = new Carte[5];
+    Carte TabCartePartie[] = new Carte[5]; // Tableau de 5 objets Carte qui représente les 5 cartes déplacements pour une seule partie
 
    // Matrice pas utilisées (cf constructeur carte)
     //int[][] Mante = {{1, 2}, {3, 1}, {3, 3}};
@@ -72,7 +72,7 @@ public class Partie { // CLASSE OU ON A DEPOSE LES METHODES CONCERNANT LA CONSOL
     Carte CarteCoq = new Carte("Coq");
 
 
-    //On regroupe les 16 cartes dans une liste
+    //On regroupe les 16 cartes dans une Arrayliste -> plus facile qu'un tableau car "dynamique" notamment pour récupérer les cartes aléatoirement
     ArrayList<Carte> ListeCartes = new ArrayList<Carte>() { 
         {
             add(CarteMante);
@@ -117,7 +117,7 @@ public class Partie { // CLASSE OU ON A DEPOSE LES METHODES CONCERNANT LA CONSOL
         //placer les pions
         PlateauJeu.PositionnerPionsDepart();
 
-        // Tirage des cartes
+        // Tirage des 5 cartes choisies au hasard pour la partie
         DefinirCartesPartie();
 
         // Attribution des cartes et affectation dela derniere en tant que carte transition
@@ -150,7 +150,8 @@ public class Partie { // CLASSE OU ON A DEPOSE LES METHODES CONCERNANT LA CONSOL
    
     
     // METHODE NON UTILISEE
-    // On attribue une couleur à chaque joueur 
+    // On attribue une couleur à chaque joueur
+    // ici, on a pris le parti de ne pas utiliser cette méthode car on a préféré fixer les rouges en bas et les bleus en haut pour faciliter la gestion du plateau
     void AttribuerCouleursAuxJoueurs() {
         Random alea = new Random(); // Random -> permet d'attribuer au hasard
         boolean ChoixJoueur;
@@ -170,18 +171,17 @@ public class Partie { // CLASSE OU ON A DEPOSE LES METHODES CONCERNANT LA CONSOL
         int NbreCartes = 5;
 
         for (int i = 0; i < NbreCartes; i++) {
-            int randomIndex = rand.nextInt(ListeCartes.size());
-            Carte randomElement = ListeCartes.get(randomIndex);
-            TabCartePartie[i] = randomElement;
+            int randomIndex = rand.nextInt(ListeCartes.size()); // on choisit un numéro au hasard entre 0 et 15 (car 16 cartes en tout)
+            Carte randomElement = ListeCartes.get(randomIndex); // une fois le numéro choisi, on récupère la carte associé au n° de liste
+            TabCartePartie[i] = randomElement; // on affecte au tableau cette carte
             //System.out.println(TabCartePartie[i].NomCarte);
-            ListeCartes.remove(randomIndex);
+            ListeCartes.remove(randomIndex); // on enlève enfin le n° au paquet afin de ne pas choisir deux fois la  même carte
         }
-        //return (TabCartePartie);
     }
 
     //METHODE NON UTILISEE
-    String CarteExistanteDansJeu() {
-        String val = null;
+    String CarteExistanteDansJeu(Carte uneCarte) { // méthode qui vérifie la présence d'une carte dans la pile des 5 cartes de la partie
+        String val = uneCarte.NomCarte;
         for (int i = 0; i < TabCartePartie.length; i++) {
             if (val == TabCartePartie[i].NomCarte) //retourner la position courante
             {
@@ -192,6 +192,7 @@ public class Partie { // CLASSE OU ON A DEPOSE LES METHODES CONCERNANT LA CONSOL
     }
 
     //METHODE NON UTILISEE
+    // méthode plutôt pour la console 
     boolean ChoisirPion(int l, int c) {
         if (PlateauJeu.Grille[l][c].PionCourant == null) {
             System.out.println("vous n'avez pas sélectionné de pion");
@@ -206,8 +207,9 @@ public class Partie { // CLASSE OU ON A DEPOSE LES METHODES CONCERNANT LA CONSOL
 
     
     //METHODE NON UTILISEE
+    // méthode plutôt pour la console 
     boolean ChoisirCarteDansJeu(Carte uneCarte) {
-        if (uneCarte.NomCarte == CarteExistanteDansJeu()) {
+        if (uneCarte.NomCarte == CarteExistanteDansJeu(uneCarte)) {
             return true;
         } else {
             System.out.println("Erreur. La carte n'est pas de la partie");
@@ -217,6 +219,7 @@ public class Partie { // CLASSE OU ON A DEPOSE LES METHODES CONCERNANT LA CONSOL
 
     
     //METHODE NON UTILISEE
+    // méthode plutôt pour la console 
     String NomCarteChoisieDansJeu(Carte uneCarte) {
         if (ChoisirCarteDansJeu(uneCarte) != true) {
             return "Erreur...Choix de carte non valide";
@@ -225,6 +228,7 @@ public class Partie { // CLASSE OU ON A DEPOSE LES METHODES CONCERNANT LA CONSOL
     }
 
     // NON UTILISEE
+    // méthode plutôt pour la console 
     String NomCarteChoisie(Carte uneCarte) {
         if (JoueurCourant.ChoisirCarteDansMain(uneCarte) != true) {
             return "Erreur...Choix de carte non valide";
@@ -232,7 +236,7 @@ public class Partie { // CLASSE OU ON A DEPOSE LES METHODES CONCERNANT LA CONSOL
         return uneCarte.NomCarte;
     }
 
-    Carte CarteChoisie(String unNomCarte) {
+    Carte CarteChoisie(String unNomCarte) { // renvoie dans la main du joueur la carte correspondante à celle mise en paramètre
         if (JoueurCourant.CarteEnMain[0].NomCarte == unNomCarte) {
             return JoueurCourant.CarteEnMain[0];
         } else {
@@ -240,6 +244,8 @@ public class Partie { // CLASSE OU ON A DEPOSE LES METHODES CONCERNANT LA CONSOL
         }
     }
 
+    // METHODE NON UTILISEE
+    // méthode plutôt pour la console  
     boolean ChoisirPion(Pion unPion) {
         if (unPion.CouleurPion == JoueurCourant.CouleurJoueur) {
             return true;
@@ -250,6 +256,7 @@ public class Partie { // CLASSE OU ON A DEPOSE LES METHODES CONCERNANT LA CONSOL
     }
 
     // METHODE NON UTILISEE
+    // début d'un gestionnaire d'action pour la console
     //permet le choix d'une carte, puis celui d'un pion et enfin d'une case grise
     void Tour() { 
         System.out.println("Tour de " + JoueurCourant.NomJoueur);
@@ -289,7 +296,8 @@ public class Partie { // CLASSE OU ON A DEPOSE LES METHODES CONCERNANT LA CONSOL
         System.out.println("Choisissez une case grise");
 
     }
-// METHODE NON UTILISEE
+
+    // METHODE NON UTILISEE (car on ajoute les gestion des boutons dans partie graphique)
     // définit selon le joueur courant le joueur suivant
     void JoueurSuivant() { 
         if (ListeJoueurs[0] == JoueurCourant) {
@@ -299,8 +307,7 @@ public class Partie { // CLASSE OU ON A DEPOSE LES METHODES CONCERNANT LA CONSOL
         }
     }
 
-    // METHODE NON UTILISEE
-    // Crée pour échanger la carte venant d'être jouée avec la carte transition
+    // Echange la carte venant d'être jouée avec la carte transition
     Carte EchangeCarte() {
         Carte NouvCarteTransit;
         for (int i = 0; i < 5; i++) {

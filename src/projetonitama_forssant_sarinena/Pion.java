@@ -14,12 +14,12 @@ public class Pion {
     String CouleurPion;
     boolean Roi; 
 
-    public Pion(String uneCouleurPion) { // constructeur qui passe le nom en paramètre et initialise les attributs
+    public Pion(String uneCouleurPion) { // constructeur qui passe le nom en paramètre et initialise les attributs (initialisation des cases avec les 10 pions)
         CouleurPion = uneCouleurPion;
         Roi = false;
     }
 
-    public Pion() {
+    public Pion() { // création d'un deuxième constructeur pour les cases sans pion
         CouleurPion = null;
         Roi = false;
     }
@@ -28,7 +28,7 @@ public class Pion {
         return CouleurPion;
     }
 
-    //retourne le role du pion
+    //retourne le role du pion en String
     String LireRolePion() {
         if (Roi == true) {
             return "Roi";

@@ -13,10 +13,9 @@ public class Carte {
 
     String NomCarte;
     int Matrice[][];
-    String CouleurCarte;
     Carte CarteCourante;
     
-    public Carte(String unNom){ // Constructeur qui initlialise les attributs et passe le nom de la carte en paramèttre
+    public Carte(String unNom){ // Constructeur qui passe le nom de la carte en paramèttre
         NomCarte = unNom;
     }
 
@@ -25,14 +24,13 @@ public class Carte {
     // Utile si décision de prendre en compte les matrices de déplacement
     public Carte(String unNom, String uneCouleur, int MatCoord[][]){ 
         NomCarte = unNom;
-        CouleurCarte = uneCouleur;
         Matrice = new int[5][5];
         
-        /*for (int i=0; i<MatCoord.length; i++){
+        for (int i=0; i<MatCoord.length; i++){
         int x = MatCoord[i][0];
         int y = MatCoord[i][1];
         Matrice[x][y] = 1;
-    }*/
+    }
         
 }  
 

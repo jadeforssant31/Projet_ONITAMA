@@ -75,7 +75,7 @@ public class FenetreDeJeu extends javax.swing.JFrame {
     Carte CarteCoq = new Carte("Coq");
 
     
-    //On regroupe toutes les cartes dans une liste afin de simplifier le tirage des cartes au hasard 
+    //On regroupe toutes les cartes dans une liste afin de simplifier le tirage des cartes au hasard -> ArrayList plus maléable qu'un simple tableau
     ArrayList<Carte> ListeCartes = new ArrayList<Carte>() {
         {
             add(CarteMante);
@@ -133,7 +133,7 @@ public class FenetreDeJeu extends javax.swing.JFrame {
 
         for (int i = 4; i >= 0; i--) { // on décremente car [0;Ø] en java est en haut à gauche, nous l'avons pris en bas a gauche
             for (int j = 0; j < 5; j++) {
-                CaseGraphique case_graphique = new CaseGraphique(PlateauJeu.Grille[i][j]);// On créée les 25 cases du plateau
+                CaseGraphique case_graphique = new CaseGraphique(PlateauJeu.Grille[i][j]);// On créée les 25 cases "graphiques" du plateau associées au vraies cases
 
                 case_graphique.addActionListener(new java.awt.event.ActionListener() { // ActionListener permet d'interagir avec la fenêtre graphique de jeu (cliquer sur les cases graphiques)
                     public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -145,11 +145,12 @@ public class FenetreDeJeu extends javax.swing.JFrame {
                             //System.out.println(lig); //permet de vérifier les coordonnées de la case grise choisie
                             //System.out.println(col);
                             
-                           
+                            
+                            // 1er cas : case grise sans pion
                             if (PlateauJeu.PeutDeplacerPion(JoueurCourant, lig, col) == true && PlateauJeu.Grille[lig][col].PionCourant == null) {
-                                col = PlateauJeu.useCoordPion[0];
+                                col = PlateauJeu.useCoordPion[0]; // on affecte à la case grise les coordonnées et attributs du pion sélectionné initialement
                                 lig = PlateauJeu.useCoordPion[1];
-                                // Permet de vérifier les attributs du pion sur la case visée
+                                // Permet de vérifier les attributs du pion sur la case visée sont bien cohérents avec pion choisi
                                 //String couleur = PlateauJeu.useAttribPion[0];
                                 //String role = PlateauJeu.useAttribPion[1];
                                 //System.out.println(couleur); // on print pour vérifier sur la partie console
@@ -159,12 +160,12 @@ public class FenetreDeJeu extends javax.swing.JFrame {
                                 c.AffecterPion(PlateauJeu.Grille[lig][col].PionCourant);// On affecte le pion sur la case (interface graphique)
 
                                 PlateauJeu.SupprimerPion(lig, col); // On supprime le pion présent auparavant sur la case
-                                PlateauJeu.ViderCaseGrise(); // On supprime la case grise
+                                PlateauJeu.ViderCaseGrise(); // On supprime toutes les cases grises
                                 
                                 textemessage.setText("Déplacement effectué"); // Info au joueur sur le panel infos_partie
 
-                                PlateauJeu.takePion(PlateauJeu.Grille[lig][col]); // sur console
-                                PlateauJeu.takePion(c); // sur interface
+                                PlateauJeu.takePion(PlateauJeu.Grille[lig][col]); // on récupère les nouvelles coordonnées du pion déplacé sur console
+                                PlateauJeu.takePion(c); // idem sur interface
 
                                 // On supprime les images des cartes graphiques mises sur les panels
                                 panel_carte1_j1.remove(carte_graphique1_j1);
@@ -188,20 +189,18 @@ public class FenetreDeJeu extends javax.swing.JFrame {
 
                                 RafraichissementPanelBouton();// On rafraichit l'affichage
                                 
-                                int nouvcol = PlateauJeu.useCoordPion[0];
+                                int nouvcol = PlateauJeu.useCoordPion[0]; // on récupère les nouvelles coordonnées du pion
                                 int nouvlig = PlateauJeu.useCoordPion[1];
                                 //String nouvcouleur = PlateauJeu.useAttribPion[0];
                                 //String nouvrole = PlateauJeu.useAttribPion[1];
 
-                                PlateauJeu.ConditionRuisseau(nouvlig, nouvcol); // vérification de la condition ruisseau 
-                                
-                                //vérification console
-                                // print false si elle n'est pas vérifiée, true sinon
+                                PlateauJeu.ConditionRuisseau(nouvlig, nouvcol); // vérification de la condition ruisseau sur la nouvelle case
+
+                                // print false si elle n'est pas vérifiée, true sinon et fin de partie 
                                 System.out.println(PlateauJeu.ConditionRuisseau(nouvlig, nouvcol)); 
                                 if (PlateauJeu.ConditionRuisseau(nouvlig, nouvcol) == true) {
                                     System.out.println("Victoire par Condition Ruisseau"); // Affichage sur console
-                                    textemessage.setText("Victoire par Condition Ruisseau"); // Affichage dans infos_partie sur l'interface
-                                    FinDePartie(); // procédure de fin de partie
+                                    FinDePartieRuisseau(); // procédure de fin de partie
                                 }
                                 else {
                                     PlateauJeu.AfficherPlateauSurConsole();
@@ -217,6 +216,7 @@ public class FenetreDeJeu extends javax.swing.JFrame {
                                 
                             } 
                             
+                            // 2eme cas : case grise avec pion
                             else if (PlateauJeu.PeutDeplacerPion(JoueurCourant, lig, col) == true) {
                                 if (c.PionCourant.Roi == true) { // Si la case graphique visée est un roi
                                     col = PlateauJeu.useCoordPion[0];
@@ -233,7 +233,7 @@ public class FenetreDeJeu extends javax.swing.JFrame {
                                     PlateauJeu.SupprimerPion(lig, col); // On supprime le pion sur la console
                                     PlateauJeu.ViderCaseGrise(); // vide la case grise, elle redevient vide
                                     
-                                    textemessage.setText("Déplacement effetué"); // Vérification console
+                                    textemessage.setText("Suppression effetuée"); // Vérification console
 
                                     // On supprime les images des cartes graphiques mises sur les panels
                                     panel_carte1_j1.remove(carte_graphique1_j1);
@@ -258,10 +258,9 @@ public class FenetreDeJeu extends javax.swing.JFrame {
                                     RafraichissementPanelBouton(); //raffraichit l'affichage
 
                                     System.out.println("Victoire par Condition Pierre"); // print sur jeu console
-                                    textemessage.setText("Victoire par Condition Pierre"); // Affichage sur le panel infos_partie
-                                    FinDePartie(); // procédure de fon de partie
+                                    FinDePartiePierre(); // procédure de fon de partie
 
-                                } else {
+                                } else { // si c'est un pion lambda
                                     col = PlateauJeu.useCoordPion[0];
                                     lig = PlateauJeu.useCoordPion[1];
                                     //String couleur = PlateauJeu.useAttribPion[0];
@@ -275,7 +274,7 @@ public class FenetreDeJeu extends javax.swing.JFrame {
                                     PlateauJeu.SupprimerPion(lig, col); // On supprime le pion (console)
                                     PlateauJeu.ViderCaseGrise(); // Case redevient vide
                                     
-                                    textemessage.setText("Déplacement effectué"); // info au joueur sur le panel infos_partie
+                                    textemessage.setText("Suppression effectuée"); // info au joueur sur le panel infos_partie
          
                                      // On supprime les images des cartes graphiques mises sur les panels
                                     panel_carte1_j1.remove(carte_graphique1_j1);
@@ -320,6 +319,8 @@ public class FenetreDeJeu extends javax.swing.JFrame {
                         else if (c.PionCourant == null) {
                             textemessage.setText("La case sélectionnée est vide"); // Le joueur a cliqué sur une case vide
                         } 
+                        
+                        // Etape 0 : choix d'un pion dont on récupère les coord. et attrib via takePion pour déplacement
                         else if (c.PionCourant.CouleurPion.equals(JoueurCourant.CouleurJoueur)) { // Le joueur a selectioné un pion de sa couleur
                             textemessage.setText(JoueurCourant.NomJoueur + " choisit ce pion"); //setText permet d'afficher des String sur une fenêtre de texte
                             int lig = PlateauJeu.LireCoordL(c);
@@ -383,8 +384,18 @@ public class FenetreDeJeu extends javax.swing.JFrame {
     //Procédure de fin de partie:
     // affichage du gagnant sur le panel infos_partie
     // Bloquage des boutons des cartes
-    void FinDePartie() {
-        textemessage.setText(JoueurCourant.NomJoueur + " gagne la partie !");
+    void FinDePartieRuisseau() {
+        textemessage.setText(JoueurCourant.NomJoueur + " gagne la partie par Voie de Ruisseau !");
+        grille_jeu.setEnabled(false);
+        c_transition.setEnabled(false);
+        btn_c1_j1.setEnabled(false);
+        btn_c2_j1.setEnabled(false);
+        btn_c1_j2.setEnabled(false);
+        btn_c2_j2.setEnabled(false);
+    }
+    
+        void FinDePartiePierre() {
+        textemessage.setText(JoueurCourant.NomJoueur + " gagne la partie par Voie de Pierre !");
         grille_jeu.setEnabled(false);
         c_transition.setEnabled(false);
         btn_c1_j1.setEnabled(false);
@@ -430,8 +441,8 @@ public class FenetreDeJeu extends javax.swing.JFrame {
         btn_c2_j2.setEnabled(true);
     }
 
-    //     
-    Carte EchangeCarte() {
+    // méthode qui récupère la carte à mettre en transition  
+    Carte RecupDerniereCartePourTransition() {
         Carte NouvCarteTransit;
         for (int i = 0; i < 5; i++) {
             if (TabCartePartie[i] == CarteCourante) {
@@ -439,11 +450,6 @@ public class FenetreDeJeu extends javax.swing.JFrame {
                 return NouvCarteTransit;
             }
         }
-        CarteCourante = CarteTransition;
-        // la dernière carte jouée devient carte transition
-        // changement de main, ajout de la 3e carte à l'autre joueur
-        // BD: je vois a peu pres cette méthode. Ne pas oublier qu'il faudra, uen fois les cartes échangées, raffecter carteCourante comme une carte appartenant au joueur courant
-        //return uneCarte; 
         return null;
     }
 
@@ -470,8 +476,9 @@ public class FenetreDeJeu extends javax.swing.JFrame {
     // Echange la carte qui vient d'être jouée avec la carte transition
     public void ChangementCartes() {
         Carte nouvCarteTrans;
-        nouvCarteTrans = EchangeCarte();
+        nouvCarteTrans = RecupDerniereCartePourTransition();
         //System.out.println(nouvCarteTrans.NomCarte); // vérification sur console
+        // suite de conditions pour vérifier à qui appartient la carte à transiter
         if (nouvCarteTrans == JoueurCourant.CarteEnMain[0] && JoueurCourant.CarteEnMain[0] == TabCartePartie[0]) {
             JoueurCourant.CarteEnMain[0] = CarteTransition;
             TabCartePartie[0] = JoueurCourant.CarteEnMain[0];
@@ -525,7 +532,7 @@ public class FenetreDeJeu extends javax.swing.JFrame {
         ListeJoueurs[1].CouleurJoueur = "Rouge";
     }
 
-    // Méthode qui efectue un tirage de 5 cartes parmis les 16 disponibles et qui les stocke dans un tableau prévu
+    // Méthode qui efectue un tirage de 5 cartes parmis les 16 disponibles et qui les stocke dans un tableau prévu (explications dans classe Partie)
     void DefinirCartesPartie() { 
         Random rand = new Random();
         int NbreCartes = 5;
@@ -540,7 +547,7 @@ public class FenetreDeJeu extends javax.swing.JFrame {
      
     }
 
-    //Retourne le nom de la carte choisie par le joueur
+    //Retourne le nom de la carte choisie par le joueur (explications dans classe partie)
     Carte CarteChoisie(String unNomCarte) {
         if (JoueurCourant.CarteEnMain[0].NomCarte == unNomCarte) {
             return JoueurCourant.CarteEnMain[0];
@@ -612,7 +619,7 @@ public class FenetreDeJeu extends javax.swing.JFrame {
         infos_joueurs.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 10, -1, -1));
 
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("Joueur Bleu");
+        jLabel4.setText("Joueur :");
         infos_joueurs.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, -1, -1));
 
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
@@ -633,7 +640,7 @@ public class FenetreDeJeu extends javax.swing.JFrame {
         infos_joueurs.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, 210, -1));
 
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel7.setText("Joueur Rouge: ");
+        jLabel7.setText("Joueur :");
         infos_joueurs.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, -1, -1));
 
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
@@ -704,7 +711,7 @@ public class FenetreDeJeu extends javax.swing.JFrame {
         textemessage.setRows(5);
         message.setViewportView(textemessage);
 
-        infos_partie.add(message, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, -1, 90));
+        infos_partie.add(message, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 280, 90));
 
         btn_rejouer.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
         btn_rejouer.setForeground(new java.awt.Color(153, 51, 0));
@@ -808,7 +815,7 @@ public class FenetreDeJeu extends javax.swing.JFrame {
 
     private void btn_demarrerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_demarrerActionPerformed
 //code qui sera éxécuté une fois que l'utilisateur aura appuyé sur le bouton "démarrer la partie"
-// On zffiche tout les panels et les boutons 
+// On affiche tout les panels et les boutons 
         infos_joueurs.setVisible(true);
         infos_partie.setVisible(true);
         panel_carte_transition.setVisible(true);
@@ -843,6 +850,7 @@ public class FenetreDeJeu extends javax.swing.JFrame {
     private void btn_rejouerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_rejouerActionPerformed
 //code qui sera éxécuté une fois que l'utilisateur aura appuyé sur le bouton "rejouer"
 // Même déroulé que le bouton "démarrer partie": affichage de tout les panels et boutons
+// Rejouer avec les mêmes cartes !
         infos_joueurs.setVisible(true);
         infos_partie.setVisible(true);
         grille_jeu.setVisible(true);

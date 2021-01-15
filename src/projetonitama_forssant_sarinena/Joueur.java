@@ -13,10 +13,10 @@ public class Joueur {
 
     String NomJoueur;
     String CouleurJoueur;
-    Carte CarteEnMain[] = new Carte[2];
+    Carte CarteEnMain[] = new Carte[2]; // tableau d'objet Carte qui recensent les cartes en main d'un joueur pendant la partie
     Carte CarteCourante;
 
-    public Joueur(String unNomJoueur) { // constructeur qui passe le nom en paramètre et initialise les attributs
+    public Joueur(String unNomJoueur) { // constructeur qui passe le nom en paramètre
         NomJoueur = unNomJoueur;
     }
 
@@ -29,8 +29,9 @@ public class Joueur {
     }
 
 // le joueur joue la carte selectionnee
-//la carte va ensuite être mechngée avec celle qui etait au bord du plateau
-    boolean ChoisirCarteDansMain(Carte uneCarte) {
+// la carte va ensuite être échangée avec celle qui était au bord du plateau
+    
+    boolean ChoisirCarteDansMain(Carte uneCarte) { //cette méthode vérifie que la carte sélectionnée est bien dans la main du joueur, sinon impossibilité de choisir la carte
         if (uneCarte.NomCarte == CarteEnMain[0].NomCarte || uneCarte.NomCarte == CarteEnMain[1].NomCarte) {
             return true;
         } else {
@@ -39,7 +40,7 @@ public class Joueur {
         }
     }
 
-    String NomCarteChoisieDansMain(Carte uneCarte) {
+    String NomCarteChoisieDansMain(Carte uneCarte) { // renvoie le nom de la carte choisie
         if (ChoisirCarteDansMain(uneCarte) != true) {
             return "Erreur...Choix de carte non valide";
         }

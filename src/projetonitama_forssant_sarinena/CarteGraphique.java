@@ -37,7 +37,7 @@ public class CarteGraphique extends JButton {
     ImageIcon img_grue = new javax.swing.ImageIcon(getClass().getResource("/images/crane.jpg"));
 
     
-    public CarteGraphique(Carte UneCarte){ // Constructeur qui passe initialise les attributs
+    public CarteGraphique(Carte UneCarte){ // Constructeur qui "relie" une carte à une carteGraphique via l'attribut carteassociee
         CarteAssociee = UneCarte;
     }
     
@@ -97,7 +97,6 @@ public class CarteGraphique extends JButton {
                 break;
         }
     }
-    
-    
+      
 }
 

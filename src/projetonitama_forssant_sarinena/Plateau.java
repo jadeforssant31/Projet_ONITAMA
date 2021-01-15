@@ -12,13 +12,13 @@ package projetonitama_forssant_sarinena;
 public class Plateau {
 
     Case Grille[][] = new Case[5][5];
-    int[] useCoordPion;
-    String[] useAttribPion;
+    int[] useCoordPion; // tableau d'entiers qui recensent les coordonnées d'un pion grâce à la méthode TakePion
+    String[] useAttribPion; // tableau de String qui recensent les attributs d'un pion grâce à la méthode TakePion
 
-    public Plateau() { // constructeur qui à chaque case du tableau crée une référence objet de classe cellule
+    public Plateau() { // constructeur qui à chaque position du tableau crée une référence objet de classe Case
         
-        useCoordPion = new int[2];
-        useAttribPion = new String[2];
+        useCoordPion = new int[2]; //ncréation du tableau coordonnées
+        useAttribPion = new String[2]; // création du tableau attribut
         
         for (int l = 0; l < 5; l++) {
             for (int c = 0; c < 5; c++) {
@@ -27,17 +27,18 @@ public class Plateau {
         }
     }
 
-    // COMMENTER
+// méthode qui va récupérer et mettre dans les tableaux coord et attributs les éléments de la case souhaitée
+// méthode importante notamment pour déplacement de pion et remplacement de pion 
     void takePion(Case uneCase) {
-        if (uneCase != null && uneCase.PionCourant != null) {
+        if (uneCase != null && uneCase.PionCourant != null) { // si la case possède un pion alors on récupère tout
             useCoordPion[0] = LireCoordC(uneCase);
             useCoordPion[1] = LireCoordL(uneCase);
             useAttribPion[0] = uneCase.PionCourant.CouleurPion;
             useAttribPion[1] = uneCase.PionCourant.LireRolePion();
-        } else if (uneCase != null) {
+        } else if (uneCase != null) { // si la case ne possède pas de pion
             useCoordPion[0] = LireCoordC(uneCase);
             useCoordPion[1] = LireCoordL(uneCase);
-        } else {
+        } else { // cas n'arrivant jamais, signalement d'erreurs
             useCoordPion[0] = -1;
             useCoordPion[1] = -1;
             useAttribPion[0] = "pb couleur";
@@ -71,29 +72,26 @@ public class Plateau {
     }
 
     
-    // ajoute les 10 jetons sur le plateau (9 pions + 2 rois), disposés d'une certaine manière
+    // création des 10 pions sur le plateau (8 pions + 2 rois), disposés d'une certaine manière
     void PositionnerPionsDepart() { 
         for (int i = 0; i < 5; i++) {
             if (i == 2) {
                 Pion RoiRouge = new Pion("Rouge");
                 RoiRouge.Roi = true;
                 Grille[0][2].PionCourant = RoiRouge; // Roi rouge placé en bas au centre du plateau
-            } else {
-                Pion unPionR = new Pion("Rouge");
-                Grille[0][i].PionCourant = unPionR;
-            }
-            if (i == 2) {
                 Pion RoiBleu = new Pion("Bleu");
                 RoiBleu.Roi = true;
                 Grille[4][2].PionCourant = RoiBleu; // Roi bleu placé en haut au centre du plateau
             } else {
+                Pion unPionR = new Pion("Rouge");
+                Grille[0][i].PionCourant = unPionR; // placement des pions rouges sur la ligne du bas
                 Pion unPionB = new Pion("Bleu");
-                Grille[4][i].PionCourant = unPionB;
+                Grille[4][i].PionCourant = unPionB; // placement des pions bleus sur la ligne du haut
             }
         }
     }
     
-//methode qui parcourt la grille et initialise les données à 0 pour toutes les cellules
+// méthode qui parcourt la grille et initialise les données à 0 pour toutes les cases
     void ViderPlateau() { 
         for (int l = 0; l < 5; l++) {
             for (int c = 0; c < 5; c++) {
@@ -102,7 +100,7 @@ public class Plateau {
         }
     }
 
-    // parcourt la grille et initialise les données à 0 pour les cellules dont Grille[l][c].CaseGrise renvoyaient true 
+// parcourt la grille et initialise les données à 0 pour les cellules dont Grille[l][c].CaseGrise renvoyaient true 
     void ViderCaseGrise() { 
         for (int l = 0; l < 5; l++) {
             for (int c = 0; c < 5; c++) {
@@ -136,10 +134,10 @@ public class Plateau {
     }
 
     // Condition gagnante 1: Le roi atteint la position initiale du roi adverse
-    boolean ConditionRuisseau(int l, int c) { // condition 2 pour gagner
+    boolean ConditionRuisseau(int l, int c) {
         if (Grille[l][c].PionCourant.EtreRoi() == true && Grille[l][c].PionCourant.CouleurPion == "Bleu") {
             if (l == 0 && c == 2) {
-                System.out.println("Le joueur possédant les pions bleus gagne ! ");
+                System.out.println("Le joueur possédant les pions bleus gagne !");
                 return true;
             } else {
                 return false;
@@ -202,7 +200,7 @@ public class Plateau {
         String couleur_carte = uneCarte.LireCarte();
         switch (couleur_carte) {
             case "Mante":
-                if ((l >= 0 && l < 4) && (c >= 1 && c < 5)) {
+                if ((l >= 0 && l < 4) && (c >= 1 && c < 5)) { // on restreint les coordonnées possibles pour éviter erreur de longueur de grille
                     Grille[l + 1][c - 1].CaseGrise = true;
                 }
                 if ((l >= 0 && l < 4) && (c >= 0 && c < 4)) {
@@ -420,15 +418,12 @@ public class Plateau {
                 if ((l >= 1 && l < 5) && (c >= 0 && c < 4)) {
                     Grille[l - 1][c + 1].CaseGrise = true;
                     //System.out.println("carte Mante");
-                    //break;
                 }
                 if ((l >= 1 && l < 5) && (c >= 1 && c < 5)) {
                     Grille[l - 1][c - 1].CaseGrise = true;
-                    //break;
                 }
                 if ((l >= 0 && l < 4) && (c >= 0 && c < 5)) {
                     Grille[l + 1][c].CaseGrise = true;
-                    //break;
                 }
                 System.out.println("carte Mante");
                 break;
